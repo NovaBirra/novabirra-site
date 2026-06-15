@@ -2,40 +2,30 @@
 title: "NovaBirra Holy IPA"
 dek: "Une India Pale Ale franche et lumineuse, généreusement houblonnée au Chinook et au Mosaic, puis houblonnée à froid pour libérer des arômes de fruits tropicaux et d'agrumes."
 category: "Recette"
-date: 2026-03-29
+date: 2020-03-15
 readingTime: "6 min"
 accent: "recettes"
 fiche:
-style: "India Pale Ale"
-abv: "6,5&nbsp;%"
-densité initiale: 1.056 (14 °Plato)
-densité finale: 1.011 (2.7 °Plato)
-Couleur: 10 EBC
-ibu: "~50 IBU"
-couleur: "Dorée"
-fermentation: "~20&nbsp;&deg;C"
-rendement de l'installation: 72 %
-Taux d'évaporation horaire: 8,5 %
-volumeBase: 25
+  style: "India Pale Ale"
+  abv: "6,5&nbsp;%"
+  ibu: "~55 IBU"
+  couleur: "Dorée"
+  fermentation: "Haute, ~20&nbsp;&deg;C"
+  volumeBase: 20
 profil:
   - { label: "Amertume", note: "élevée", value: 80, couleur: "houblon" }
   - { label: "Aromatique", note: "intense", value: 88, couleur: "malt" }
   - { label: "Corps", note: "moyen", value: 52, couleur: "eau" }
   - { label: "Douceur", note: "faible", value: 28, couleur: "levure" }
 ingredients:
-  - { nom: "Malt Pilsner 3,5 EBC", base: 4.88, unit: "kg" }
-  - { nom: "Malt Vienna 6 EBC", base: 0.75, unit: "kg" }
-  - { nom: "Malt Blé 4,5 EBC", base: 0.38, unit: "kg" }
-  - { nom: "Malt Carared® 48 EBC", base: 0.38, unit: "kg" }
-  - { nom: "Houblon Chinook", note: "amérisant · 75 min", base: 16, unit: "g" }
-  - { nom: "Houblon Chinook", note: "arôme · 5 min", base: 16, unit: "g" }
-  - { nom: "Houblon Mosaic", note: "Whirpool · 25 min", base: 46, unit: "g" }
-  - { nom: "Houblon Chinook", note: "Whirpool · 25 min", base: 20, unit: "g" }
-  - { nom: "Chinook", note: "houblonnage à froid · 7 jours (dry hopping)", base: 32, unit: "g" }
-  - { nom: "Mosaic", note: "houblonnage à froid  · 7 jours (dry hopping)", base: 38, unit: "g" }
+  - { nom: "Malt Pale Ale", base: 4.5, unit: "kg" }
+  - { nom: "Malt Munich", base: 0.5, unit: "kg" }
+  - { nom: "Malt CaraPils", base: 0.3, unit: "kg" }
+  - { nom: "Houblon Chinook", note: "amérisant · 60 min", base: 30, unit: "g" }
+  - { nom: "Houblon Mosaic", note: "arôme · 5 min", base: 30, unit: "g" }
+  - { nom: "Chinook + Mosaic", note: "houblonnage à cru", base: 60, unit: "g" }
   - { nom: "Levure sèche US-05", base: 1, unit: "sachet" }
-  - { nom: "Eau de brassage inclus l'eau de rinçage des drêches", base: 42, unit: "L" }
-- { nom: "Volume de moût avant ébullition", base: 32.5, unit: "L" }
+  - { nom: "Eau de brassage", base: 25, unit: "L" }
 ---
 import RecipeScaler from '../../components/RecipeScaler.astro';
 
@@ -45,15 +35,15 @@ Tout l'équilibre se joue entre une base maltée discrète, juste assez pour por
 
 <h2><span class="hsign">/</span> Les ingrédients</h2>
 
-Quantités pour **25 litres**. Ajustez le volume : les proportions se recalculent automatiquement.
+Quantités pour **20 litres**. Ajustez le volume : les proportions se recalculent automatiquement.
 
 <RecipeScaler ingredients={frontmatter.ingredients} volumeBase={frontmatter.fiche.volumeBase} />
 
 <h2><span class="hsign">/</span> Le brassage</h2>
 
-1. **Empâtage** — Concassez les malts et empâtez à **67-68 °C pendant 60 min**. Les enzymes transforment l'amidon en sucres fermentescibles.
-2. **Filtration** — Séparez le moût des drêches, puis rincez à l'eau à ~78 °C pour récupérer un maximum de sucres.
-3. **Ébullition (75 min)** — Ajoutez le Chinook amérisant dès le début de l'ébullition et 5 minutes avant la fin d'ébullition ; arrêtez la chauffe, ajoutez le Mosaic et le Chinook, faire un tourbillon avec une spatule en bois.
+1. **Empâtage** — Concassez les malts et empâtez à **65 °C pendant 60 min**. Les enzymes transforment l'amidon en sucres fermentescibles.
+2. **Filtration** — Séparez le moût des drêches, puis rincez à l'eau à ~76 °C pour récupérer un maximum de sucres.
+3. **Ébullition (60 min)** — Ajoutez le Chinook amérisant dès le début ; réservez le Mosaic pour les 5 dernières minutes afin de préserver ses arômes.
 4. **Refroidissement** — Refroidissez rapidement le moût autour de **20 °C**.
 5. **Fermentation** — Ensemencez la levure et laissez fermenter **~10 jours à 20 °C**.
 6. **Houblonnage à cru** — Ajoutez le Chinook + Mosaic directement dans la bière pendant 3 à 4 jours.
