@@ -1,0 +1,41 @@
+---
+// Navigation partagée. `variant="hero"` = transparente sur fond sombre
+// (page d'accueil) ; `variant="solid"` = crème opaque (pages d'article).
+interface Props { variant?: 'hero' | 'solid'; }
+const { variant = 'solid' } = Astro.props;
+---
+<nav class={`nav ${variant === 'solid' ? 'solid' : ''}`} id="nav" data-variant={variant}>
+  <a class="brand" href="/">NOVA<b>BIRRA</b></a>
+  <div class="nav-links">
+    <a href="/journal/">Le journal</a>
+    <a href="/journal/">Recettes</a>
+    <a href="/journal/">Styles</a>
+    <a href="/journal/">Ressources</a>
+    <a href="/#apropos">À propos</a>
+    <a class="nav-cta" href="https://www.novabirra.com" target="_blank" rel="noopener">Cours &amp; ateliers ↗</a>
+  </div>
+  <button class="burger" aria-label="Menu" id="burger"><span></span><span></span><span></span></button>
+</nav>
+
+<style>
+  .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px 28px;transition:background .35s,box-shadow .35s,padding .35s}
+  .nav.solid{background:rgba(250,247,240,.92);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--ligne);padding:12px 28px}
+  .brand{font-weight:700;letter-spacing:.26em;font-size:1.02rem;color:#fff;transition:color .35s}
+  .nav.solid .brand{color:var(--vert)}
+  .brand b{color:var(--jaune)}
+  .nav.solid .brand b{color:var(--jaune-d)}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a{font-weight:600;font-size:.95rem;color:rgba(255,255,255,.86);transition:color .25s;position:relative}
+  .nav-links a:not(.nav-cta)::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:2px;background:var(--jaune);transition:width .25s}
+  .nav-links a:not(.nav-cta):hover::after{width:100%}
+  .nav.solid .nav-links a{color:var(--encre)}
+  .nav-links a:hover{color:var(--jaune)}
+  .nav.solid .nav-links a:hover{color:var(--houblon-d)}
+  .nav-cta{padding:9px 18px;border-radius:999px;border:1.5px solid rgba(255,255,255,.4);font-size:.9rem!important}
+  .nav.solid .nav-cta{border-color:var(--ligne);background:var(--vert);color:#fff!important}
+  .nav.solid .nav-cta:hover{color:var(--jaune)!important}
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
+  .burger span{width:26px;height:2.5px;background:#fff;border-radius:2px;transition:background .35s}
+  .nav.solid .burger span{background:var(--vert)}
+  @media(max-width:860px){.nav-links{display:none}.burger{display:flex}}
+</style>

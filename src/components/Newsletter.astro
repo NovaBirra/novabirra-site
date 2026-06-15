@@ -1,0 +1,23 @@
+---
+// Bandeau d'abonnement (maquette — à brancher sur ton service d'emailing).
+---
+<section class="news">
+  <div class="wrap">
+    <div><h3>Ne ratez aucune fourn&eacute;e</h3></div>
+    <p>Recevez les nouvelles recettes et articles directement par e-mail.</p>
+    <form onsubmit="return false">
+      <input type="email" placeholder="votre@email.be" aria-label="Adresse e-mail" />
+      <button class="btn-v" type="submit">S'abonner</button>
+    </form>
+  </div>
+</section>
+<style>
+  .news{background:var(--jaune);padding:54px 0}
+  .news .wrap{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap}
+  .news h3{color:var(--vert);font-size:1.7rem;max-width:18ch}
+  .news p{color:#5a4a14;font-weight:600;max-width:38ch}
+  .news form{display:flex;gap:10px;flex-wrap:wrap}
+  .news input{padding:13px 18px;border-radius:999px;border:2px solid var(--vert);background:#fff;font-family:var(--ff-b);font-size:.95rem;min-width:230px}
+  .news .btn-v{background:var(--vert);color:#fff;border-radius:999px;padding:13px 26px;font-weight:700;border:none;cursor:pointer;font-family:var(--ff-b);transition:transform .25s}
+  .news .btn-v:hover{transform:translateY(-2px)}
+</style>

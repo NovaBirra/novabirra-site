@@ -1,0 +1,20 @@
+---
+// Jeu d'icônes de marque. Usage : <Icon name="houblon" class="..." />
+interface Props { name: 'houblon' | 'malt' | 'eau' | 'flask' | 'book'; class?: string; }
+const { name, class: klass = '' } = Astro.props;
+const paths: Record<string, string> = {
+  houblon: '<path d="M12 2c-4 3-7 6.5-7 11a7 7 0 0 0 14 0c0-4.5-3-8-7-11zm0 4.5L8.5 9H12l3.5-2.5zM8 11.5 12 14l4-2.5-4 1zm.5 4L12 18l3.5-2.5-3.5 1z"/>',
+  malt: '<path d="M12 2c-1.2 1.6-2 3-2 4.2C10 7.8 11 9 12 9s2-1.2 2-2.8C14 5 13.2 3.6 12 2zM8 8c-1.2 1.6-2 3-2 4.2C6 13.8 7 15 8 15s2-1.2 2-2.8C10 11 9.2 9.6 8 8zm8 0c-1.2 1.6-2 3-2 4.2 0 1.6 1 2.8 2 2.8s2-1.2 2-2.8C18 11 17.2 9.6 16 8zm-4 5c-1.2 1.6-2 3-2 4.2 0 1.6 1 2.8 2 2.8s2-1.2 2-2.8c0-1.2-.8-2.6-2-4.2z"/>',
+  eau: '<path d="M12 2C12 2 5 10.3 5 15a7 7 0 0 0 14 0c0-4.7-7-13-7-13z"/>',
+};
+const strokePaths: Record<string, string> = {
+  flask: '<path d="M9 2.5h6M10 2.5V8l-4.6 7.9A3.6 3.6 0 0 0 8.5 21h7a3.6 3.6 0 0 0 3.1-5.1L14 8V2.5"/><path d="M7.3 14.5h9.4"/>',
+  book: '<path d="M4 5a2 2 0 0 1 2-2h11v16H6a2 2 0 0 0-2 2V5z"/><path d="M9 7h5M9 10h5"/>',
+};
+const isStroke = name in strokePaths;
+---
+{isStroke ? (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class={klass} set:html={strokePaths[name]} />
+) : (
+  <svg viewBox="0 0 24 24" fill="currentColor" class={klass} set:html={paths[name]} />
+)}

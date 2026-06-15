@@ -1,0 +1,74 @@
+---
+// Îlot interactif : ajuste les quantités d'ingrédients selon le volume.
+// Les données viennent du frontmatter de la recette (ingredients + volumeBase).
+interface Ingredient { nom: string; note?: string; base: number; unit: 'kg'|'g'|'L'|'sachet'; }
+interface Props { ingredients: Ingredient[]; volumeBase?: number; }
+const { ingredients, volumeBase = 20 } = Astro.props;
+---
+<div class="scaler" data-base={volumeBase}>
+  <div class="scaler-head">
+    <span class="sh-lab">Pour quel volume&nbsp;?</span>
+    <div class="vol-ctrl">
+      <button class="vol-minus" aria-label="Diminuer">&minus;</button>
+      <span class="vol-val">{volumeBase}</span><span class="u">L</span>
+      <button class="vol-plus" aria-label="Augmenter">+</button>
+    </div>
+  </div>
+  <table class="ing"><tbody>
+    {ingredients.map((ing) => (
+      <tr>
+        <td class="ing-n" set:html={ing.nom + (ing.note ? `<span class="ing-note">${ing.note}</span>` : '')} />
+        <td class="ing-q" data-base={ing.base} data-unit={ing.unit}></td>
+      </tr>
+    ))}
+  </tbody></table>
+</div>
+
+<style>
+  .scaler{border:1px solid var(--ligne);border-radius:16px;overflow:hidden;margin:18px 0 8px;background:#fff}
+  .scaler-head{display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--creme);padding:14px 20px;border-bottom:1px solid var(--ligne)}
+  .sh-lab{font-weight:700;color:var(--vert);font-size:.95rem}
+  .vol-ctrl{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--ligne);border-radius:999px;padding:5px 8px}
+  .vol-ctrl button{width:32px;height:32px;border-radius:50%;border:none;background:var(--vert);color:#fff;font-size:1.2rem;font-weight:700;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s}
+  .vol-ctrl button:hover{transform:scale(1.1);background:var(--houblon-d)}
+  .vol-ctrl .vol-val{font-weight:800;font-family:var(--ff-t);font-size:1.15rem;color:var(--vert);min-width:34px;text-align:center}
+  .vol-ctrl .u{color:var(--gris);font-weight:600;font-size:.85rem;margin-left:-6px}
+  table.ing{width:100%;border-collapse:collapse}
+  table.ing td{padding:13px 20px;border-bottom:1px solid var(--ligne);font-size:1rem}
+  table.ing tr:last-child td{border-bottom:none}
+  table.ing tr:hover{background:var(--creme)}
+  .ing-n{color:#33352F}
+  .ing-n :global(.ing-note){display:block;font-size:.78rem;color:var(--gris);font-weight:500}
+  .ing-q{text-align:right;font-weight:700;color:var(--vert);font-variant-numeric:tabular-nums;white-space:nowrap}
+</style>
+
+<script>
+  function frFmt(n: number, dec: number) {
+    return n.toFixed(dec).replace('.', ',').replace(/,?0+$/, (m) => (m.includes(',') ? '' : m));
+  }
+  function fmt(base: number, unit: string, r: number) {
+    const v = base * r;
+    if (unit === 'kg') return (v < 1 ? frFmt(v, 3) : frFmt(v, 2)) + ' kg';
+    if (unit === 'g') return Math.round(v) + ' g';
+    if (unit === 'L') return frFmt(v, 1) + ' L';
+    if (unit === 'sachet') { const s = Math.max(1, Math.round(v)); return s + (s > 1 ? ' sachets' : ' sachet'); }
+    return String(v);
+  }
+  document.querySelectorAll<HTMLElement>('.scaler').forEach((sc) => {
+    const base = Number(sc.dataset.base) || 20;
+    let vol = base;
+    const valEl = sc.querySelector('.vol-val')!;
+    const fiche = document.querySelector<HTMLElement>('[data-fiche-vol]');
+    const render = () => {
+      const r = vol / base;
+      sc.querySelectorAll<HTMLElement>('.ing-q').forEach((td) => {
+        td.textContent = fmt(Number(td.dataset.base), td.dataset.unit!, r);
+      });
+      valEl.textContent = String(vol);
+      if (fiche) fiche.textContent = vol + ' L';
+    };
+    sc.querySelector('.vol-minus')!.addEventListener('click', () => { vol = Math.max(5, vol - 5); render(); });
+    sc.querySelector('.vol-plus')!.addEventListener('click', () => { vol = Math.min(200, vol + 5); render(); });
+    render();
+  });
+</script>

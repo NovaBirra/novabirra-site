@@ -1,0 +1,16 @@
+{
+  "name": "novabirra-site",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "NovaBirra — carnet de brassage & zythologie (site statique Astro)",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^3.1.0",
+    "@astrojs/sitemap": "3.2.1",
+    "astro": "^4.16.0"
+  }
+}

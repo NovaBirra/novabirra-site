@@ -1,0 +1,48 @@
+/* ============================================================
+   NovaBirra — Design system global
+   Tokens de marque + base + utilitaires partagés
+   ============================================================ */
+:root{
+  --vert:#1B3A2E; --vert-2:#22463A; --vert-d:#11251E;
+  --jaune:#F5C842; --jaune-d:#E0B12E;
+  --creme:#FAF7F0; --encre:#22231F; --gris:#6B6A63; --ligne:#E8E3DA;
+  --eau:#378ADD; --eau-d:#185FA5;
+  --malt:#BA7517; --malt-d:#8A5A12;
+  --houblon:#639922; --houblon-d:#3B6D11;
+  --levure:#6A5ACD; --levure-d:#473C9E;
+  --ff-t:'Playfair Display',Georgia,serif;
+  --ff-b:'Source Sans 3',-apple-system,BlinkMacSystemFont,sans-serif;
+  --wrap:1180px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--ff-b);color:var(--encre);background:var(--creme);line-height:1.65;overflow-x:hidden}
+::selection{background:var(--jaune);color:var(--vert)}
+h1,h2,h3,h4{font-family:var(--ff-t);color:var(--vert);line-height:1.16}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+:focus-visible{outline:3px solid var(--jaune);outline-offset:3px;border-radius:4px}
+
+/* utilitaires partagés */
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+.eyebrow{display:inline-flex;align-items:center;gap:11px;font-size:.76rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--vert)}
+.eyebrow::before{content:"";width:32px;height:3px;background:var(--jaune);border-radius:2px}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:13px 26px;border-radius:999px;font-weight:700;font-size:.98rem;border:none;cursor:pointer;font-family:var(--ff-b);transition:transform .25s,box-shadow .25s,background .25s,color .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn-j{background:var(--jaune);color:var(--vert);box-shadow:0 10px 26px rgba(245,200,66,.32)}
+.btn-j:hover{box-shadow:0 14px 32px rgba(245,200,66,.45)}
+.btn-ghost{background:transparent;border:1.5px solid rgba(255,255,255,.4);color:#EAF1EC}
+.btn-ghost:hover{border-color:var(--jaune);color:var(--jaune)}
+.arrow{display:inline-block;transition:transform .25s}
+.btn:hover .arrow,.lnk:hover .arrow,.back:hover .arrow{transform:translateX(4px)}
+.lnk{display:inline-flex;align-items:center;gap:9px;font-weight:700}
+
+/* révélation au scroll (activée par le script global) */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none}
+}

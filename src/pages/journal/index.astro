@@ -1,0 +1,48 @@
+---
+import Base from '../../layouts/Base.astro';
+import JournalCard from '../../components/JournalCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('journal', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const fmtDate = (d: Date) => d.toLocaleDateString('fr-BE', { month: 'long', year: 'numeric' });
+const catLabel = (c: string) => (c === 'Recette' ? 'Recette' : c === 'Fabrication' ? 'Technique' : c);
+---
+<Base title="Le journal | NovaBirra" description="Tous les articles, recettes et techniques du carnet NovaBirra.">
+  <header class="list-hero">
+    <div class="wrap">
+      <span class="eyebrow">Le journal</span>
+      <h1>Le carnet de brassage</h1>
+      <p>Recettes, techniques, lectures de styles et ressources&nbsp;: tout ce qu'on a appris &agrave; partager.</p>
+    </div>
+  </header>
+
+  <section class="list">
+    <div class="wrap">
+      <div class="cards">
+        {posts.map((p) => (
+          <JournalCard
+            href={`/journal/${p.slug}/`}
+            category={p.data.category}
+            accent={p.data.accent}
+            title={p.data.title}
+            dek={p.data.dek}
+            meta={`${catLabel(p.data.category)} · ${fmtDate(p.data.date)}`}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .list-hero{background:radial-gradient(120% 100% at 75% 0%,#23493B,var(--vert) 45%,var(--vert-d));color:#E9F1EC;padding:140px 0 70px}
+  .list-hero .eyebrow{color:var(--jaune)}.list-hero .eyebrow::before{background:var(--jaune)}
+  .list-hero h1{color:#FDFBF6;font-size:clamp(2.4rem,6vw,4rem);font-weight:900;margin:16px 0 14px}
+  .list-hero p{color:#C6D8CD;font-size:1.18rem;max-width:56ch}
+  .list{padding:70px 0 90px}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  @media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.cards{grid-template-columns:1fr}}
+</style>
