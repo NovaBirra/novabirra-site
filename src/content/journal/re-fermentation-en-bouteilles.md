@@ -1,32 +1,61 @@
 ---
-title: "Réussir la re-fermentation en bouteilles"
-dek: "La méthode traditionnelle pas à pas : dosage du sucre, choix de la levure, mise en bouteille et prise de mousse pour un pétillant maîtrisé."
+title: "Comment réaliser la re-fermentation en bouteilles ?"
+dek: "La méthode traditionnelle, pas à pas : pourquoi et comment créer le pétillant en bouteille, le calcul du sucre, la mise en bouteille et la conservation."
 category: "Fabrication"
 date: 2019-02-10
-readingTime: "7 min"
+readingTime: "8 min"
 accent: "fabrication"
 ---
 
-La re-fermentation en bouteille — ou « refermentation » — est ce qui distingue une vraie bière artisanale d'un produit simplement gazéifié. Plutôt que d'injecter du CO₂, on laisse les levures fabriquer elles-mêmes le pétillant, directement dans la bouteille. Le résultat : une mousse fine, crémeuse, et une bière qui continue d'évoluer dans le temps.
+À la fin de la garde à froid, la bière n'est que légèrement pétillante — environ 1,0 à 1,5 g de CO₂/L. Or en Belgique, on aime les bières bien pétillantes, soit un taux de **5,0 à 6,0 g de CO₂/L**. La méthode traditionnelle permet de combler l'écart en créant 4,0 à 5,0 g de CO₂/L directement dans la bouteille. Le principe : ajouter un sirop de sucre et une levure spécifique pour obtenir la **prise de mousse**.
 
-## Le principe
+## Calculer la quantité de sucre
 
-À la fin de la fermentation principale, il reste très peu de sucre dans la bière. On en rajoute une petite quantité, précisément dosée, ainsi qu'une levure encore active. Enfermées dans la bouteille, les levures consomment ce sucre et produisent du gaz carbonique qui, ne pouvant s'échapper, se dissout dans le liquide. C'est la prise de mousse.
+On obtient **1,0 g de CO₂/L en ajoutant 2,0 g de sucre/L**. La quantité de sucre à ajouter se situe donc entre **8,0 et 10,0 g/L** : plus on veut de pétillant, plus on augmente la dose.
 
-## Le dosage du sucre
+**Important :** avant la mise en bouteille, assurez-vous que la fermentation est bien terminée et que la densité finale est atteinte. Sinon, les sucres résiduels se transformeraient eux aussi en CO₂ et donneraient un pétillant excessif. *(Voir l'annexe en fin d'article pour calculer la densité finale.)*
 
-C'est l'étape critique. Trop de sucre, et la pression devient dangereuse — le fameux risque de bouteille qui explose. Trop peu, et la bière reste plate. Pour un pétillant classique, on vise environ **6 à 7 grammes de sucre par litre**, à ajuster selon le style : une bière belge forte supporte une carbonatation plus élevée qu'une blonde de soif.
+## Les étapes de la mise en bouteille
 
-Le sucre se prépare en sirop : dissous dans un peu d'eau bouillante, refroidi, puis mélangé délicatement à l'ensemble de la bière avant l'embouteillage — jamais bouteille par bouteille, au risque d'avoir des résultats inégaux.
+**Préparatifs et transfert**
+- Désinfectez le matériel de transfert (auto-siphon, tige remplisseuse), le fût de mélange et les bouteilles avec une solution de Star San.
+- Transférez la bière du fût de garde vers le fût de mélange à l'auto-siphon, en laissant le sédiment de levures dans la cuve de garde.
 
-## La levure
+**Le sirop de sucre**
+- Dans une casserole, mélangez à parts égales le sucre (pour la quantité totale de bière) et de l'eau potable.
+- Chauffez jusqu'à 85 °C sans cesser de mélanger, puis arrêtez et laissez tiédir.
+- Versez délicatement dans le fût de mélange à l'aide d'un entonnoir.
 
-Si la fermentation principale a été longue ou la bière très alcoolisée, les levures d'origine peuvent être épuisées. Dans ce cas, on réensemence avec une levure fraîche adaptée à la refermentation, capable de travailler malgré l'alcool déjà présent.
+**La levure (pour 20-25 L)**
+- Dans un flacon désinfecté, réhydratez 1,0 g de levure sèche **Fermentis F-2** dans 50 ml d'eau stérile à 25 °C.
+- Versez délicatement dans le fût de mélange.
 
-## La prise de mousse
+**Mise en bouteille et stockage**
+- Remplissez les bouteilles à la tige remplisseuse. Pendant le remplissage, remuez occasionnellement la bière pour maintenir la levure F-2 en suspension.
+- Capsulez (les bouteilles à bouchon mécanique sont une alternative économique).
+- Entreposez les bouteilles **verticalement**, à l'abri de la lumière, dans un endroit tempéré (entre 21 et 25 °C) pendant **2 semaines**.
+- Au bout de 2 semaines, refroidissez une bouteille et dégustez pour vérifier le pétillant. S'il est bon, mettez tout au frais (12-15 °C) ; s'il manque un peu de mousse, laissez une semaine de plus à température ambiante.
 
-Une fois les bouteilles capsulées, on les stocke **à température ambiante (20-24 °C) pendant deux à trois semaines**. C'est là que la magie opère. Ensuite, un passage au frais affine le tout et clarifie la bière, les levures se déposant au fond.
+## Conservation et dégustation
 
-> La patience est le dernier ingrédient de la recette — et souvent le plus difficile à doser.
+- Pour préserver leurs arômes houblonnés, les **IPA** se conservent au froid.
+- Les **bières fortes** peuvent vieillir plusieurs années en cave : des notes d'oxydation se développent et ajoutent de la complexité.
+- Grâce aux levures présentes, le goût évolue avec le temps. Certains styles, comme la **Triple**, méritent 4 à 5 mois de maturation en cave pour atteindre leur optimum.
 
-Au moment de servir, on verse délicatement pour laisser le dépôt de levure au fond de la bouteille… ou on le mélange, selon qu'on préfère sa bière limpide ou trouble. C'est une affaire de goût.
+## Annexe — calculer la densité finale apparente
+
+L'**atténuation** exprime le pourcentage de sucre transformé en alcool et CO₂ par la levure (une donnée fournie avec chaque levure, généralement entre 65 % et 90 %). C'est une valeur *apparente* : la bière contenant de l'alcool, moins dense que l'eau, l'atténuation réelle est inférieure.
+
+La différence entre l'extrait initial et l'extrait apparent donne l'atténuation apparente. En connaissant l'extrait initial et l'atténuation :
+
+**E.A. = E.I. × (1 − Att)**
+
+*Exemple :* E.I. = 10 °Plato, atténuation = 80 % (0,8) → E.A. = 10 × (1 − 0,8) = **2 °Plato**.
+
+Avec un densimètre gradué en densité relative :
+
+**D.F.A. = ((D.I. − 1) × (1 − Att)) + 1**
+
+*Exemple :* D.I. = 1,040, atténuation = 80 % → D.F.A. = ((1,040 − 1) × (1 − 0,8)) + 1 = **1,008**.
+
+Pour l'utilisation correcte du densimètre, voir [« Comment utiliser un densimètre ? »](/journal/comment-utiliser-densimetre/).
