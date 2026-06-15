@@ -7,50 +7,52 @@ readingTime: "5 min"
 accent: "recettes"
 fiche:
   style: "Saison"
-  abv: "5,5&nbsp;%"
-  ibu: "~25 IBU"
-  couleur: "Blonde"
-  fermentation: "Haute, ~24&nbsp;&deg;C"
-  volumeBase: 20
+  abv: "5,6&nbsp;%"
+  ibu: "28,5 IBU"
+  couleur: "Blonde (10 EBC)"
+  fermentation: "Haute, 21&nbsp;&deg;C"
+  volumeBase: 25
 profil:
-  - { label: "Amertume", note: "modérée", value: 42, couleur: "houblon" }
-  - { label: "Aromatique", note: "florale", value: 70, couleur: "malt" }
-  - { label: "Corps", note: "léger", value: 38, couleur: "eau" }
-  - { label: "Acidité", note: "fine", value: 48, couleur: "levure" }
+  - { label: "Amertume", note: "modérée", value: 45, couleur: "houblon" }
+  - { label: "Aromatique", note: "florale", value: 68, couleur: "malt" }
+  - { label: "Corps", note: "léger", value: 35, couleur: "eau" }
+  - { label: "Fraîcheur", note: "vive", value: 60, couleur: "levure" }
 ingredients:
-  - { nom: "Malt Pilsner", base: 4.0, unit: "kg" }
-  - { nom: "Froment malté", base: 0.8, unit: "kg" }
-  - { nom: "Houblon Saaz", note: "amérisant · 60 min", base: 25, unit: "g" }
-  - { nom: "Houblon Styrian Golding", note: "arôme · 10 min", base: 20, unit: "g" }
-  - { nom: "Fleurs de sureau séchées", note: "en fin d'ébullition", base: 20, unit: "g" }
-  - { nom: "Levure saison", base: 1, unit: "sachet" }
-  - { nom: "Eau de brassage", base: 25, unit: "L" }
+  - { nom: "Malt Pils", note: "3 EBC", base: 4.1, unit: "kg" }
+  - { nom: "Malt Munich", note: "15 EBC", base: 1.75, unit: "kg" }
+  - { nom: "Houblon Polaris", note: "amérisant · 80 min", base: 10, unit: "g" }
+  - { nom: "Houblon Centennial", note: "arôme · 10 min", base: 20, unit: "g" }
+  - { nom: "Fleurs de sureau fraîches", note: "à l'arrêt de l'ébullition", base: 120, unit: "g" }
+  - { nom: "Levure sèche Fermentis S-04", base: 1, unit: "sachet" }
 ---
 import RecipeScaler from '../../components/RecipeScaler.astro';
 
-La saison est née dans les fermes wallonnes, brassée l'hiver pour désaltérer les ouvriers l'été venu. La White Blossom en reprend l'esprit : légère, sèche, vive — mais on y glisse une poignée de fleurs de sureau pour un parfum floral qui évoque les soirs de juin.
+La saison est née dans les fermes wallonnes, brassée l'hiver pour désaltérer les ouvriers l'été venu. La White Blossom en reprend l'esprit estival — légère, blonde, désaltérante — et y ajoute sa signature : une poignée de **fleurs de sureau fraîches**, cueillies au matin de juin, quand l'arbre est en pleine floraison.
 
-Le secret tient à la levure saison, exubérante, qui travaille chaud et signe la bière de notes poivrées et fruitées. Les fleurs de sureau, elles, s'ajoutent en toute fin d'ébullition pour préserver leur délicatesse.
+Tout se joue sur la délicatesse. Une base maltée simple (Pils et Munich), une fermentation propre, et surtout ces fleurs de sureau ajoutées à l'arrêt de l'ébullition pour préserver tout leur parfum floral. Le houblon, lui, reste discret mais bien présent.
 
 <h2><span class="hsign">/</span> Les ingrédients</h2>
 
-Quantités pour **20 litres**. Ajustez le volume selon votre cuve.
+Quantités pour **25 litres** en cuve de fermentation. Ajustez le volume selon votre cuve.
 
 <RecipeScaler ingredients={frontmatter.ingredients} volumeBase={frontmatter.fiche.volumeBase} />
+
+*Densité initiale 1,053 (13 °P) · densité finale 1,011 (2,8 °P) · rendement ~73 %.*
 
 <h2><span class="hsign">/</span> Le brassage</h2>
 
 1. **Empâtage** — Empâtez à **65 °C pendant 60 min** pour une bière bien atténuée et sèche.
-2. **Filtration** — Séparez le moût des drêches et rincez à ~76 °C.
-3. **Ébullition (60 min)** — Saaz dès le début ; Styrian Golding et fleurs de sureau dans les 10 dernières minutes.
-4. **Refroidissement** — Descendez autour de 24 °C.
-5. **Fermentation** — La levure saison aime la chaleur : laissez-la monter jusqu'à 26-28 °C pour révéler tout son caractère.
-6. **Garde** — Une à deux semaines, puis mise en bouteille avec re-fermentation.
+2. **Mash-out & filtration** — Montez à **77 °C**, puis rincez les drêches à **78 °C**.
+3. **Ébullition (80 min)** — Polaris dès le début. Irish moss 15 min avant la fin, puis le Centennial à 10 min de la fin.
+4. **Les fleurs de sureau** — À l'arrêt du feu, ajoutez les fleurs fraîches, réalisez un tourbillon puis laissez reposer la cuve couverte.
+5. **Fermentation** — Refroidissez à **21 °C**, ensemencez la S-04 et laissez fermenter à **21 °C**.
+6. **Mise en bouteille** — Re-fermentation avec **8 g de sucre/L** et de la levure F-2. [Voir l'article dédié →](/journal/re-fermentation-en-bouteilles/)
+7. **Garde** — 2 semaines à 21-22 °C, puis dégustez bien frais.
 
 <h2><span class="hsign">/</span> Dégustation</h2>
 
-Robe blonde voilée, mousse fine. Le nez mêle fleurs blanches, poire et une pointe poivrée. En bouche, c'est sec, vif, désaltérant, avec une amertume juste suffisante pour appeler la gorgée suivante.
+Robe blonde voilée, mousse fine. Le nez déploie des arômes floraux subtils, ponctués de touches fruitées venues du houblon et de la fermentation. En bouche, c'est léger et sec, avec une amertume présente sans jamais envahir. Une bière terriblement rafraîchissante.
 
 > La saison parfaite se boit sans qu'on s'en aperçoive — et le verre est déjà vide.
 
-**À servir** bien frais, entre 5 et 7 °C, idéalement en terrasse au soleil.
+**À servir** bien frais, entre 5 et 7 °C, idéalement en terrasse par une belle journée d'été.
