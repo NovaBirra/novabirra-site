@@ -35,7 +35,34 @@ const { variant = 'solid' } = Astro.props;
   .nav.solid .nav-cta{border-color:var(--ligne);background:var(--vert);color:#fff!important}
   .nav.solid .nav-cta:hover{color:var(--jaune)!important}
   .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
-  .burger span{width:26px;height:2.5px;background:#fff;border-radius:2px;transition:background .35s}
+  .burger span{width:26px;height:2.5px;background:#fff;border-radius:2px;transition:background .35s,transform .35s,opacity .25s}
   .nav.solid .burger span{background:var(--vert)}
-  @media(max-width:860px){.nav-links{display:none}.burger{display:flex}}
+  @media(max-width:860px){
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--vert);padding:8px 26px 22px;box-shadow:0 16px 30px rgba(0,0,0,.18)}
+    .nav.open .nav-links{display:flex}
+    .nav-links a{color:#fff!important;padding:13px 2px;font-size:1.05rem;border-bottom:1px solid rgba(255,255,255,.08)}
+    .nav-links a:not(.nav-cta)::after{display:none}
+    .nav-cta{margin-top:14px;text-align:center;background:var(--jaune)!important;color:var(--vert)!important;border:none!important}
+    .burger{display:flex}
+    .nav.open .burger span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+    .nav.open .burger span:nth-child(2){opacity:0}
+    .nav.open .burger span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+  }
 </style>
+
+<script>
+  const navEl = document.getElementById('nav');
+  const burgerEl = document.getElementById('burger');
+  if (navEl && burgerEl) {
+    burgerEl.addEventListener('click', () => navEl.classList.toggle('open'));
+    navEl.querySelectorAll('.nav-links a').forEach((link) =>
+      link.addEventListener('click', () => navEl.classList.remove('open'))
+    );
+    // Referme le menu si on tape en dehors
+    document.addEventListener('click', (e) => {
+      if (navEl.classList.contains('open') && !navEl.contains(e.target)) {
+        navEl.classList.remove('open');
+      }
+    });
+  }
+</script>
