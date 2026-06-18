@@ -5,7 +5,7 @@ interface Props { variant?: 'hero' | 'solid'; }
 const { variant = 'solid' } = Astro.props;
 ---
 <nav class={`nav ${variant === 'solid' ? 'solid' : ''}`} id="nav" data-variant={variant}>
-  <a class="brand" href="/">NOVA<b>BIRRA</b></a>
+  <a class="brand" href="/" aria-label="NovaBirra — Accueil"><span class="brand-logo"></span></a>
   <div class="nav-links">
     <a href="/journal/">Le journal</a>
     <a href="/journal/?cat=recettes">Recettes</a>
@@ -13,14 +13,18 @@ const { variant = 'solid' } = Astro.props;
     <a href="/journal/?cat=styles">Styles</a>
     <a href="/journal/?cat=ressources">Ressources</a>
     <a href="/#apropos">À propos</a>
+    <span class="socials">
+      <a class="soc" href="https://www.instagram.com/novabirra/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g stroke-linecap="round" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linejoin="round"><path d="M6.5,23.5c-3.31368,0 -6,-2.68632 -6,-6v-11c0,-3.31368 2.68632,-6 6,-6h11c3.31368,0 6,2.68632 6,6v11c0,3.31368 -2.68632,6 -6,6Z"/><path d="M16.2426,7.75736c2.34315,2.34315 2.34315,6.14214 0,8.48528c-2.34315,2.34315 -6.14214,2.34315 -8.48528,0c-2.34315,-2.34315 -2.34315,-6.14214 0,-8.48528c2.34315,-2.34315 6.14214,-2.34315 8.48528,0"/><path d="M20.0607,3.93934c0.585786,0.585786 0.585786,1.53553 0,2.12132c-0.585786,0.585786 -1.53553,0.585786 -2.12132,0c-0.585786,-0.585786 -0.585786,-1.53553 0,-2.12132c0.585786,-0.585786 1.53553,-0.585786 2.12132,0"/></g></svg></a>
+      <a class="soc" href="https://www.facebook.com/pages/NovaBirra/52425197244" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12.5,23.5h-11c-0.552285,0 -1,-0.447715 -1,-1v-21c0,-0.552285 0.447715,-1 1,-1h21c0.552285,0 1,0.447715 1,1v21c0,0.552285 -0.447715,1 -1,1h-6v-9h2.559c0.253637,0.00195665 0.468556,-0.186312 0.5,-0.438l0.375,-3c0.0342498,-0.27401 -0.160114,-0.523904 -0.434124,-0.558154c-0.0218499,-0.00273112 -0.0438564,-0.00401587 -0.0658757,-0.00384584h-2.934v-1.315c0.00111297,-0.930533 0.755485,-1.68444 1.68602,-1.68498h1.81398c0.276142,0 0.5,-0.223858 0.5,-0.5v-3c0,-0.276142 -0.223858,-0.5 -0.5,-0.5h-1.814c-3.13853,0.00330606 -5.68214,2.54647 -5.686,5.685v1.315h-2.5c-0.276142,0 -0.5,0.223858 -0.5,0.5v3c0,0.276142 0.223858,0.5 0.5,0.5h2.5v9Z" stroke-linecap="round" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linejoin="round"/></svg></a>
+    </span>
     <a class="nav-cta" href="https://www.novabirra.com" target="_blank" rel="noopener">Cours &amp; ateliers ↗</a>
   </div>
   <button class="burger" aria-label="Menu" id="burger"><span></span><span></span><span></span></button>
 </nav>
 
 <style>
-  .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px 28px;transition:background .35s,box-shadow .35s,padding .35s}
-  .nav.solid{background:rgba(250,247,240,.92);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--ligne);padding:12px 28px}
+  .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:12px 28px;transition:background .35s,box-shadow .35s,padding .35s}
+  .nav.solid{background:rgba(250,247,240,.92);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--ligne);padding:9px 28px}
   .brand{font-weight:700;letter-spacing:.26em;font-size:1.02rem;color:#fff;transition:color .35s}
   .nav.solid .brand{color:var(--vert)}
   .brand b{color:var(--jaune)}
@@ -49,6 +53,14 @@ const { variant = 'solid' } = Astro.props;
     .nav.open .burger span:nth-child(2){opacity:0}
     .nav.open .burger span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
   }
+  .brand-logo{display:block;width:96px;height:46px;background-color:#fff;-webkit-mask:url(/logo-novabirra.svg) left center/contain no-repeat;mask:url(/logo-novabirra.svg) left center/contain no-repeat;transition:background-color .35s}
+  .nav.solid .brand-logo{background-color:var(--vert)}
+  .socials{display:inline-flex;align-items:center;gap:15px}
+  .soc{display:inline-flex;align-items:center;color:inherit;transition:color .25s,transform .2s}
+  .soc svg{width:20px;height:20px;display:block}
+  .soc::after{display:none!important}
+  .soc:hover{color:var(--jaune);transform:translateY(-1px)}
+  .nav.solid .soc:hover{color:var(--houblon-d)}
 </style>
 
 <script>
