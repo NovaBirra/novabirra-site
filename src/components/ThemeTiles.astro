@@ -42,6 +42,14 @@ import Icon from './Icon.astro';
   .tile h3{color:#fff;font-size:1.55rem;margin-bottom:6px}
   .tile p{color:rgba(255,255,255,.85);font-size:.9rem}
   .tile .go{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-weight:700;font-size:.9rem;color:#fff}
+</style>  .t-styles{background:linear-gradient(150deg,#5E9A33,#3B6D11)}
+  .t-ressources{background:linear-gradient(150deg,#6A5ACD,#473C9E)}
+  .tile :global(.t-ico){position:absolute;top:24px;right:24px;z-index:2;width:42px;height:42px;color:rgba(255,255,255,.55);transition:transform .5s,color .4s}
+  .tile:hover :global(.t-ico){transform:rotate(8deg) scale(1.1);color:rgba(255,255,255,.85)}
+  .tile-content{position:relative;z-index:2}
+  .tile h3{color:#fff;font-size:1.55rem;margin-bottom:6px}
+  .tile p{color:rgba(255,255,255,.85);font-size:.9rem}
+  .tile .go{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-weight:700;font-size:.9rem;color:#fff}
 </style>  .tile p{color:rgba(255,255,255,.85);font-size:.92rem}
   .tile .go{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-weight:700;font-size:.92rem;color:#fff}
 </style>
