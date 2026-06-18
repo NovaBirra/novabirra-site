@@ -5,35 +5,43 @@ import Icon from './Icon.astro';
   <div class="wrap">
     <span class="eyebrow reveal" style="margin-bottom:34px;display:inline-block">Explorer par th&egrave;me</span>
     <div class="tiles">
-      <a class="tile t-recettes reveal" href="/journal/">
+      <a class="tile t-recettes reveal" href="/journal/?cat=recettes">
         <Icon name="malt" class="t-ico" />
-        <div class="tile-content"><h3>Recettes</h3><p>Du grain au verre&nbsp;: nos bi&egrave;res d&eacute;taill&eacute;es, reproductibles chez soi.</p><span class="go">D&eacute;couvrir <span class="arrow">→</span></span></div>
+        <div class="tile-content"><h3>Recettes</h3><p>Du grain au verre&nbsp;: nos bi&egrave;res d&eacute;taill&eacute;es, reproductibles chez soi.</p><span class="go">D&eacute;couvrir <span class="arrow">&rarr;</span></span></div>
       </a>
-      <a class="tile t-styles reveal" href="/journal/">
+      <a class="tile t-fabrication reveal" href="/journal/?cat=fabrication">
+        <Icon name="flask" class="t-ico" />
+        <div class="tile-content"><h3>Fabrication</h3><p>Les gestes du brassage&nbsp;: densim&egrave;tre, re-fermentation, jour de brassage.</p><span class="go">D&eacute;couvrir <span class="arrow">&rarr;</span></span></div>
+      </a>
+      <a class="tile t-styles reveal" href="/journal/?cat=styles">
         <Icon name="houblon" class="t-ico" />
-        <div class="tile-content"><h3>Styles</h3><p>Lambic, blanche, triple, saison&hellip; la richesse du patrimoine brassicole.</p><span class="go">D&eacute;couvrir <span class="arrow">→</span></span></div>
+        <div class="tile-content"><h3>Styles</h3><p>Lambic, blanche, triple, saison&hellip; la richesse du patrimoine brassicole.</p><span class="go">D&eacute;couvrir <span class="arrow">&rarr;</span></span></div>
       </a>
-      <a class="tile t-ressources reveal" href="/journal/">
+      <a class="tile t-ressources reveal" href="/journal/?cat=ressources">
         <Icon name="book" class="t-ico" />
-        <div class="tile-content"><h3>Ressources</h3><p>Glossaire, fournisseurs, livres et logiciels&nbsp;: la bo&icirc;te &agrave; outils du brasseur.</p><span class="go">D&eacute;couvrir <span class="arrow">→</span></span></div>
+        <div class="tile-content"><h3>Ressources</h3><p>Le glossaire du brassage&nbsp;: tout le vocabulaire, des ingr&eacute;dients &agrave; la d&eacute;gustation.</p><span class="go">D&eacute;couvrir <span class="arrow">&rarr;</span></span></div>
       </a>
     </div>
   </div>
 </section>
 <style>
   .themes{padding:30px 0 90px}
-  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-  @media(max-width:780px){.tiles{grid-template-columns:1fr}}
-  .tile{position:relative;border-radius:20px;padding:38px 32px;min-height:230px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;color:#fff;transition:transform .4s}
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  @media(max-width:980px){.tiles{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.tiles{grid-template-columns:1fr}}
+  .tile{position:relative;border-radius:20px;padding:34px 28px;min-height:236px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;color:#fff;transition:transform .4s}
   .tile:hover{transform:translateY(-6px)}
   .tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.32));z-index:1}
   .t-recettes{background:linear-gradient(150deg,#C8821A,#8A5A12)}
+  .t-fabrication{background:linear-gradient(150deg,#378ADD,#185FA5)}
   .t-styles{background:linear-gradient(150deg,#5E9A33,#3B6D11)}
   .t-ressources{background:linear-gradient(150deg,#6A5ACD,#473C9E)}
-  .tile :global(.t-ico){position:absolute;top:26px;right:26px;z-index:2;width:44px;height:44px;color:rgba(255,255,255,.55);transition:transform .5s,color .4s}
+  .tile :global(.t-ico){position:absolute;top:24px;right:24px;z-index:2;width:42px;height:42px;color:rgba(255,255,255,.55);transition:transform .5s,color .4s}
   .tile:hover :global(.t-ico){transform:rotate(8deg) scale(1.1);color:rgba(255,255,255,.85)}
   .tile-content{position:relative;z-index:2}
-  .tile h3{color:#fff;font-size:1.7rem;margin-bottom:6px}
-  .tile p{color:rgba(255,255,255,.85);font-size:.92rem}
+  .tile h3{color:#fff;font-size:1.55rem;margin-bottom:6px}
+  .tile p{color:rgba(255,255,255,.85);font-size:.9rem}
+  .tile .go{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-weight:700;font-size:.9rem;color:#fff}
+</style>  .tile p{color:rgba(255,255,255,.85);font-size:.92rem}
   .tile .go{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-weight:700;font-size:.92rem;color:#fff}
 </style>
