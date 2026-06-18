@@ -20,7 +20,7 @@ const barColor: Record<string, string> = { houblon: 'var(--houblon)', malt: 'var
   <!-- EN-TÊTE -->
   <header class="a-hero">
     <div class="wrap">
-      <p class="crumbs"><a href="/">Accueil</a> &rsaquo; <a href="/journal/">{data.category}</a> &rsaquo; {data.title}</p>
+      <p class="crumbs"><a href="/">Accueil</a> &rsaquo; <a href={`/journal/?cat=${data.accent}`}>{data.category}</a> &rsaquo; {data.title}</p>
       <span class="a-cat" data-accent={data.accent}>{data.category}</span>
       <h1>{data.title}</h1>
       <p class="a-dek">{data.dek}</p>
