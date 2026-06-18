@@ -1,0 +1,62 @@
+---
+// Bandeau « Demandez au maître brasseur ».
+// Le bouton ouvre la messagerie du visiteur avec le sujet (selon le thème choisi)
+// et la question déjà remplis, vers manu@novabirra.com. Aucun serveur requis.
+---
+<section class="ask" id="question">
+  <div class="wrap">
+    <div class="ask-intro reveal">
+      <span class="eyebrow">Une question&nbsp;?</span>
+      <h3>Demandez au ma&icirc;tre brasseur</h3>
+      <p>Emanuele vous r&eacute;pond personnellement. Choisissez un sujet, &eacute;crivez votre question&nbsp;: elle arrive droit dans sa bo&icirc;te.</p>
+    </div>
+    <div class="ask-form reveal">
+      <label class="sr-only" for="q-sujet">Sujet de votre question</label>
+      <select id="q-sujet">
+        <option value="">&mdash;&nbsp;Choisissez un sujet&nbsp;&mdash;</option>
+        <option value="J'ai une question sur une recette">Une recette</option>
+        <option value="J'ai une question sur la fabrication">La fabrication</option>
+        <option value="J'ai une question sur les styles de bi&egrave;re">Les styles de bi&egrave;re</option>
+        <option value="J'ai une question sur les ressources">Les ressources</option>
+        <option value="J'ai une question pour le ma&icirc;tre brasseur">Autre sujet</option>
+      </select>
+      <label class="sr-only" for="q-texte">Votre question</label>
+      <textarea id="q-texte" rows="4" placeholder="&Eacute;crivez votre question ici&hellip;"></textarea>
+      <button id="q-send" class="btn-send" type="button">J'envoie ma question au ma&icirc;tre brasseur</button>
+    </div>
+  </div>
+</section>
+<style>
+  .ask{background:var(--jaune);padding:62px 0}
+  .ask .wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:center}
+  @media(max-width:820px){.ask .wrap{grid-template-columns:1fr;gap:26px}}
+  .ask-intro .eyebrow{color:var(--vert-d)}
+  .ask-intro .eyebrow::before{background:var(--vert-d)}
+  .ask-intro h3{color:var(--vert);font-size:clamp(1.7rem,3.4vw,2.3rem);font-weight:900;margin:12px 0 12px;line-height:1.1}
+  .ask-intro p{color:#5a4a14;font-weight:600;font-size:1.02rem;max-width:42ch;line-height:1.55}
+  .ask-form{display:flex;flex-direction:column;gap:12px}
+  .ask-form select,.ask-form textarea{width:100%;padding:13px 16px;border-radius:14px;border:2px solid var(--vert);background:#fff;font-family:var(--ff-b);font-size:.98rem;color:var(--encre)}
+  .ask-form select{cursor:pointer}
+  .ask-form textarea{resize:vertical;min-height:108px;line-height:1.5}
+  .ask-form select:focus,.ask-form textarea:focus{outline:none;border-color:var(--vert-d);box-shadow:0 0 0 3px rgba(27,58,46,.16)}
+  .btn-send{background:var(--vert);color:#fff;border:none;border-radius:999px;padding:15px 28px;font-weight:800;font-size:1rem;font-family:var(--ff-b);cursor:pointer;transition:transform .25s,background .25s;margin-top:4px}
+  .btn-send:hover{transform:translateY(-2px);background:var(--vert-d)}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+</style>
+
+<script>
+  const sel = document.getElementById('q-sujet');
+  const txt = document.getElementById('q-texte');
+  const btn = document.getElementById('q-send');
+  if (sel && txt && btn) {
+    btn.addEventListener('click', () => {
+      const question = txt.value.trim();
+      if (!question) { txt.focus(); return; }
+      const sujet = sel.value || "J'ai une question pour le maître brasseur";
+      const url = 'mailto:manu@novabirra.com'
+        + '?subject=' + encodeURIComponent(sujet)
+        + '&body=' + encodeURIComponent(question);
+      window.location.href = url;
+    });
+  }
+</script>
