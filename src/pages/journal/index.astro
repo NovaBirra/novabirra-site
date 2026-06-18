@@ -20,6 +20,13 @@ const catLabel = (c: string) => (c === 'Recette' ? 'Recette' : c === 'Fabricatio
 
   <section class="list">
     <div class="wrap">
+      <div class="filters" role="tablist" aria-label="Filtrer par cat&eacute;gorie">
+        <button class="filter is-active" data-filter="all">Tout</button>
+        <button class="filter" data-filter="recettes">Recettes</button>
+        <button class="filter" data-filter="fabrication">Fabrication</button>
+        <button class="filter" data-filter="styles">Styles</button>
+        <button class="filter" data-filter="ressources">Ressources</button>
+      </div>
       <div class="cards">
         {posts.map((p) => (
           <JournalCard
@@ -32,6 +39,7 @@ const catLabel = (c: string) => (c === 'Recette' ? 'Recette' : c === 'Fabricatio
           />
         ))}
       </div>
+      <p class="no-results" hidden>Aucun article dans cette cat&eacute;gorie pour le moment.</p>
     </div>
   </section>
 </Base>
@@ -45,4 +53,34 @@ const catLabel = (c: string) => (c === 'Recette' ? 'Recette' : c === 'Fabricatio
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
   @media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:600px){.cards{grid-template-columns:1fr}}
+  .filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:36px}
+  .filter{font-family:inherit;font-size:.9rem;font-weight:600;letter-spacing:.02em;color:var(--vert);background:#fff;border:1px solid var(--ligne);padding:9px 20px;border-radius:999px;cursor:pointer;transition:background .2s,color .2s,border-color .2s,transform .15s}
+  .filter:hover{border-color:var(--vert);background:#F3EFE6}
+  .filter:active{transform:scale(.96)}
+  .filter.is-active{color:#fff;border-color:var(--vert);background:var(--vert)}
+  .filter[data-filter="recettes"].is-active{background:#BA7517;border-color:#BA7517}
+  .filter[data-filter="fabrication"].is-active{background:#2E6FB0;border-color:#2E6FB0}
+  .filter[data-filter="styles"].is-active{background:#4E8A26;border-color:#4E8A26}
+  .filter[data-filter="ressources"].is-active{background:#473C9E;border-color:#473C9E}
+  :global(.card.hide){display:none}
+  .no-results{text-align:center;color:var(--gris);font-size:1.05rem;padding:30px 0}
 </style>
+
+<script>
+  const filterBtns = Array.from(document.querySelectorAll('.filter'));
+  const cards = Array.from(document.querySelectorAll('.cards .card'));
+  const empty = document.querySelector('.no-results');
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const f = btn.dataset.filter;
+      filterBtns.forEach((b) => b.classList.toggle('is-active', b === btn));
+      let visible = 0;
+      cards.forEach((card) => {
+        const match = f === 'all' || card.dataset.accent === f;
+        card.classList.toggle('hide', !match);
+        if (match) { card.classList.add('in'); visible++; }
+      });
+      if (empty) empty.hidden = visible !== 0;
+    });
+  });
+</script>
