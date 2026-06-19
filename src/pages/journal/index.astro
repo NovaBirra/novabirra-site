@@ -12,7 +12,7 @@ const catLabel = (c: string) => (c === 'Recette' ? 'Recette' : c === 'Fabricatio
 <Base title="Le journal | NovaBirra" description="Tous les articles, recettes et techniques du carnet NovaBirra.">
   <header class="list-hero">
     <div class="wrap">
-      <span class="eyebrow">Le journal</span>
+      <span class="eyebrow">Carnet de brassage</span>
       <h1>Le carnet de brassage</h1>
       <p>Recettes, techniques, lectures de styles et ressources&nbsp;: tout ce qu'on a appris &agrave; partager.</p>
     </div>
@@ -70,9 +70,24 @@ const catLabel = (c: string) => (c === 'Recette' ? 'Recette' : c === 'Fabricatio
   const filterBtns = Array.from(document.querySelectorAll('.filter'));
   const cards = Array.from(document.querySelectorAll('.cards .card'));
   const empty = document.querySelector('.no-results');
+  const titreEl = document.querySelector('.list-hero h1');
+  const sousEl = document.querySelector('.list-hero p');
+  const TITRES = {
+    recettes:    ['Recettes de bi\u00e8res', 'Du grain au verre\u00a0: nos recettes d\u00e9taill\u00e9es et reproductibles, pour brasser nos bi\u00e8res chez soi.'],
+    fabrication: ['La fabrication de la bi\u00e8re', 'Les gestes du brassage expliqu\u00e9s pas \u00e0 pas\u00a0: densim\u00e8tre, re-fermentation, jour de brassage.'],
+    styles:      ['Les styles de bi\u00e8re', '\u00c0 la d\u00e9couverte des familles brassicoles \u2014 lambic, blanche, triple, saison\u2026 \u2014 et de leur patrimoine.'],
+    ressources:  ['Ressources', 'Le glossaire du brassage\u00a0: tout le vocabulaire, des ingr\u00e9dients \u00e0 la d\u00e9gustation.'],
+    all:         ['Le carnet de brassage', "Recettes, techniques, lectures de styles et ressources\u00a0: tout ce qu'on a appris \u00e0 partager."]
+  };
+  const setTitre = (f) => {
+    const t = TITRES[f] || TITRES.all;
+    if (titreEl) titreEl.textContent = t[0];
+    if (sousEl) sousEl.textContent = t[1];
+  };
   filterBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
       const f = btn.dataset.filter;
+      setTitre(f);
       filterBtns.forEach((b) => b.classList.toggle('is-active', b === btn));
       let visible = 0;
       cards.forEach((card) => {
