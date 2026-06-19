@@ -55,8 +55,8 @@ const catLabel = (c: string) => (c === 'Recette' ? 'Recette' : c === 'Fabricatio
   .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:42px;flex-wrap:wrap}
   .sec-head h2{font-size:clamp(1.9rem,4vw,2.9rem);margin-top:10px}
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
-  .hops-sep{max-width:780px;margin:0 auto;padding:0 24px}
-  .hops-sep img{width:100%;display:block;opacity:.92}
+  .hops-sep{max-width:1000px;margin:0 auto;overflow:hidden;display:flex;justify-content:center}
+  .hops-sep img{height:90px;width:auto;max-width:none;flex:0 0 auto;display:block;opacity:.92}
   @media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:600px){.cards{grid-template-columns:1fr}}
 </style>
