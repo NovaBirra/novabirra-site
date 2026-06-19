@@ -8,6 +8,26 @@ const posts = (await getCollection('journal', ({ data }) => !data.draft))
 
 const fmtDate = (d: Date) => d.toLocaleDateString('fr-BE', { month: 'long', year: 'numeric' });
 const catLabel = (c: string) => (c === 'Recette' ? 'Recette' : c === 'Fabrication' ? 'Technique' : c);
+
+// ---- Données filtrables des recettes (fiche technique) ----
+const num = (v?: string): number | null => {
+  if (v == null) return null;
+  const m = v.replace(/&nbsp;/g, ' ').replace(',', '.').match(/[\d.]+/);
+  return m ? parseFloat(m[0]) : null;
+};
+const ebcOf = (v?: string): number | null => {
+  if (v == null) return null;
+  const m = v.match(/(\d+)\s*EBC/i);
+  return m ? parseInt(m[1], 10) : null;
+};
+const recettes = posts.filter((p) => p.data.fiche);
+const stylesList = [...new Set(recettes.map((p) => p.data.fiche!.style))].sort((a, b) => a.localeCompare(b, 'fr'));
+const abvVals = recettes.map((p) => num(p.data.fiche!.abv)).filter((v): v is number => v != null);
+const ibuVals = recettes.map((p) => num(p.data.fiche!.ibu)).filter((v): v is number => v != null);
+const ebcVals = recettes.map((p) => ebcOf(p.data.fiche!.couleur)).filter((v): v is number => v != null);
+const abvMin = Math.floor(Math.min(...abvVals) * 10) / 10, abvMax = Math.ceil(Math.max(...abvVals) * 10) / 10;
+const ibuMin = Math.floor(Math.min(...ibuVals)), ibuMax = Math.ceil(Math.max(...ibuVals));
+const ebcMin = Math.floor(Math.min(...ebcVals)), ebcMax = Math.ceil(Math.max(...ebcVals));
 ---
 <Base title="Le journal | NovaBirra" description="Tous les articles, recettes et techniques du carnet NovaBirra.">
   <header class="list-hero">
@@ -27,6 +47,34 @@ const catLabel = (c: string) => (c === 'Recette' ? 'Recette' : c === 'Fabricatio
         <button class="filter" data-filter="styles">Styles</button>
         <button class="filter" data-filter="ressources">Ressources</button>
       </div>
+
+      <div class="rfilters" id="rfilters" hidden>
+        <div class="rf-bar">
+          <span class="rf-title">Affiner les recettes</span>
+          <button class="rf-reset" id="rfReset" type="button">R&eacute;initialiser</button>
+        </div>
+        <div class="rf-grid">
+          <div class="rf-group rf-styles">
+            <span class="rf-label">Style</span>
+            <div class="rf-chips">
+              {stylesList.map((st) => <button class="rf-chip" type="button" data-style={st}>{st}</button>)}
+            </div>
+          </div>
+          <div class="rf-group">
+            <span class="rf-label">Alcool <b id="abvOut"></b></span>
+            <div class="rf-range" data-key="abv" data-min={abvMin} data-max={abvMax} data-step="0.1" data-unit="&nbsp;%"></div>
+          </div>
+          <div class="rf-group">
+            <span class="rf-label">Amertume <b id="ibuOut"></b></span>
+            <div class="rf-range" data-key="ibu" data-min={ibuMin} data-max={ibuMax} data-step="1" data-unit="&nbsp;IBU"></div>
+          </div>
+          <div class="rf-group">
+            <span class="rf-label">Couleur <b id="ebcOut"></b></span>
+            <div class="rf-range rf-range--color" data-key="ebc" data-min={ebcMin} data-max={ebcMax} data-step="1" data-unit="&nbsp;EBC"></div>
+          </div>
+        </div>
+        <p class="rf-count" id="rfCount"></p>
+      </div>
       <div class="cards">
         {posts.map((p) => (
           <JournalCard
@@ -36,6 +84,10 @@ const catLabel = (c: string) => (c === 'Recette' ? 'Recette' : c === 'Fabricatio
             title={p.data.title}
             dek={p.data.dek}
             meta={`${catLabel(p.data.category)} · ${fmtDate(p.data.date)}`}
+            style={p.data.fiche?.style}
+            abv={num(p.data.fiche?.abv)}
+            ibu={num(p.data.fiche?.ibu)}
+            ebc={ebcOf(p.data.fiche?.couleur)}
           />
         ))}
       </div>
@@ -64,6 +116,36 @@ const catLabel = (c: string) => (c === 'Recette' ? 'Recette' : c === 'Fabricatio
   .filter[data-filter="ressources"].is-active{background:#473C9E;border-color:#473C9E}
   :global(.card.hide){display:none}
   .no-results{text-align:center;color:var(--gris);font-size:1.05rem;padding:30px 0}
+
+  </style>
+
+<style is:global>
+  /* ===== Filtre recettes ===== */
+  .rfilters{background:#fff;border:1px solid var(--ligne);border-radius:18px;padding:24px 26px;margin:-8px 0 36px}
+  .rf-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
+  .rf-title{font-family:var(--ff-t);font-size:1.2rem;color:var(--vert)}
+  .rf-reset{font-family:inherit;font-size:.82rem;font-weight:600;color:var(--gris);background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:4px}
+  .rf-reset:hover{color:var(--vert)}
+  .rf-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px 46px}
+  .rf-styles{grid-column:1 / -1}
+  .rf-label{display:block;font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--vert);margin-bottom:14px}
+  .rf-label b{font-weight:600;text-transform:none;letter-spacing:0;color:var(--gris);font-size:.9rem;margin-left:8px}
+  .rf-chips{display:flex;flex-wrap:wrap;gap:9px}
+  .rf-chip{font-family:inherit;font-size:.85rem;font-weight:600;color:var(--vert);background:#F3EFE6;border:1px solid var(--ligne);padding:7px 16px;border-radius:999px;cursor:pointer;transition:background .18s,color .18s,border-color .18s}
+  .rf-chip:hover{border-color:var(--vert)}
+  .rf-chip.on{background:var(--vert);color:#fff;border-color:var(--vert)}
+  .rf-range{position:relative;height:28px}
+  .rf-track{position:absolute;top:50%;left:9px;right:9px;height:6px;transform:translateY(-50%);background:var(--ligne);border-radius:999px}
+  .rf-fill{position:absolute;top:0;bottom:0;background:var(--vert);border-radius:999px}
+  .rf-range input{position:absolute;top:0;left:0;width:100%;height:28px;margin:0;background:none;pointer-events:none;-webkit-appearance:none;appearance:none}
+  .rf-range input::-webkit-slider-runnable-track{height:28px;background:none}
+  .rf-range input::-moz-range-track{height:28px;background:none}
+  .rf-range input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;pointer-events:auto;width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid var(--vert);box-shadow:0 1px 5px rgba(27,58,46,.3);cursor:pointer}
+  .rf-range input::-moz-range-thumb{pointer-events:auto;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--vert);box-shadow:0 1px 5px rgba(27,58,46,.3);cursor:pointer}
+  .rf-range--color .rf-track{background:linear-gradient(90deg,#F4DC7A,#E7B73D,#C9842B,#9A571A)}
+  .rf-range--color .rf-fill{background:none;box-shadow:inset 0 0 0 2px rgba(27,58,46,.55);border-radius:999px}
+  .rf-count{margin-top:20px;font-size:.85rem;font-weight:600;color:var(--gris)}
+  @media(max-width:640px){.rf-grid{grid-template-columns:1fr;gap:22px}}
 </style>
 
 <script>
@@ -79,30 +161,95 @@ const catLabel = (c: string) => (c === 'Recette' ? 'Recette' : c === 'Fabricatio
     ressources:  ['Ressources', 'Le glossaire du brassage\u00a0: tout le vocabulaire, des ingr\u00e9dients \u00e0 la d\u00e9gustation.'],
     all:         ['Le carnet de brassage', "Recettes, techniques, lectures de styles et ressources\u00a0: tout ce qu'on a appris \u00e0 partager."]
   };
-  const setTitre = (f) => {
-    const t = TITRES[f] || TITRES.all;
-    if (titreEl) titreEl.textContent = t[0];
-    if (sousEl) sousEl.textContent = t[1];
+  const setTitre = (f) => { const t = TITRES[f] || TITRES.all; if (titreEl) titreEl.textContent = t[0]; if (sousEl) sousEl.textContent = t[1]; };
+
+  const rfilters = document.getElementById('rfilters');
+  const rfCount = document.getElementById('rfCount');
+  const chips = Array.from(document.querySelectorAll('.rf-chip'));
+  const selStyles = new Set();
+  const R = {};
+  let activeCat = 'all';
+
+  const recipeOK = (card) => {
+    if (selStyles.size && !selStyles.has(card.dataset.style)) return false;
+    for (const key of ['abv', 'ibu', 'ebc']) {
+      const v = parseFloat(card.dataset[key]);
+      if (!isNaN(v) && R[key] && (v < R[key].lo - 1e-9 || v > R[key].hi + 1e-9)) return false;
+    }
+    return true;
   };
-  filterBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const f = btn.dataset.filter;
-      setTitre(f);
-      filterBtns.forEach((b) => b.classList.toggle('is-active', b === btn));
-      let visible = 0;
-      cards.forEach((card) => {
-        const match = f === 'all' || card.dataset.accent === f;
-        card.classList.toggle('hide', !match);
-        if (match) { card.classList.add('in'); visible++; }
-      });
-      if (empty) empty.hidden = visible !== 0;
+
+  const apply = () => {
+    const showPanel = activeCat === 'recettes';
+    if (rfilters) rfilters.hidden = !showPanel;
+    let visible = 0, rec = 0;
+    cards.forEach((card) => {
+      let show = (activeCat === 'all' || card.dataset.accent === activeCat);
+      if (show && showPanel && card.dataset.accent === 'recettes') show = recipeOK(card);
+      card.classList.toggle('hide', !show);
+      if (show) { card.classList.add('in'); visible++; if (card.dataset.accent === 'recettes') rec++; }
+    });
+    if (empty) empty.hidden = visible !== 0;
+    if (rfCount) rfCount.textContent = rec + (rec > 1 ? ' recettes' : ' recette');
+  };
+
+  document.querySelectorAll('.rf-range').forEach((el) => {
+    const key = el.dataset.key;
+    const min = parseFloat(el.dataset.min), max = parseFloat(el.dataset.max), step = parseFloat(el.dataset.step);
+    const unit = el.dataset.unit || '';
+    el.insertAdjacentHTML('beforeend',
+      '<div class="rf-track"><div class="rf-fill"></div></div>' +
+      '<input type="range" class="rf-lo" min="' + min + '" max="' + max + '" step="' + step + '" value="' + min + '">' +
+      '<input type="range" class="rf-hi" min="' + min + '" max="' + max + '" step="' + step + '" value="' + max + '">');
+    const lo = el.querySelector('.rf-lo'), hi = el.querySelector('.rf-hi'), fill = el.querySelector('.rf-fill');
+    const out = document.getElementById(key + 'Out');
+    const dec = step < 1;
+    const fmt = (v) => dec ? v.toFixed(1).replace('.', ',') : String(v);
+    R[key] = { lo: min, hi: max };
+    const refresh = () => {
+      const a = Math.min(parseFloat(lo.value), parseFloat(hi.value));
+      const b = Math.max(parseFloat(lo.value), parseFloat(hi.value));
+      R[key].lo = a; R[key].hi = b;
+      const lp = (a - min) / (max - min) * 100, hp = (b - min) / (max - min) * 100;
+      fill.style.left = lp + '%'; fill.style.width = (hp - lp) + '%';
+      lo.style.zIndex = (parseFloat(lo.value) > (min + max) / 2) ? 4 : 3;
+      if (out) out.innerHTML = fmt(a) + ' \u2013 ' + fmt(b) + unit;
+      apply();
+    };
+    lo.addEventListener('input', () => { if (parseFloat(lo.value) > parseFloat(hi.value)) lo.value = hi.value; refresh(); });
+    hi.addEventListener('input', () => { if (parseFloat(hi.value) < parseFloat(lo.value)) hi.value = lo.value; refresh(); });
+    refresh();
+  });
+
+  chips.forEach((chip) => chip.addEventListener('click', () => {
+    chip.classList.toggle('on');
+    const st = chip.dataset.style;
+    if (selStyles.has(st)) selStyles.delete(st); else selStyles.add(st);
+    apply();
+  }));
+
+  const rfReset = document.getElementById('rfReset');
+  if (rfReset) rfReset.addEventListener('click', () => {
+    selStyles.clear();
+    chips.forEach((c) => c.classList.remove('on'));
+    document.querySelectorAll('.rf-range').forEach((el) => {
+      const lo = el.querySelector('.rf-lo'), hi = el.querySelector('.rf-hi');
+      lo.value = lo.min; hi.value = hi.max;
+      lo.dispatchEvent(new Event('input'));
     });
   });
 
-  // Filtre initial depuis l'URL (?cat=...) — utilisé par les tuiles « Explorer par thème »
+  filterBtns.forEach((btn) => btn.addEventListener('click', () => {
+    activeCat = btn.dataset.filter;
+    setTitre(activeCat);
+    filterBtns.forEach((b) => b.classList.toggle('is-active', b === btn));
+    apply();
+  }));
+
   const initial = new URLSearchParams(location.search).get('cat');
   if (initial) {
     const target = filterBtns.find((b) => b.dataset.filter === initial);
-    if (target) target.click();
-  }
+    if (target) target.click(); else apply();
+  } else { apply(); }
 </script>
+
