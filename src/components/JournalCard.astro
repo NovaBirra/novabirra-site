@@ -1,10 +1,10 @@
 ---
 import Icon from './Icon.astro';
-interface Props { href: string; category: string; accent: string; title: string; dek: string; meta: string; }
-const { href, category, accent, title, dek, meta } = Astro.props;
+interface Props { href: string; category: string; accent: string; title: string; dek: string; meta: string; style?: string; abv?: number | null; ibu?: number | null; ebc?: number | null; }
+const { href, category, accent, title, dek, meta, style, abv, ibu, ebc } = Astro.props;
 const icon = accent === 'fabrication' ? 'flask' : accent === 'styles' ? 'houblon' : accent === 'ressources' ? 'book' : (Math.random() > .5 ? 'houblon' : 'malt');
 ---
-<article class="card reveal" data-accent={accent}>
+<article class="card reveal" data-accent={accent} data-style={style} data-abv={abv} data-ibu={ibu} data-ebc={ebc}>
   <a href={href} class="card-vis" data-accent={accent} aria-hidden="true">
     <span class="cat">{category}</span>
     <Icon name={icon as any} />
