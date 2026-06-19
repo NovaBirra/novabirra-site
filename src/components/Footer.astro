@@ -1,47 +1,12 @@
 ---
-// Pied de page partagé.
+// Pied de page compact.
 const annee = new Date().getFullYear();
 ---
 <footer class="foot">
-  <div class="wrap">
-    <div class="sep-deco"><span>&#10043;&#10043;&#10043;</span></div>
-    <div class="foot-top">
-      <div class="foot-brand">
-        <div class="mark">NOVA<b>BIRRA</b></div>
-        <p>Le carnet de brassage &amp; de zythologie. Recettes, styles, techniques et ressources pour brasseurs curieux.</p>
-      </div>
-      <div>
-        <h4>Explorer</h4>
-        <a href="/journal/">Le journal</a><a href="/journal/?cat=recettes">Recettes</a><a href="/journal/?cat=fabrication">Fabrication</a><a href="/journal/?cat=styles">Styles</a><a href="/quest-ce-que-la-biere.html">Qu'est-ce que la bi&egrave;re&nbsp;?</a>
-      </div>
-      <div>
-        <h4>Ressources</h4>
-        <a href="/journal/glossaire/">Glossaire</a>
-      </div>
-      <div>
-        <h4>NovaBirra</h4>
-        <a href="https://www.novabirra.com" target="_blank" rel="noopener">Cours &amp; ateliers ↗</a><a href="https://www.facebook.com/pages/NovaBirra/52425197244" target="_blank" rel="noopener">Facebook ↗</a><a href="/#apropos">&Agrave; propos</a>
-      </div>
-    </div>
-    <div class="foot-bottom">
-      <span>&copy; {annee} NovaBirra &middot; Tous droits r&eacute;serv&eacute;s</span>
-    </div>
-  </div>
+  <span>&copy; {annee} NovaBirra &middot; Tous droits r&eacute;serv&eacute;s</span>
 </footer>
 
 <style>
-  .foot{background:var(--vert-d);color:#A9C2B6;padding:70px 0 34px}
-  .sep-deco{display:flex;align-items:center;gap:14px;justify-content:center;margin:0 auto 56px;max-width:520px}
-  .sep-deco::before,.sep-deco::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.12)}
-  .sep-deco span{color:#7FC7E8;letter-spacing:.4em}
-  .foot-top{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;margin-bottom:44px}
-  @media(max-width:780px){.foot-top{grid-template-columns:1fr 1fr}}
-  @media(max-width:480px){.foot-top{grid-template-columns:1fr}}
-  .foot h4{color:#fff;font-family:var(--ff-b);font-weight:700;font-size:.84rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px}
-  .foot a{display:block;color:#A9C2B6;font-size:.94rem;padding:5px 0;transition:color .2s}
-  .foot a:hover{color:var(--jaune)}
-  .foot-brand .mark{font-family:var(--ff-t);font-size:1.7rem;color:#fff;margin-bottom:12px}
-  .foot-brand .mark b{color:var(--jaune)}
-  .foot-brand p{font-size:.92rem;max-width:34ch;color:#90A99D}
-  .foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.84rem;color:#7E978B}
+  .foot{background:var(--vert-d);color:#9DB8AC;text-align:center;padding:22px 24px;font-size:.82rem;letter-spacing:.05em}
+  .foot span{display:inline-block}
 </style>
