@@ -26,7 +26,6 @@ const barColor: Record<string, string> = { houblon: 'var(--houblon)', malt: 'var
       <p class="a-dek">{data.dek}</p>
       <div class="a-meta">
         <span class="who"><span class="av">N</span> NovaBirra</span>
-        <span class="dot"></span><span>{fmtDate(data.date)}</span>
         <span class="dot"></span><span>Lecture {data.readingTime}</span>
       </div>
     </div>
@@ -70,15 +69,8 @@ const barColor: Record<string, string> = { houblon: 'var(--houblon)', malt: 'var
     </div>
   </div>
 
-  <!-- À LIRE ENSUITE -->
-  <section class="related">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <div><span class="eyebrow">&Agrave; lire ensuite</span><h2>Continuer la lecture</h2></div>
-        <a class="back" href="/journal/"><span class="arrow" style="transform:rotate(180deg)">→</span> Tous les articles</a>
-      </div>
-    </div>
-  </section>
+  <!-- Séparateur houblon -->
+  <div class="hops-sep"><img src="/spacer-hops.svg" alt="" loading="lazy" /></div>
 </Base>
 
 <style>
@@ -140,4 +132,6 @@ const barColor: Record<string, string> = { houblon: 'var(--houblon)', malt: 'var
   .related .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
   .related h2{font-size:clamp(1.6rem,3.5vw,2.2rem);margin-top:10px}
   .back{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--houblon-d)}
+  .hops-sep{max-width:1000px;margin:46px auto 78px;overflow:hidden;display:flex;justify-content:center}
+  .hops-sep img{height:90px;width:auto;max-width:none;flex:0 0 auto;display:block;opacity:.92}
 </style>
