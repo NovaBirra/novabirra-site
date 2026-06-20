@@ -47,22 +47,26 @@ const ebcMin = Math.floor(Math.min(...ebcVals)), ebcMax = Math.ceil(Math.max(...
           <button class="rf-reset" id="rfReset" type="button">R&eacute;initialiser</button>
         </div>
         <div class="rf-grid">
-          <div class="rf-group rf-styles">
-            <span class="rf-label">Style</span>
+          <div class="rf-card rf-card--styles" style="--cc:#F5C842">
+            <div class="rf-clabel">Style</div>
+            <p class="rf-sous">La famille de bi&egrave;re &mdash; choix multiple</p>
             <div class="rf-chips">
               {stylesList.map((st) => <button class="rf-chip" type="button" data-style={st}>{st}</button>)}
             </div>
           </div>
-          <div class="rf-group">
-            <span class="rf-label">Alcool <b id="abvOut"></b></span>
+          <div class="rf-card" style="--cc:#EFB35C">
+            <div class="rf-clabel">Alcool <span class="rf-v" id="abvOut"></span></div>
+            <p class="rf-sous">Du l&eacute;ger au capiteux</p>
             <div class="rf-range" data-key="abv" data-min={abvMin} data-max={abvMax} data-step="0.1" data-unit="&nbsp;%"></div>
           </div>
-          <div class="rf-group">
-            <span class="rf-label">Amertume <b id="ibuOut"></b></span>
+          <div class="rf-card" style="--cc:#A8D86B">
+            <div class="rf-clabel">Amertume <span class="rf-v" id="ibuOut"></span></div>
+            <p class="rf-sous">De douce &agrave; cors&eacute;e</p>
             <div class="rf-range" data-key="ibu" data-min={ibuMin} data-max={ibuMax} data-step="1" data-unit="&nbsp;IBU"></div>
           </div>
-          <div class="rf-group">
-            <span class="rf-label">Couleur <b id="ebcOut"></b></span>
+          <div class="rf-card" style="--cc:#D98E2B">
+            <div class="rf-clabel">Couleur <span class="rf-v" id="ebcOut"></span></div>
+            <p class="rf-sous">De la blonde &agrave; l'ambr&eacute;e</p>
             <div class="rf-range rf-range--color" data-key="ebc" data-min={ebcMin} data-max={ebcMax} data-step="1" data-unit="&nbsp;EBC"></div>
           </div>
         </div>
@@ -113,32 +117,35 @@ const ebcMin = Math.floor(Math.min(...ebcVals)), ebcMax = Math.ceil(Math.max(...
   </style>
 
 <style is:global>
-  /* ===== Filtre recettes ===== */
-  .rfilters{background:#fff;border:1px solid var(--ligne);border-radius:18px;padding:24px 26px;margin:-8px 0 36px}
-  .rf-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
-  .rf-title{font-family:var(--ff-t);font-size:1.2rem;color:var(--vert)}
-  .rf-reset{font-family:inherit;font-size:.82rem;font-weight:600;color:var(--gris);background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:4px}
-  .rf-reset:hover{color:var(--vert)}
-  .rf-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px 46px}
-  .rf-styles{grid-column:1 / -1}
-  .rf-label{display:block;font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--vert);margin-bottom:14px}
-  .rf-label b{font-weight:600;text-transform:none;letter-spacing:0;color:var(--gris);font-size:.9rem;margin-left:8px}
+  /* ===== Filtre recettes (design matrice) ===== */
+  .rfilters{background:linear-gradient(165deg,var(--vert) 0%,#11251E 100%);border-radius:20px;padding:30px 32px;margin:4px 0 40px;color:#E9F1EC}
+  .rf-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}
+  .rf-title{font-family:var(--ff-t);font-size:1.35rem;color:#FDFBF6}
+  .rf-reset{font-family:inherit;font-size:.82rem;font-weight:600;color:#9DBBAD;background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:4px;transition:color .2s}
+  .rf-reset:hover{color:var(--jaune)}
+  .rf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .rf-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);border-radius:16px;padding:16px 20px;transition:border-color .3s}
+  .rf-card:hover{border-color:var(--cc)}
+  .rf-card--styles{grid-column:1 / -1}
+  .rf-clabel{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-weight:700;font-size:.95rem;color:#fff;margin-bottom:4px}
+  .rf-v{color:var(--cc);font-family:var(--ff-t);font-size:1.05rem;font-style:italic;font-weight:400;white-space:nowrap}
+  .rf-sous{font-size:.78rem;color:#9DBBAD;margin-bottom:14px}
   .rf-chips{display:flex;flex-wrap:wrap;gap:9px}
-  .rf-chip{font-family:inherit;font-size:.85rem;font-weight:600;color:var(--vert);background:#F3EFE6;border:1px solid var(--ligne);padding:7px 16px;border-radius:999px;cursor:pointer;transition:background .18s,color .18s,border-color .18s}
-  .rf-chip:hover{border-color:var(--vert)}
-  .rf-chip.on{background:var(--vert);color:#fff;border-color:var(--vert)}
-  .rf-range{position:relative;height:28px}
-  .rf-track{position:absolute;top:50%;left:9px;right:9px;height:6px;transform:translateY(-50%);background:var(--ligne);border-radius:999px}
-  .rf-fill{position:absolute;top:0;bottom:0;background:var(--vert);border-radius:999px}
-  .rf-range input{position:absolute;top:0;left:0;width:100%;height:28px;margin:0;background:none;pointer-events:none;-webkit-appearance:none;appearance:none}
-  .rf-range input::-webkit-slider-runnable-track{height:28px;background:none}
-  .rf-range input::-moz-range-track{height:28px;background:none}
-  .rf-range input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;pointer-events:auto;width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid var(--vert);box-shadow:0 1px 5px rgba(27,58,46,.3);cursor:pointer}
-  .rf-range input::-moz-range-thumb{pointer-events:auto;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--vert);box-shadow:0 1px 5px rgba(27,58,46,.3);cursor:pointer}
+  .rf-chip{font-family:inherit;font-size:.85rem;font-weight:600;color:#E9F1EC;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);padding:7px 16px;border-radius:999px;cursor:pointer;transition:background .18s,color .18s,border-color .18s}
+  .rf-chip:hover{border-color:var(--cc)}
+  .rf-chip.on{background:var(--cc);color:var(--vert-d);border-color:var(--cc)}
+  .rf-range{position:relative;height:26px;margin-top:4px}
+  .rf-track{position:absolute;top:50%;left:9px;right:9px;height:6px;transform:translateY(-50%);background:rgba(255,255,255,.16);border-radius:999px}
+  .rf-fill{position:absolute;top:0;bottom:0;background:var(--cc);border-radius:999px}
+  .rf-range input{position:absolute;top:0;left:0;width:100%;height:26px;margin:0;background:none;pointer-events:none;-webkit-appearance:none;appearance:none}
+  .rf-range input::-webkit-slider-runnable-track{height:26px;background:none}
+  .rf-range input::-moz-range-track{height:26px;background:none}
+  .rf-range input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;pointer-events:auto;width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid var(--cc);box-shadow:0 1px 5px rgba(0,0,0,.4);cursor:pointer}
+  .rf-range input::-moz-range-thumb{pointer-events:auto;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--cc);box-shadow:0 1px 5px rgba(0,0,0,.4);cursor:pointer}
   .rf-range--color .rf-track{background:linear-gradient(90deg,#F4DC7A,#E7B73D,#C9842B,#9A571A)}
-  .rf-range--color .rf-fill{background:none;box-shadow:inset 0 0 0 2px rgba(27,58,46,.55);border-radius:999px}
-  .rf-count{margin-top:20px;font-size:.85rem;font-weight:600;color:var(--gris)}
-  @media(max-width:640px){.rf-grid{grid-template-columns:1fr;gap:22px}}
+  .rf-range--color .rf-fill{background:none;box-shadow:inset 0 0 0 2px rgba(255,255,255,.8);border-radius:999px}
+  .rf-count{margin-top:22px;font-size:.85rem;font-weight:600;color:#9DBBAD}
+  @media(max-width:760px){.rf-grid{grid-template-columns:1fr}}
 </style>
 
 <script>
