@@ -40,13 +40,6 @@ const ebcMin = Math.floor(Math.min(...ebcVals)), ebcMax = Math.ceil(Math.max(...
 
   <section class="list">
     <div class="wrap">
-      <div class="filters" role="tablist" aria-label="Filtrer par cat&eacute;gorie">
-        <button class="filter is-active" data-filter="all">Tout</button>
-        <button class="filter" data-filter="recettes">Recettes</button>
-        <button class="filter" data-filter="fabrication">Fabrication</button>
-        <button class="filter" data-filter="styles">Styles</button>
-        <button class="filter" data-filter="ressources">Ressources</button>
-      </div>
 
       <div class="rfilters" id="rfilters" hidden>
         <div class="rf-bar">
@@ -149,7 +142,6 @@ const ebcMin = Math.floor(Math.min(...ebcVals)), ebcMax = Math.ceil(Math.max(...
 </style>
 
 <script>
-  const filterBtns = Array.from(document.querySelectorAll('.filter'));
   const cards = Array.from(document.querySelectorAll('.cards .card'));
   const empty = document.querySelector('.no-results');
   const titreEl = document.querySelector('.list-hero h1');
@@ -239,17 +231,9 @@ const ebcMin = Math.floor(Math.min(...ebcVals)), ebcMax = Math.ceil(Math.max(...
     });
   });
 
-  filterBtns.forEach((btn) => btn.addEventListener('click', () => {
-    activeCat = btn.dataset.filter;
-    setTitre(activeCat);
-    filterBtns.forEach((b) => b.classList.toggle('is-active', b === btn));
-    apply();
-  }));
-
+  // Catégorie active lue depuis l'URL (?cat=...), pilotée par le menu de navigation
   const initial = new URLSearchParams(location.search).get('cat');
-  if (initial) {
-    const target = filterBtns.find((b) => b.dataset.filter === initial);
-    if (target) target.click(); else apply();
-  } else { apply(); }
+  if (initial && TITRES[initial]) { activeCat = initial; setTitre(initial); }
+  apply();
 </script>
 
