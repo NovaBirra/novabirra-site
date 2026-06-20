@@ -135,15 +135,15 @@ const ebcMin = Math.floor(Math.min(...ebcVals)), ebcMax = Math.ceil(Math.max(...
   .rf-chip:hover{border-color:var(--cc)}
   .rf-chip.on{background:var(--cc);color:var(--vert-d);border-color:var(--cc)}
   .rf-range{position:relative;height:26px;margin-top:4px}
-  .rf-track{position:absolute;top:50%;left:9px;right:9px;height:6px;transform:translateY(-50%);background:rgba(255,255,255,.16);border-radius:999px}
-  .rf-fill{position:absolute;top:0;bottom:0;background:var(--cc);border-radius:999px}
+  .rf-track{position:absolute;top:50%;left:9px;right:9px;height:4px;transform:translateY(-50%);background:rgba(0,0,0,.45);border-radius:999px}
+  .rf-fill{position:absolute;top:0;bottom:0;background:transparent;border-radius:999px}
   .rf-range input{position:absolute;top:0;left:0;width:100%;height:26px;margin:0;background:none;pointer-events:none;-webkit-appearance:none;appearance:none}
   .rf-range input::-webkit-slider-runnable-track{height:26px;background:none}
   .rf-range input::-moz-range-track{height:26px;background:none}
-  .rf-range input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;pointer-events:auto;width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid var(--cc);box-shadow:0 1px 5px rgba(0,0,0,.4);cursor:pointer}
-  .rf-range input::-moz-range-thumb{pointer-events:auto;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--cc);box-shadow:0 1px 5px rgba(0,0,0,.4);cursor:pointer}
-  .rf-range--color .rf-track{background:linear-gradient(90deg,#F4DC7A,#E7B73D,#C9842B,#9A571A)}
-  .rf-range--color .rf-fill{background:none;box-shadow:inset 0 0 0 2px rgba(255,255,255,.8);border-radius:999px}
+  .rf-range input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;pointer-events:auto;width:16px;height:16px;border-radius:50%;background:#fff;border:none;box-shadow:0 1px 4px rgba(0,0,0,.55);cursor:pointer}
+  .rf-range input::-moz-range-thumb{pointer-events:auto;width:16px;height:16px;border-radius:50%;background:#fff;border:none;box-shadow:0 1px 4px rgba(0,0,0,.55);cursor:pointer}
+  .rf-range--color .rf-track{background:rgba(0,0,0,.45)}
+  .rf-range--color .rf-fill{background:transparent;box-shadow:none}
   .rf-count{margin-top:22px;font-size:.85rem;font-weight:600;color:#9DBBAD}
   @media(max-width:760px){.rf-grid{grid-template-columns:1fr}}
 </style>
