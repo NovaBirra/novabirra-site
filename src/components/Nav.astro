@@ -17,7 +17,7 @@ const enUrl = lang === 'en' ? path : '/en/';
 <nav class={`nav ${variant === 'solid' ? 'solid' : ''}`} id="nav" data-variant={variant}>
   <a class="brand" href={home} aria-label="NovaBirra"><span class="brand-logo"></span></a>
   <div class="nav-links">
-    <a href="/quest-ce-que-la-biere/">{t('nav.biere')}</a>
+    <a href={lang === 'en' ? '/en/quest-ce-que-la-biere/' : '/quest-ce-que-la-biere/'}>{t('nav.biere')}</a>
     <a href={journalBase + '?cat=recettes'}>{t('nav.recettes')}</a>
     <a href={journalBase + '?cat=fabrication'}>{t('nav.fabrication')}</a>
     <a href={journalBase + '?cat=styles'}>{t('nav.styles')}</a>
@@ -35,6 +35,133 @@ const enUrl = lang === 'en' ? path : '/en/';
   </div>
   <button class="burger" aria-label="Menu" id="burger"><span></span><span></span><span></span></button>
 </nav>
+
+<style>
+  .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:12px 28px;transition:background .35s,box-shadow .35s,padding .35s}
+  .nav.solid{background:rgba(250,247,240,.92);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--ligne);padding:9px 28px}
+  .brand{font-weight:700;letter-spacing:.26em;font-size:1.02rem;color:#fff;transition:color .35s}
+  .nav.solid .brand{color:var(--vert)}
+  .brand b{color:var(--jaune)}
+  .nav.solid .brand b{color:var(--jaune-d)}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a{font-weight:600;font-size:.95rem;color:rgba(255,255,255,.86);transition:color .25s;position:relative}
+  .nav-links a:not(.nav-cta)::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:2px;background:var(--jaune);transition:width .25s}
+  .nav-links a:not(.nav-cta):hover::after{width:100%}
+  .nav.solid .nav-links a{color:var(--encre)}
+  .nav-links a:hover{color:var(--jaune)}
+  .nav.solid .nav-links a:hover{color:var(--houblon-d)}
+  .nav-cta{padding:9px 18px;border-radius:999px;border:1.5px solid rgba(255,255,255,.4);font-size:.9rem!important}
+  .nav.solid .nav-cta{border-color:var(--ligne);background:var(--vert);color:#fff!important}
+  .nav.solid .nav-cta:hover{color:var(--jaune)!important}
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
+  .burger span{width:26px;height:2.5px;background:#fff;border-radius:2px;transition:background .35s,transform .35s,opacity .25s}
+  .nav.solid .burger span{background:var(--vert)}
+  @media(max-width:860px){
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--vert);padding:8px 26px 22px;box-shadow:0 16px 30px rgba(0,0,0,.18)}
+    .nav.open .nav-links{display:flex}
+    .nav-links a{color:#fff!important;padding:13px 2px;font-size:1.05rem;border-bottom:1px solid rgba(255,255,255,.08)}
+    .nav-links a:not(.nav-cta)::after{display:none}
+    .nav-cta{margin-top:14px;text-align:center;background:var(--jaune)!important;color:var(--vert)!important;border:none!important}
+    .burger{display:flex}
+    .nav.open .burger span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+    .nav.open .burger span:nth-child(2){opacity:0}
+    .nav.open .burger span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+  }
+  .brand-logo{display:block;width:120px;height:58px;background-color:#fff;-webkit-mask:url(/logo-novabirra.svg) left center/contain no-repeat;mask:url(/logo-novabirra.svg) left center/contain no-repeat;transition:background-color .35s}
+  .nav.solid .brand-logo{background-color:var(--vert)}
+  .socials{display:inline-flex;align-items:center;gap:15px}
+  .soc{display:inline-flex;align-items:center;color:inherit;transition:color .25s,transform .2s}
+  .soc svg{width:20px;height:20px;display:block}
+  .soc::after{display:none!important}
+  .soc:hover{color:var(--jaune);transform:translateY(-1px)}
+  .nav.solid .soc:hover{color:var(--houblon-d)}
+  .lang-switch{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:.85rem}
+  .lang-switch a{color:rgba(255,255,255,.55)}
+  .lang-switch a.on{color:var(--jaune)}
+  .lang-switch a::after{display:none!important}
+  .nav.solid .lang-switch a{color:var(--gris)}
+  .nav.solid .lang-switch a.on{color:var(--houblon-d)}
+</style>
+
+<script>
+  const navEl = document.getElementById('nav');
+  const burgerEl = document.getElementById('burger');
+  if (navEl && burgerEl) {
+    burgerEl.addEventListener('click', () => navEl.classList.toggle('open'));
+    navEl.querySelectorAll('.nav-links a').forEach((link) =>
+      link.addEventListener('click', () => navEl.classList.remove('open'))
+    );
+    // Referme le menu si on tape en dehors
+    document.addEventListener('click', (e) => {
+      if (navEl.classList.contains('open') && !navEl.contains(e.target)) {
+        navEl.classList.remove('open');
+      }
+    });
+  }
+</script>
+<style>
+  .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:12px 28px;transition:background .35s,box-shadow .35s,padding .35s}
+  .nav.solid{background:rgba(250,247,240,.92);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--ligne);padding:9px 28px}
+  .brand{font-weight:700;letter-spacing:.26em;font-size:1.02rem;color:#fff;transition:color .35s}
+  .nav.solid .brand{color:var(--vert)}
+  .brand b{color:var(--jaune)}
+  .nav.solid .brand b{color:var(--jaune-d)}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a{font-weight:600;font-size:.95rem;color:rgba(255,255,255,.86);transition:color .25s;position:relative}
+  .nav-links a:not(.nav-cta)::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:2px;background:var(--jaune);transition:width .25s}
+  .nav-links a:not(.nav-cta):hover::after{width:100%}
+  .nav.solid .nav-links a{color:var(--encre)}
+  .nav-links a:hover{color:var(--jaune)}
+  .nav.solid .nav-links a:hover{color:var(--houblon-d)}
+  .nav-cta{padding:9px 18px;border-radius:999px;border:1.5px solid rgba(255,255,255,.4);font-size:.9rem!important}
+  .nav.solid .nav-cta{border-color:var(--ligne);background:var(--vert);color:#fff!important}
+  .nav.solid .nav-cta:hover{color:var(--jaune)!important}
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
+  .burger span{width:26px;height:2.5px;background:#fff;border-radius:2px;transition:background .35s,transform .35s,opacity .25s}
+  .nav.solid .burger span{background:var(--vert)}
+  @media(max-width:860px){
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--vert);padding:8px 26px 22px;box-shadow:0 16px 30px rgba(0,0,0,.18)}
+    .nav.open .nav-links{display:flex}
+    .nav-links a{color:#fff!important;padding:13px 2px;font-size:1.05rem;border-bottom:1px solid rgba(255,255,255,.08)}
+    .nav-links a:not(.nav-cta)::after{display:none}
+    .nav-cta{margin-top:14px;text-align:center;background:var(--jaune)!important;color:var(--vert)!important;border:none!important}
+    .burger{display:flex}
+    .nav.open .burger span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+    .nav.open .burger span:nth-child(2){opacity:0}
+    .nav.open .burger span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+  }
+  .brand-logo{display:block;width:120px;height:58px;background-color:#fff;-webkit-mask:url(/logo-novabirra.svg) left center/contain no-repeat;mask:url(/logo-novabirra.svg) left center/contain no-repeat;transition:background-color .35s}
+  .nav.solid .brand-logo{background-color:var(--vert)}
+  .socials{display:inline-flex;align-items:center;gap:15px}
+  .soc{display:inline-flex;align-items:center;color:inherit;transition:color .25s,transform .2s}
+  .soc svg{width:20px;height:20px;display:block}
+  .soc::after{display:none!important}
+  .soc:hover{color:var(--jaune);transform:translateY(-1px)}
+  .nav.solid .soc:hover{color:var(--houblon-d)}
+  .lang-switch{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:.85rem}
+  .lang-switch a{color:rgba(255,255,255,.55)}
+  .lang-switch a.on{color:var(--jaune)}
+  .lang-switch a::after{display:none!important}
+  .nav.solid .lang-switch a{color:var(--gris)}
+  .nav.solid .lang-switch a.on{color:var(--houblon-d)}
+</style>
+
+<script>
+  const navEl = document.getElementById('nav');
+  const burgerEl = document.getElementById('burger');
+  if (navEl && burgerEl) {
+    burgerEl.addEventListener('click', () => navEl.classList.toggle('open'));
+    navEl.querySelectorAll('.nav-links a').forEach((link) =>
+      link.addEventListener('click', () => navEl.classList.remove('open'))
+    );
+    // Referme le menu si on tape en dehors
+    document.addEventListener('click', (e) => {
+      if (navEl.classList.contains('open') && !navEl.contains(e.target)) {
+        navEl.classList.remove('open');
+      }
+    });
+  }
+</script></nav>
 
 <style>
   .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:12px 28px;transition:background .35s,box-shadow .35s,padding .35s}
