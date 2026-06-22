@@ -17,7 +17,7 @@ const enUrl = lang === 'en' ? path : '/en/';
   <a class="brand" href={home} aria-label="NovaBirra"><span class="brand-logo"></span></a>
   <div class="nav-links">
     <a href="/quest-ce-que-la-biere/">{t('nav.biere')}</a>
-    <a href="/journal/?cat=recettes">{t('nav.recettes')}</a>
+    <a href={lang === 'en' ? '/en/journal/?cat=recettes' : '/journal/?cat=recettes'}>{t('nav.recettes')}</a>
     <a href="/journal/?cat=fabrication">{t('nav.fabrication')}</a>
     <a href="/journal/?cat=styles">{t('nav.styles')}</a>
     <a href="/journal/?cat=ressources">{t('nav.ressources')}</a>
