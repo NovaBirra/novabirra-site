@@ -3,11 +3,14 @@
 // Les données viennent du frontmatter de la recette (ingredients + volumeBase).
 interface Ingredient { nom: string; note?: string; base: number; unit: 'kg'|'g'|'L'|'sachet'; }
 interface Props { ingredients: Ingredient[]; volumeBase?: number; }
+import { useTranslations, getLang } from '../i18n/ui';
 const { ingredients, volumeBase = 20 } = Astro.props;
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
 ---
-<div class="scaler" data-base={volumeBase}>
+<div class="scaler" data-base={volumeBase} data-lang={lang}>
   <div class="scaler-head">
-    <span class="sh-lab">Pour quel volume&nbsp;?</span>
+    <span class="sh-lab">{t('scaler.volume')}</span>
     <div class="vol-ctrl">
       <button class="vol-minus" aria-label="Diminuer">&minus;</button>
       <span class="vol-val">{volumeBase}</span><span class="u">L</span>
@@ -43,26 +46,30 @@ const { ingredients, volumeBase = 20 } = Astro.props;
 </style>
 
 <script>
-  function frFmt(n: number, dec: number) {
-    return n.toFixed(dec).replace('.', ',').replace(/,?0+$/, (m) => (m.includes(',') ? '' : m));
+  function numFmt(v: number, dec: number, lang: string) {
+    let s = v.toFixed(dec);
+    if (s.includes('.')) s = s.replace(/\.?0+$/, '');
+    if (lang === 'fr') s = s.replace('.', ',');
+    return s;
   }
-  function fmt(base: number, unit: string, r: number) {
+  function fmt(base: number, unit: string, r: number, lang: string) {
     const v = base * r;
-    if (unit === 'kg') return (v < 1 ? frFmt(v, 3) : frFmt(v, 2)) + ' kg';
+    if (unit === 'kg') return (v < 1 ? numFmt(v, 3, lang) : numFmt(v, 2, lang)) + ' kg';
     if (unit === 'g') return Math.round(v) + ' g';
-    if (unit === 'L') return frFmt(v, 1) + ' L';
+    if (unit === 'L') return numFmt(v, 1, lang) + ' L';
     if (unit === 'sachet') { const s = Math.max(1, Math.round(v)); return s + (s > 1 ? ' sachets' : ' sachet'); }
     return String(v);
   }
   document.querySelectorAll<HTMLElement>('.scaler').forEach((sc) => {
     const base = Number(sc.dataset.base) || 20;
+    const lang = sc.dataset.lang || 'fr';
     let vol = base;
     const valEl = sc.querySelector('.vol-val')!;
     const fiche = document.querySelector<HTMLElement>('[data-fiche-vol]');
     const render = () => {
       const r = vol / base;
       sc.querySelectorAll<HTMLElement>('.ing-q').forEach((td) => {
-        td.textContent = fmt(Number(td.dataset.base), td.dataset.unit!, r);
+        td.textContent = fmt(Number(td.dataset.base), td.dataset.unit!, r, lang);
       });
       valEl.textContent = String(vol);
       if (fiche) fiche.textContent = vol + ' L';
