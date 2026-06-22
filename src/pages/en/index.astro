@@ -1,0 +1,18 @@
+---
+// Page d'accueil ANGLAISE — modèle bilingue.
+// Les composants détectent la langue via Astro.currentLocale (= 'en' ici,
+// car la page est sous /en/) et affichent l'anglais depuis le dictionnaire.
+// Pour étoffer : ajouter d'autres sections au fur et à mesure de leur
+// traduction (FeatureInteractive, ThemeTiles, etc.).
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import Newsletter from '../../components/Newsletter.astro';
+---
+<Base
+  title="NovaBirra — Brewing journal & beer culture"
+  description="Recipes, styles, techniques and resources for curious brewers. NovaBirra's brewing journal."
+  navVariant="hero"
+>
+  <Hero />
+  <Newsletter />
+</Base>
