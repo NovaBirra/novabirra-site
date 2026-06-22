@@ -39,8 +39,8 @@ Good protein coagulation is also necessary: allow a boil time of **at least 90 m
 
 Fermentation is readily done in open vessels, with a pitch of 10 to 15 million cells per millilitre, between **18 and 22 °C**. Cold conditioning then takes place between 4 and 8 °C, traditionally in horizontal tanks.
 
-## Re-fermentation and maturation
+## Bottle conditioning and maturation
 
 The traditional method has the brewer add fresh wort for the re-fermentation, along with a bottom-fermenting yeast. A variant: add a wort that's already been fermenting for 36 to 48 h. Some even halt the main fermentation by cooling, 2 °Plato before the attenuation limit, and transfer the young beer to a conditioning tank where it finishes fermenting under pressure.
 
-In the bottle, count on a week of re-fermentation in a warm room, then 3 to 4 weeks of cold maturation.
+Count on a week of bottle conditioning in a warm room, then 3 to 4 weeks of cold maturation.
