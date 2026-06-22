@@ -22,7 +22,7 @@ As with any undertaking, the success of a brew day largely comes down to prepara
 - Inspect the equipment. A quick rinse with clear water is enough if it was clean; for organic deposits, a clean with Chemipro Acid is recommended.
 - Arrange the equipment with the next day's sequence of steps in mind.
 - Prepare and check your measuring instruments: hydrometer, refractometer, thermometer.
-- Check the heating system. With a gas burner, keep a spare canister on hand.
+- Check the heating system. If you'll be using a gas burner, keep a spare canister on hand.
 - To save time, weigh and crush the malts ahead, then store the grist in an airtight container somewhere cool.
 - Prepare the total amount of water, measured precisely. If your water is high in chlorine or bicarbonates, heating it to 80 °C drives off the chlorine and precipitates the bicarbonates.
 - Print out the list of steps so you forget nothing.
