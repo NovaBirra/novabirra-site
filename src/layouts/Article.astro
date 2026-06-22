@@ -1,0 +1,136 @@
+---
+// Gabarit d'article PARTAGÉ (FR + EN). Reçoit une entrée de collection `post`
+// (depuis la route FR /journal/ ou la route EN /en/journal/) et l'affiche.
+// Les textes d'interface viennent du dictionnaire selon Astro.currentLocale.
+import Base from './Base.astro';
+import Icon from '../components/Icon.astro';
+import { useTranslations, getLang } from '../i18n/ui';
+
+interface Props { post: any; }
+const { post } = Astro.props;
+const { data } = post;
+
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+const isRecipe = !!data.fiche;
+const barColor: Record<string, string> = { houblon: 'var(--houblon)', malt: 'var(--malt)', eau: 'var(--eau)', levure: 'var(--levure)' };
+
+const home = lang === 'en' ? '/en/' : '/';
+const journalBase = lang === 'en' ? '/en/journal/' : '/journal/';
+const catLabel = t('cat.' + data.accent);
+---
+<Base title={`${data.title} | NovaBirra`} description={data.dek} progress={true}>
+  <!-- EN-TÊTE -->
+  <header class="a-hero">
+    <div class="wrap">
+      <p class="crumbs"><a href={home}>{t('article.home')}</a> &rsaquo; <a href={`${journalBase}?cat=${data.accent}`}>{catLabel}</a> &rsaquo; {data.title}</p>
+      <span class="a-cat" data-accent={data.accent}>{catLabel}</span>
+      <h1>{data.title}</h1>
+      <p class="a-dek">{data.dek}</p>
+      <div class="a-meta">
+        <span class="who"><span class="av">N</span> NovaBirra</span>
+        <span class="dot"></span><span>{t('article.readBefore')}{data.readingTime}{t('article.readAfter')}</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- CORPS + FICHE -->
+  <div class="wrap">
+    <div class="a-body" data-recipe={isRecipe}>
+      <article class="prose">
+        <slot />
+      </article>
+
+      {isRecipe && (
+        <aside>
+          <div class="fiche reveal">
+            <div class="fiche-head">
+              <div class="ico"><Icon name="houblon" /><div><h3>{t('fiche.title')}</h3><p>{data.title}</p></div></div>
+            </div>
+            <div class="fiche-stats">
+              <div class="row"><span class="k">{t('fiche.style')}</span><span class="v">{data.fiche!.style}</span></div>
+              <div class="row"><span class="k">{t('fiche.abv')}</span><span class="v" set:html={data.fiche!.abv} /></div>
+              {data.fiche!.ibu && <div class="row"><span class="k">{t('fiche.ibu')}</span><span class="v">{data.fiche!.ibu}</span></div>}
+              <div class="row"><span class="k">{t('fiche.couleur')}</span><span class="v">{data.fiche!.couleur}</span></div>
+              <div class="row"><span class="k">{t('fiche.fermentation')}</span><span class="v" set:html={data.fiche!.fermentation} /></div>
+              <div class="row"><span class="k">{t('fiche.volume')}</span><span class="v" data-fiche-vol>{data.fiche!.volumeBase} L</span></div>
+            </div>
+            {data.profil && (
+              <div class="fiche-prof">
+                <p class="pt">{t('fiche.profil')}</p>
+                {data.profil.map((b: any) => (
+                  <div class="bar">
+                    <div class="lab"><span>{b.label}</span><span>{b.note}</span></div>
+                    <div class="track"><div class="fill" style={`width:${b.value}%;background:${barColor[b.couleur]}`}></div></div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </aside>
+      )}
+    </div>
+  </div>
+
+  <!-- Séparateur houblon -->
+  <div class="hops-sep"><img src="/spacer-hops.svg" alt="" loading="lazy" /></div>
+</Base>
+
+<style>
+  .a-hero{background:radial-gradient(120% 100% at 75% 0%,#23493B,var(--vert) 45%,var(--vert-d));color:#E9F1EC;padding:130px 0 60px}
+  .a-cat{display:inline-flex;align-items:center;gap:8px;color:#fff;font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:999px;background:var(--malt)}
+  .a-cat[data-accent="fabrication"]{background:var(--eau)}
+  .a-cat[data-accent="styles"]{background:var(--houblon)}
+  .a-cat[data-accent="ressources"]{background:var(--levure)}
+  .crumbs{font-size:.82rem;color:#8FB0A0;margin-bottom:22px}
+  .crumbs a:hover{color:var(--jaune)}
+  .a-hero h1{color:#FDFBF6;font-size:clamp(2.4rem,6vw,4.2rem);font-weight:900;max-width:16ch;margin:20px 0 16px;letter-spacing:-.01em}
+  .a-dek{font-size:1.2rem;color:#C6D8CD;max-width:60ch}
+  .a-meta{display:flex;align-items:center;gap:18px;margin-top:28px;font-size:.9rem;color:#9FBCAE;flex-wrap:wrap}
+  .a-meta .who{display:flex;align-items:center;gap:10px;color:#E7F0EA;font-weight:600}
+  .a-meta .av{width:34px;height:34px;border-radius:50%;background:var(--jaune);color:var(--vert);display:flex;align-items:center;justify-content:center;font-weight:700;font-family:var(--ff-t)}
+  .a-meta .dot{width:4px;height:4px;border-radius:50%;background:#5e7a6c}
+
+  .a-body{display:grid;grid-template-columns:1fr 320px;gap:56px;padding:64px 0 40px;align-items:start}
+  .a-body[data-recipe="false"]{grid-template-columns:minmax(0,760px);justify-content:center}
+  @media(max-width:920px){.a-body{grid-template-columns:1fr;gap:36px}}
+
+  .prose{max-width:68ch;font-size:1.1rem;color:#33352F}
+  .prose :global(p){margin-bottom:22px}
+  .prose :global(p:first-of-type)::first-letter{font-family:var(--ff-t);font-size:3.6rem;font-weight:900;float:left;line-height:.82;padding:6px 12px 0 0;color:var(--malt-d)}
+  .prose :global(h2){font-size:1.7rem;margin:42px 0 14px}
+  .prose :global(.hsign){color:var(--jaune-d)}
+  .prose :global(h3){font-size:1.28rem;margin:28px 0 10px}
+  .prose :global(strong){color:var(--vert)}
+  .prose :global(a){color:var(--houblon-d);font-weight:600;border-bottom:1.5px solid var(--jaune)}
+  .prose :global(blockquote){border-left:3px solid var(--jaune);padding:8px 0 8px 24px;margin:30px 0;font-family:var(--ff-t);font-style:italic;font-size:1.4rem;color:var(--vert);line-height:1.4}
+  .prose :global(ul){margin:0 0 22px 22px}.prose :global(li){margin-bottom:6px}
+
+  .prose :global(ol){list-style:none;counter-reset:s;margin:10px 0 22px}
+  .prose :global(ol > li){counter-increment:s;position:relative;padding:6px 0 22px 56px;font-size:1.05rem;color:#33352F}
+  .prose :global(ol > li)::before{content:counter(s);position:absolute;left:0;top:2px;width:38px;height:38px;border-radius:50%;background:var(--vert);color:#fff;font-family:var(--ff-t);font-weight:700;font-size:1.1rem;display:flex;align-items:center;justify-content:center}
+  .prose :global(ol > li)::after{content:"";position:absolute;left:18.5px;top:42px;bottom:0;width:2px;background:var(--ligne)}
+  .prose :global(ol > li):last-child::after{display:none}
+
+  .fiche{position:sticky;top:90px;background:#fff;border:1px solid var(--ligne);border-radius:20px;overflow:hidden;box-shadow:0 16px 40px rgba(27,58,46,.08)}
+  .fiche-head{background:var(--vert);color:#fff;padding:20px 24px}
+  .fiche-head .ico{display:flex;align-items:center;gap:12px}
+  .fiche-head :global(svg){width:30px;height:30px;color:#fff}
+  .fiche-head h3{color:#fff;font-size:1.25rem}
+  .fiche-head p{color:#A9C9BA;font-size:.84rem;margin-top:2px}
+  .fiche-stats{padding:8px 24px}
+  .fiche-stats .row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px dashed var(--ligne);font-size:.95rem}
+  .fiche-stats .row:last-child{border-bottom:none}
+  .fiche-stats .k{color:var(--gris)}
+  .fiche-stats .v{font-weight:700;color:var(--vert);font-family:var(--ff-t);font-size:1.05rem}
+  .fiche-prof{padding:18px 24px 24px;border-top:1px solid var(--ligne)}
+  .fiche-prof .pt{font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);margin-bottom:14px}
+  .bar{margin-bottom:12px}
+  .bar .lab{display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;color:var(--vert);margin-bottom:5px}
+  .bar .track{height:8px;border-radius:5px;background:var(--ligne);overflow:hidden}
+  .bar .fill{height:100%;border-radius:5px;transform-origin:left;animation:grow 1s cubic-bezier(.2,.8,.3,1) both}
+  @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+  .hops-sep{max-width:1000px;margin:46px auto 78px;overflow:hidden;display:flex;justify-content:center}
+  .hops-sep img{height:90px;width:auto;max-width:none;flex:0 0 auto;display:block;opacity:.92}
+</style>
