@@ -19,7 +19,7 @@ As with any undertaking, the success of a brew day largely comes down to prepara
 
 - Set up the brewing space and a work surface, especially if you don't have a dedicated spot.
 - Lay out the ingredients and the cleaning products, within easy reach.
-- Inspect the equipment. A rinse with clean water is enough if it was clean; for organic deposits, a clean with Chemipro Acid is recommended.
+- Inspect the equipment. A quick rinse with clear water is enough if it was clean; for organic deposits, a clean with Chemipro Acid is recommended.
 - Arrange the equipment with the next day's sequence of steps in mind.
 - Prepare and check your measuring instruments: hydrometer, refractometer, thermometer.
 - Check the heating system. With a gas burner, keep a spare canister on hand.
