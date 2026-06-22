@@ -1,12 +1,14 @@
 ---
 // Hero éditorial de la page d'accueil.
+import { useTranslations } from '../i18n/ui';
+const t = useTranslations(Astro.currentLocale);
 ---
 <header class="hero">
   <canvas id="bulles" aria-hidden="true"></canvas>
   <div class="wrap">
-    <span class="eyebrow hero-eyebrow">Carnet de brassage &amp; zythologie</span>
-    <h1>Le savoir-faire derri&egrave;re chaque <em>gorg&eacute;e</em>.</h1>
-    <p class="hero-sub">Recettes, styles, techniques et ressources pour brasseurs curieux &mdash; et une plong&eacute;e interactive dans la mati&egrave;re vivante qu'est la bi&egrave;re.</p>
+    <span class="eyebrow hero-eyebrow">{t('hero.eyebrow')}</span>
+    <h1 set:html={t('hero.title')}></h1>
+    <p class="hero-sub">{t('hero.sub')}</p>
   </div>
 </header>
 

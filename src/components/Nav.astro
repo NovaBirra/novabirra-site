@@ -1,23 +1,36 @@
 ---
 // Navigation partagée. `variant="hero"` = transparente sur fond sombre
 // (page d'accueil) ; `variant="solid"` = crème opaque (pages d'article).
+import { useTranslations, getLang } from '../i18n/ui';
 interface Props { variant?: 'hero' | 'solid'; }
 const { variant = 'solid' } = Astro.props;
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+const home = lang === 'en' ? '/en/' : '/';
+const path = Astro.url.pathname;
+// Sélecteur : la langue courante reste sur la page ; l'autre pointe vers son
+// accueil (à rendre « page à page » au fil des traductions).
+const frUrl = lang === 'fr' ? path : '/';
+const enUrl = lang === 'en' ? path : '/en/';
 ---
 <nav class={`nav ${variant === 'solid' ? 'solid' : ''}`} id="nav" data-variant={variant}>
-  <a class="brand" href="/" aria-label="NovaBirra — Accueil"><span class="brand-logo"></span></a>
+  <a class="brand" href={home} aria-label="NovaBirra"><span class="brand-logo"></span></a>
   <div class="nav-links">
-    <a href="/quest-ce-que-la-biere/">La bi&egrave;re&nbsp;?</a>
-    <a href="/journal/?cat=recettes">Recettes</a>
-    <a href="/journal/?cat=fabrication">Fabrication</a>
-    <a href="/journal/?cat=styles">Styles</a>
-    <a href="/journal/?cat=ressources">Ressources</a>
-    <a href="/#question">Besoin d'un conseil&nbsp;?</a>
+    <a href="/quest-ce-que-la-biere/">{t('nav.biere')}</a>
+    <a href="/journal/?cat=recettes">{t('nav.recettes')}</a>
+    <a href="/journal/?cat=fabrication">{t('nav.fabrication')}</a>
+    <a href="/journal/?cat=styles">{t('nav.styles')}</a>
+    <a href="/journal/?cat=ressources">{t('nav.ressources')}</a>
+    <a href={home + '#question'}>{t('nav.conseil')}</a>
     <span class="socials">
       <a class="soc" href="https://www.instagram.com/novabirra/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g stroke-linecap="round" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linejoin="round"><path d="M6.5,23.5c-3.31368,0 -6,-2.68632 -6,-6v-11c0,-3.31368 2.68632,-6 6,-6h11c3.31368,0 6,2.68632 6,6v11c0,3.31368 -2.68632,6 -6,6Z"/><path d="M16.2426,7.75736c2.34315,2.34315 2.34315,6.14214 0,8.48528c-2.34315,2.34315 -6.14214,2.34315 -8.48528,0c-2.34315,-2.34315 -2.34315,-6.14214 0,-8.48528c2.34315,-2.34315 6.14214,-2.34315 8.48528,0"/><path d="M20.0607,3.93934c0.585786,0.585786 0.585786,1.53553 0,2.12132c-0.585786,0.585786 -1.53553,0.585786 -2.12132,0c-0.585786,-0.585786 -0.585786,-1.53553 0,-2.12132c0.585786,-0.585786 1.53553,-0.585786 2.12132,0"/></g></svg></a>
       <a class="soc" href="https://www.facebook.com/pages/NovaBirra/52425197244" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12.5,23.5h-11c-0.552285,0 -1,-0.447715 -1,-1v-21c0,-0.552285 0.447715,-1 1,-1h21c0.552285,0 1,0.447715 1,1v21c0,0.552285 -0.447715,1 -1,1h-6v-9h2.559c0.253637,0.00195665 0.468556,-0.186312 0.5,-0.438l0.375,-3c0.0342498,-0.27401 -0.160114,-0.523904 -0.434124,-0.558154c-0.0218499,-0.00273112 -0.0438564,-0.00401587 -0.0658757,-0.00384584h-2.934v-1.315c0.00111297,-0.930533 0.755485,-1.68444 1.68602,-1.68498h1.81398c0.276142,0 0.5,-0.223858 0.5,-0.5v-3c0,-0.276142 -0.223858,-0.5 -0.5,-0.5h-1.814c-3.13853,0.00330606 -5.68214,2.54647 -5.686,5.685v1.315h-2.5c-0.276142,0 -0.5,0.223858 -0.5,0.5v3c0,0.276142 0.223858,0.5 0.5,0.5h2.5v9Z" stroke-linecap="round" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linejoin="round"/></svg></a>
     </span>
-    <a class="nav-cta" href="https://www.novabirra.com" target="_blank" rel="noopener">Cours &amp; ateliers ↗</a>
+    <span class="lang-switch">
+      <a href={frUrl} class={lang === 'fr' ? 'on' : ''}>FR</a>
+      <a href={enUrl} class={lang === 'en' ? 'on' : ''}>EN</a>
+    </span>
+    <a class="nav-cta" href="https://www.novabirra.com" target="_blank" rel="noopener">{t('nav.cta')}</a>
   </div>
   <button class="burger" aria-label="Menu" id="burger"><span></span><span></span><span></span></button>
 </nav>
@@ -61,6 +74,12 @@ const { variant = 'solid' } = Astro.props;
   .soc::after{display:none!important}
   .soc:hover{color:var(--jaune);transform:translateY(-1px)}
   .nav.solid .soc:hover{color:var(--houblon-d)}
+  .lang-switch{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:.85rem}
+  .lang-switch a{color:rgba(255,255,255,.55)}
+  .lang-switch a.on{color:var(--jaune)}
+  .lang-switch a::after{display:none!important}
+  .nav.solid .lang-switch a{color:var(--gris)}
+  .nav.solid .lang-switch a.on{color:var(--houblon-d)}
 </style>
 
 <script>

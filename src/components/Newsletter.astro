@@ -1,28 +1,28 @@
 ---
 // Bandeau « Demandez au maître brasseur ».
-// Le bouton ouvre la messagerie du visiteur avec le sujet (selon le thème choisi)
-// et la question déjà remplis, vers manu@novabirra.com. Aucun serveur requis.
+import { useTranslations } from '../i18n/ui';
+const t = useTranslations(Astro.currentLocale);
 ---
 <section class="ask" id="question">
   <div class="wrap">
     <div class="ask-intro reveal">
-      <span class="eyebrow">Une question&nbsp;?</span>
-      <h3>Demandez au ma&icirc;tre brasseur</h3>
-      <p>Emanuele vous r&eacute;pond personnellement. Choisissez un sujet, &eacute;crivez votre question&nbsp;: elle arrive droit dans sa bo&icirc;te.</p>
+      <span class="eyebrow">{t('ask.eyebrow')}</span>
+      <h3>{t('ask.title')}</h3>
+      <p>{t('ask.intro')}</p>
     </div>
     <div class="ask-form reveal">
-      <label class="sr-only" for="q-sujet">Sujet de votre question</label>
-      <select id="q-sujet">
-        <option value="">&mdash;&nbsp;Choisissez un sujet&nbsp;&mdash;</option>
-        <option value="J'ai une question sur une recette">Une recette</option>
-        <option value="J'ai une question sur la fabrication">La fabrication</option>
-        <option value="J'ai une question sur les styles de bi&egrave;re">Les styles de bi&egrave;re</option>
-        <option value="J'ai une question sur les ressources">Les ressources</option>
-        <option value="J'ai une question pour le ma&icirc;tre brasseur">Autre sujet</option>
+      <label class="sr-only" for="q-sujet">{t('ask.title')}</label>
+      <select id="q-sujet" data-default={t('ask.subj.autre')}>
+        <option value="">{t('ask.opt.default')}</option>
+        <option value={t('ask.subj.recette')}>{t('ask.opt.recette')}</option>
+        <option value={t('ask.subj.fabrication')}>{t('ask.opt.fabrication')}</option>
+        <option value={t('ask.subj.styles')}>{t('ask.opt.styles')}</option>
+        <option value={t('ask.subj.ressources')}>{t('ask.opt.ressources')}</option>
+        <option value={t('ask.subj.autre')}>{t('ask.opt.autre')}</option>
       </select>
-      <label class="sr-only" for="q-texte">Votre question</label>
-      <textarea id="q-texte" rows="4" placeholder="&Eacute;crivez votre question ici&hellip;"></textarea>
-      <button id="q-send" class="btn-send" type="button">J'envoie ma question au ma&icirc;tre brasseur</button>
+      <label class="sr-only" for="q-texte">{t('ask.eyebrow')}</label>
+      <textarea id="q-texte" rows="4" placeholder={t('ask.placeholder')}></textarea>
+      <button id="q-send" class="btn-send" type="button">{t('ask.send')}</button>
     </div>
   </div>
 </section>
@@ -52,7 +52,7 @@
     btn.addEventListener('click', () => {
       const question = txt.value.trim();
       if (!question) { txt.focus(); return; }
-      const sujet = sel.value || "J'ai une question pour le maître brasseur";
+      const sujet = sel.value || sel.dataset.default || "J'ai une question pour le maître brasseur";
       const url = 'mailto:manu@novabirra.com'
         + '?subject=' + encodeURIComponent(sujet)
         + '&body=' + encodeURIComponent(question);
