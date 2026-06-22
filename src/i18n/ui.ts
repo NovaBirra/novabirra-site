@@ -44,6 +44,24 @@ export const ui = {
     'ask.subj.autre': "J'ai une question pour le maître brasseur",
     'ask.placeholder': 'Écrivez votre question ici…',
     'ask.send': "J'envoie ma question au maître brasseur",
+
+    // — Article / recette —
+    'article.home': 'Accueil',
+    'article.readBefore': 'Lecture\u00a0',
+    'article.readAfter': '',
+    'cat.recettes': 'Recette',
+    'cat.fabrication': 'Fabrication',
+    'cat.styles': 'Styles',
+    'cat.ressources': 'Ressources',
+    'fiche.title': 'Fiche technique',
+    'fiche.style': 'Style',
+    'fiche.abv': 'Alcool',
+    'fiche.ibu': 'Amertume',
+    'fiche.couleur': 'Couleur',
+    'fiche.fermentation': 'Fermentation',
+    'fiche.volume': 'Volume',
+    'fiche.profil': 'Profil de dégustation',
+    'scaler.volume': 'Pour quel volume\u00a0?',
   },
 
   en: {
@@ -81,6 +99,24 @@ export const ui = {
     'ask.subj.autre': 'I have a question for the master brewer',
     'ask.placeholder': 'Write your question here…',
     'ask.send': 'Send my question to the master brewer',
+
+    // — Article / recipe —
+    'article.home': 'Home',
+    'article.readBefore': '',
+    'article.readAfter': '\u00a0read',
+    'cat.recettes': 'Recipe',
+    'cat.fabrication': 'Brewing',
+    'cat.styles': 'Styles',
+    'cat.ressources': 'Resources',
+    'fiche.title': 'Technical sheet',
+    'fiche.style': 'Style',
+    'fiche.abv': 'Alcohol',
+    'fiche.ibu': 'Bitterness',
+    'fiche.couleur': 'Colour',
+    'fiche.fermentation': 'Fermentation',
+    'fiche.volume': 'Volume',
+    'fiche.profil': 'Tasting profile',
+    'scaler.volume': 'For what volume?',
   },
 } as const;
 
@@ -95,7 +131,9 @@ export function getLang(locale?: string): Lang {
 /** Helper de traduction : const t = useTranslations(Astro.currentLocale). */
 export function useTranslations(locale?: string) {
   const lang = getLang(locale);
-  return function t(key: UIKey): string {
-    return ui[lang][key] ?? ui[defaultLang as Lang][key] ?? key;
+  return function t(key: string): string {
+    const dict = ui[lang] as Record<string, string>;
+    const def = ui[defaultLang as Lang] as Record<string, string>;
+    return dict[key] ?? def[key] ?? key;
   };
 }
