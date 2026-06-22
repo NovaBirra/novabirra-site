@@ -57,7 +57,7 @@ export const ui = {
     'nav.cta': 'Courses & workshops ↗',
 
     // — Hero (home) —
-    'hero.eyebrow': 'Brewing journal & beer culture',
+    'hero.eyebrow': 'Brewing notebook & zythology',
     'hero.title': 'The craft behind every <em>sip</em>.',
     'hero.sub': 'Recipes, styles, techniques and resources for curious brewers — plus an interactive dive into beer as a living material.',
 
