@@ -6,6 +6,16 @@ export default defineConfig({
   // Domaine final : indispensable pour le sitemap et les URL canoniques.
   site: 'https://novabirra.be',
 
+  // ------------------------------------------------------------------
+  // INTERNATIONALISATION — FR par défaut (sans préfixe), EN sous /en/.
+  // Routage manuel : on crée soi-même les pages dans src/pages/en/.
+  // ------------------------------------------------------------------
+  i18n: {
+    defaultLocale: 'fr',
+    locales: ['fr', 'en'],
+    routing: { prefixDefaultLocale: false },
+  },
+
   integrations: [mdx(), sitemap()],
 
   // ------------------------------------------------------------------
