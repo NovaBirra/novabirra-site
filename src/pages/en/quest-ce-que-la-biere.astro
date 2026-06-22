@@ -1,0 +1,665 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="What is beer? — NovaBirra" description="From water to glass: understanding beer and its infinite aromatic matrix. An interactive NovaBirra experience." navVariant="hero">
+
+<!-- ======================= HERO ======================= -->
+<header class="hero">
+  <canvas id="bulles" aria-hidden="true"></canvas>
+  <svg class="hero-glass" viewBox="0 0 200 320" aria-hidden="true">
+    <defs>
+      <linearGradient id="robe" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#F2B53D"/><stop offset="1" stop-color="#C8821A"/>
+      </linearGradient>
+    </defs>
+    <path d="M40,18 L160,18 L150,250 Q148,288 100,288 Q52,288 50,250 Z" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.5)" stroke-width="3"/>
+    <path d="M48,66 L152,66 L149.5,250 Q148,282 100,282 Q52,282 50.5,250 Z" fill="url(#robe)" opacity=".94"/>
+    <ellipse cx="100" cy="64" rx="52" ry="13" fill="#FDF6E3"/>
+    <ellipse cx="78" cy="58" rx="14" ry="7" fill="#fff"/>
+    <ellipse cx="116" cy="61" rx="10" ry="5" fill="#fff" opacity=".85"/>
+    <circle class="hb" cx="80" cy="220" r="4" fill="rgba(255,255,255,.55)"/>
+    <circle class="hb" cx="112" cy="190" r="3" fill="rgba(255,255,255,.5)"/>
+    <circle class="hb" cx="95" cy="150" r="3.5" fill="rgba(255,255,255,.5)"/>
+  </svg>
+  <div class="wrap">
+    <p class="hero-brand">ZYTHOLOGY WORKSHOP</p>
+    <h1>What is <em>beer</em>?</h1>
+    <p class="hero-def">An infusion of <b class="w-malt">malted cereals</b>, flavoured with <b class="w-houblon">hop flowers</b> and fermented by <b class="w-levure">yeast</b> &mdash; all carried by <b class="w-eau">water</b>. Three ingredients and fermentation. An infinity of beers.</p>
+    <div class="hero-cta">
+      <a class="btn btn-j" href="#matrice">Explore the aromatic matrix</a>
+      <a class="btn btn-g" href="#procede">Follow the process</a>
+    </div>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</header>
+
+<!-- ======================= PROC&Eacute;D&Eacute; ======================= -->
+<section class="procede" id="procede">
+  <div class="wrap">
+    <span class="eyebrow reveal">The process</span>
+    <h2 class="reveal">From grain to glass</h2>
+    <p class="lead reveal">Tap each step to follow the transformation. At every stage, the brewer makes choices &mdash; and each choice opens the door to different aromas.</p>
+    <div class="chaine reveal" role="tablist" aria-label="Brewing steps" id="chaine"></div>
+    <div class="panneau reveal" id="panneau" role="tabpanel">
+      <div class="ico" id="p-ico"></div>
+      <div><h3 id="p-titre"></h3><p id="p-texte"></p><span class="temp" id="p-temp"></span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================= INGR&Eacute;DIENTS ======================= -->
+<section class="ingredients" id="ingredients">
+  <div class="wrap">
+    <span class="eyebrow reveal">The four pillars</span>
+    <h2 class="reveal">Each pillar signs the beer</h2>
+    <p class="lead reveal">Click a card to discover what each pillar brings to the beer.</p>
+    <div class="grille">
+      <article class="carte c-eau reveal" tabindex="0" role="button" aria-expanded="false">
+        <span class="plus" aria-hidden="true">+</span>
+        <div class="pastille"><svg viewBox="0 0 24 24"><path d="M12 2C12 2 5 10.3 5 15a7 7 0 0 0 14 0c0-4.7-7-13-7-13z"/></svg></div>
+        <h3>Water</h3><p class="role">Extraction</p>
+        <p class="resume">Hot water acts as a solvent and yields the wort.</p>
+        <div class="detail"><ul>
+          <li>Extracts the substance from the malted cereals and the hop flowers</li>
+          <li>&rarr; sweet and bitter liquid = <b>WORT</b></li>
+          <li>90&nbsp;% to 95&nbsp;% of the finished beer</li>
+          <li>It takes &plusmn;&nbsp;4&nbsp;L of water to make 1&nbsp;L of beer</li>
+          <li>Water quality affects the brewing and fermentation that shape the final flavour of the beer</li>
+        </ul></div>
+      </article>
+      <article class="carte c-malt reveal" tabindex="0" role="button" aria-expanded="false">
+        <span class="plus" aria-hidden="true">+</span>
+        <div class="pastille"><svg viewBox="0 0 24 24"><path d="M12 2c-1.2 1.6-2 3-2 4.2C10 7.8 11 9 12 9s2-1.2 2-2.8C14 5 13.2 3.6 12 2zM8 8c-1.2 1.6-2 3-2 4.2C6 13.8 7 15 8 15s2-1.2 2-2.8C10 11 9.2 9.6 8 8zm8 0c-1.2 1.6-2 3-2 4.2 0 1.6 1 2.8 2 2.8s2-1.2 2-2.8C18 11 17.2 9.6 16 8zm-4 5c-1.2 1.6-2 3-2 4.2 0 1.6 1 2.8 2 2.8s2-1.2 2-2.8c0-1.2-.8-2.6-2-4.2z"/></svg></div>
+        <h3>Malted cereals</h3><p class="role">Body and colour</p>
+        <p class="resume">Phase 1 &middot; 65&nbsp;&deg;C &middot; 60 min (saccharification)</p>
+        <div class="detail"><ul>
+          <li>Small sugars &rarr; feed the yeast</li>
+          <li>Large sugars &rarr; stay in the beer: the body (residual sugars)</li>
+          <li>Proteins &rarr; head and consistency</li>
+          <li>Aromas: bread, biscuit, caramel, chocolate, coffee</li>
+          <li>Colour: straw, gold, amber, copper, brown to black</li>
+        </ul></div>
+      </article>
+      <article class="carte c-houblon reveal" tabindex="0" role="button" aria-expanded="false">
+        <span class="plus" aria-hidden="true">+</span>
+        <div class="pastille"><svg viewBox="0 0 24 24"><path d="M12 2c-4 3-7 6.5-7 11a7 7 0 0 0 14 0c0-4.5-3-8-7-11zm0 4.5L8.5 9H12l3.5-2.5zM8 11.5 12 14l4-2.5-4 1zm.5 4L12 18l3.5-2.5-3.5 1z"/></svg></div>
+        <h3>Hop flowers</h3><p class="role">Bitterness and aromas</p>
+        <p class="resume">Phase 2 &middot; 100&nbsp;&deg;C &middot; 60 min &middot; bacteriostatic</p>
+        <div class="detail"><ul>
+          <li>Bitter resins &rarr; bitterness</li>
+          <li>Essential oils &rarr; flowers, herbs, spices, citrus, wood</li>
+          <li>Dry hopping: added to the cold beer to intensify the aromas</li>
+        </ul></div>
+      </article>
+      <article class="carte c-levure reveal" tabindex="0" role="button" aria-expanded="false">
+        <span class="plus" aria-hidden="true">+</span>
+        <div class="pastille"><svg viewBox="0 0 24 24"><path d="M9 2v2h1v3.5L5.2 16A4 4 0 0 0 8.7 22h6.6a4 4 0 0 0 3.5-6L14 7.5V4h1V2H9zm3 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm-2.5 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg></div>
+        <h3>Yeast</h3><p class="role">Alcohol and acidity</p>
+        <p class="resume">Fermentation &middot; between 8&nbsp;&deg;C and 40&nbsp;&deg;C depending on the yeast strain the brewer chooses &middot; 3&ndash;12 days</p>
+        <div class="detail"><ul>
+          <li>Alcohol + CO&#8322;</li>
+          <li>Aromas &rarr; fruit, spices</li>
+          <li>Acidity &rarr; the pH drops to 4&ndash;4.5</li>
+        </ul></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= &Eacute;QUILIBRE ======================= -->
+<section class="equilibre" id="equilibre">
+  <div class="wrap">
+    <span class="eyebrow reveal">The brewer&rsquo;s art</span>
+    <h2 class="reveal">Balance within a style</h2>
+    <p class="lead reveal">Every beer style is a coded balance: roundness (alcohol, residual sugars) against freshness (bitterness <em>or</em> acidity). Click a style and read its balance on the scale.</p>
+    <div class="bal-zone reveal">
+      <div class="bal-controles">
+        <p class="bal-consigne">Choose a style: the scale reveals its balance. Notice that bitterness and acidity never combine &mdash; a style plays one or the other.</p>
+        <div class="styles-liste" id="styles-liste" role="listbox" aria-label="Beer styles"></div>
+      </div>
+      <div>
+        <svg class="bal-svg" id="bal-svg" viewBox="0 0 560 330" aria-hidden="true">
+          <defs>
+            <linearGradient id="spectre" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#BA7517"/><stop offset=".5" stop-color="#F5C842"/><stop offset="1" stop-color="#639922"/>
+            </linearGradient>
+            <filter id="ombre" x="-40%" y="-40%" width="180%" height="180%">
+              <feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#1B3A2E" flood-opacity=".18"/>
+            </filter>
+          </defs>
+          <!-- m&acirc;t minimal -->
+          <line x1="280" y1="64" x2="280" y2="252" stroke="#1B3A2E" stroke-width="3" stroke-linecap="round" opacity=".25"/>
+          <circle cx="280" cy="64" r="7" fill="#1B3A2E"/>
+          <!-- fl&eacute;au suspendu -->
+          <g id="bal-pivot" transform="translate(280,64)">
+            <g id="bal-fleau">
+              <line x1="-170" y1="0" x2="170" y2="0" stroke="#1B3A2E" stroke-width="5" stroke-linecap="round"/>
+              <circle cx="0" cy="0" r="4" fill="#F5C842"/>
+              <!-- suspentes + plateaux -->
+              <g id="plat-rond" transform="translate(-170,0)">
+                <line x1="0" y1="0" x2="0" y2="64" stroke="#1B3A2E" stroke-width="1.6" opacity=".55"/>
+                <path d="M-42,64 Q0,96 42,64" fill="none" stroke="#1B3A2E" stroke-width="4" stroke-linecap="round"/>
+                <g id="pile-rond"></g>
+              </g>
+              <g id="plat-frais" transform="translate(170,0)">
+                <line x1="0" y1="0" x2="0" y2="64" stroke="#1B3A2E" stroke-width="1.6" opacity=".55"/>
+                <path d="M-42,64 Q0,96 42,64" fill="none" stroke="#1B3A2E" stroke-width="4" stroke-linecap="round"/>
+                <g id="pile-frais"></g>
+              </g>
+            </g>
+          </g>
+          <!-- spectre de styles -->
+          <rect x="80" y="288" width="400" height="8" rx="4" fill="url(#spectre)" opacity=".9"/>
+          <g id="spectre-curseur" transform="translate(280,292)">
+            <circle r="11" fill="#fff" stroke="#1B3A2E" stroke-width="3" filter="url(#ombre)"/>
+          </g>
+          <text x="80" y="318" font-size="12" font-weight="700" fill="#8A5A12">round</text>
+          <text x="480" y="318" font-size="12" font-weight="700" fill="#3B6D11" text-anchor="end">fresh</text>
+        </svg>
+        <p class="bal-verdict" id="bal-verdict"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================= MATRICE ======================= -->
+<section class="matrice" id="matrice">
+  <div class="wrap">
+    <span class="eyebrow reveal">The heart of the matter</span>
+    <h2 class="reveal">The <em>infinite</em> aromatic matrix</h2>
+    <p class="lead reveal">Three ingredients and fermentation &mdash; each one is a slider, not a switch. Play with them: the colour shifts, the aromas reshuffle, a style emerges. That&rsquo;s why no two beers are ever alike.</p>
+    <div class="mat-zone reveal">
+      <div class="mat-curseurs">
+        <div class="mc mc-malt">
+          <label>Malted cereals <span class="v" id="v-malt">amber</span></label>
+          <p class="sous">From pale malt to roasted malt &mdash; colour, body, aromas from bread to coffee</p>
+          <input type="range" id="m-malt" min="0" max="100" value="35" aria-label="Malt intensity">
+        </div>
+        <div class="mc mc-houblon">
+          <label>Hops <span class="v" id="v-houblon">present</span></label>
+          <p class="sous">From simple protection to aromatic explosion &mdash; bitterness and perfumes</p>
+          <input type="range" id="m-houblon" min="0" max="100" value="40" aria-label="Hop intensity">
+        </div>
+        <div class="mc mc-levure">
+          <label>Yeast <span class="v" id="v-levure">expressive</span></label>
+          <p class="sous">Neutral or expressive fermentation &mdash; fruit, spices, acidity</p>
+          <input type="range" id="m-levure" min="0" max="100" value="50" aria-label="Yeast expression">
+        </div>
+        <div class="mc mc-eau">
+          <label>Residual sugars <span class="v" id="v-corps">medium</span></label>
+          <p class="sous">Dry or full-bodied beer &mdash; the body on the palate</p>
+          <input type="range" id="m-corps" min="0" max="100" value="45" aria-label="Body of the beer">
+        </div>
+      </div>
+      <div class="mat-verre-zone">
+        <div id="aromes" aria-hidden="true"></div>
+        <svg id="mat-verre" viewBox="0 0 200 320" aria-hidden="true">
+          <defs>
+            <linearGradient id="robe2" x1="0" y1="0" x2="0" y2="1">
+              <stop id="rs1" offset="0" stop-color="#F2B53D"/>
+              <stop id="rs2" offset="1" stop-color="#C8821A"/>
+            </linearGradient>
+          </defs>
+          <path d="M40,18 L160,18 L150,250 Q148,288 100,288 Q52,288 50,250 Z" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.5)" stroke-width="3"/>
+          <path id="liquide" d="M48,66 L152,66 L149.5,250 Q148,282 100,282 Q52,282 50.5,250 Z" fill="url(#robe2)" opacity=".95"/>
+          <ellipse id="mousse" cx="100" cy="64" rx="52" ry="13" fill="#FDF6E3"/>
+          <ellipse cx="78" cy="58" rx="14" ry="7" fill="#fff" opacity=".9"/>
+          <g id="vbulles"></g>
+        </svg>
+        <div class="mat-resultat" aria-live="polite">
+          <p class="mat-style" id="mat-style">Balanced amber</p>
+          <p class="mat-desc" id="mat-desc">Soft caramel, discreet hops, expressive fermentation.</p>
+        </div>
+      </div>
+    </div>
+    <div class="mat-compteur reveal">
+      <div class="chiffre" id="compteur">100&nbsp;000&nbsp;000</div>
+      <p>possible combinations from these four sliders alone. Add the <b>250+ hop varieties</b>, the dozens of malts, the hundreds of yeast strains, wood, fruit, time&hellip; and the matrix becomes <b>infinite</b>. That&rsquo;s the whole art &mdash; and the whole pleasure &mdash; of zythology.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FIN ======================= -->
+<section class="fin">
+  <div class="wrap">
+    <h2>Want to explore the matrix for real?</h2>
+    <p>Zythology workshops, brewing courses and guided tastings in Braine-l&rsquo;Alleud. Theory is good &mdash; glass in hand is better.</p>
+    <a class="btn btn-j" href="https://www.novabirra.com" style="background:var(--vert);color:#fff;box-shadow:0 8px 24px rgba(27,58,46,.25)">Discover our workshops</a>
+  </div>
+</section>
+
+<style is:global>
+
+:root{
+  --vert:#1B3A2E; --vert-2:#2A5444; --jaune:#F5C842; --creme:#FAF7F0; --encre:#22231F;
+  --eau:#378ADD; --eau-d:#185FA5;
+  --malt:#BA7517; --malt-d:#8A5A12;
+  --houblon:#639922; --houblon-d:#3B6D11;
+  --levure:#534AB7; --levure-d:#453BA0;
+  --gris:#6B6A63; --ligne:#E8E3DA;
+  --ff-t:'Playfair Display',Georgia,serif;
+  --ff-b:'Source Sans 3',-apple-system,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--ff-b);color:var(--encre);background:var(--creme);line-height:1.6;overflow-x:hidden}
+::selection{background:var(--jaune);color:var(--vert)}
+h1,h2,h3{font-family:var(--ff-t);color:var(--vert);line-height:1.15}
+button{font-family:var(--ff-b);cursor:pointer}
+:focus-visible{outline:3px solid var(--jaune);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--vert)}
+.eyebrow::before{content:"";width:34px;height:3px;background:var(--jaune);border-radius:2px}
+.sep{display:flex;align-items:center;gap:14px;justify-content:center;margin:0 auto;max-width:520px}
+.sep::before,.sep::after{content:"";flex:1;height:1px;background:var(--ligne)}
+.sep span{color:#7FC7E8;letter-spacing:.4em;font-size:.9rem}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none}
+}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;min-height:92vh;display:flex;align-items:center;background:linear-gradient(165deg,var(--vert) 0%,#143027 55%,#0F2620 100%);overflow:hidden}
+.hero .wrap{position:relative;z-index:2;padding-top:96px;padding-bottom:96px}
+.hero-brand{font-family:var(--ff-b);font-weight:700;letter-spacing:.32em;color:var(--jaune);font-size:.82rem;margin-bottom:26px}
+.hero h1{color:#FDFBF6;font-size:clamp(2.6rem,7vw,5.2rem);font-weight:900;max-width:13ch}
+.hero h1 em{font-style:italic;color:var(--jaune)}
+.hero-def{margin-top:26px;max-width:560px;color:#CFE0D6;font-size:1.12rem}
+.hero-def b{color:#fff}
+.hero-def .w-eau{color:#8CC4F4}.hero-def .w-malt{color:#EFB35C}.hero-def .w-houblon{color:#A8D86B}.hero-def .w-levure{color:#B3ABF2}
+.hero-cta{margin-top:38px;display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:999px;font-weight:700;font-size:1rem;text-decoration:none;border:none;transition:transform .25s ease,box-shadow .25s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn-j{background:var(--jaune);color:var(--vert);box-shadow:0 8px 24px rgba(245,200,66,.35)}
+.btn-g{background:transparent;color:#E9F1EC;border:1.5px solid rgba(255,255,255,.35)}
+.btn-g:hover{border-color:var(--jaune);color:var(--jaune)}
+#bulles{position:absolute;inset:0;width:100%;height:100%;z-index:1;opacity:.8}
+.hero-glass{position:absolute;right:6%;top:50%;transform:translateY(-50%);z-index:2;width:min(240px,22vw);filter:drop-shadow(0 30px 60px rgba(0,0,0,.45))}
+@media(max-width:880px){.hero-glass{display:none}}
+.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;color:#9DBBAD;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px}
+.scroll-hint::after{content:"";width:1px;height:34px;background:linear-gradient(var(--jaune),transparent);animation:drip 1.8s ease infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ---------- PROC&Eacute;D&Eacute; ---------- */
+.procede{padding:110px 0 90px}
+.procede h2{font-size:clamp(1.9rem,4vw,2.8rem);margin:14px 0 10px}
+.procede .lead{color:var(--gris);max-width:62ch;margin-bottom:48px}
+.chaine{display:flex;align-items:stretch;gap:0;overflow-x:auto;padding:18px 4px 30px;scrollbar-width:thin}
+.etape{position:relative;flex:1;min-width:128px;background:none;border:none;text-align:center;padding:0 6px}
+.etape .pt{display:block;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--vert);margin:0 auto;transition:all .3s ease;position:relative;z-index:2}
+.etape .nom{display:block;font-weight:700;color:var(--vert);margin-top:14px;font-size:.95rem}
+.etape .duree{display:block;font-size:.78rem;color:var(--gris)}
+.etape .duree:empty{display:none}
+.etape::before{content:"";position:absolute;top:8px;left:-50%;width:100%;height:2px;background:var(--ligne);z-index:1}
+.etape:first-child::before{display:none}
+.etape:hover .pt{transform:scale(1.3)}
+.etape[aria-selected="true"] .pt{background:var(--jaune);border-color:var(--jaune);box-shadow:0 0 0 7px rgba(245,200,66,.25);transform:scale(1.25)}
+.etape[aria-selected="true"] .nom{color:var(--malt-d)}
+.etape.done::before{background:var(--jaune)}
+.etape.done .pt{background:var(--vert)}
+.panneau{background:#fff;border:1px solid var(--ligne);border-radius:20px;padding:36px 40px;display:grid;grid-template-columns:64px 1fr;gap:24px;align-items:start;min-height:170px;box-shadow:0 14px 40px rgba(27,58,46,.07)}
+.panneau .ico{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.7rem;background:var(--vert);color:#fff;transition:background .3s}
+.panneau h3{font-size:1.5rem;margin-bottom:6px;transition:opacity .25s}
+.panneau p{color:#44443F;max-width:62ch;transition:opacity .25s}
+.panneau .temp{display:inline-block;margin-top:12px;background:var(--creme);border:1px solid var(--ligne);border-radius:999px;padding:5px 14px;font-size:.85rem;font-weight:600;color:var(--vert)}
+@media(max-width:640px){.panneau{grid-template-columns:1fr;padding:26px}}
+
+
+
+/* ---------- INGR&Eacute;DIENTS ---------- */
+.ingredients{padding:90px 0;background:#fff}
+.ingredients h2{font-size:clamp(1.9rem,4vw,2.8rem);margin:14px 0 10px}
+.ingredients .lead{color:var(--gris);max-width:62ch;margin-bottom:48px}
+.grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px}
+.carte{position:relative;border-radius:22px;background:var(--creme);border:1px solid var(--ligne);padding:30px 26px;cursor:pointer;transition:transform .35s cubic-bezier(.2,.8,.3,1.1),box-shadow .35s;overflow:hidden;border-top:5px solid var(--c)}
+.carte:hover{transform:translateY(-8px);box-shadow:0 22px 46px rgba(27,58,46,.13)}
+.carte .pastille{width:64px;height:64px;border-radius:50%;background:var(--c);display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:transform .4s}
+.carte:hover .pastille{transform:rotate(-8deg) scale(1.08)}
+.carte .pastille svg{width:34px;height:34px;fill:#fff}
+.carte h3{font-size:1.45rem}
+.carte .role{font-weight:700;color:var(--cd);font-size:.95rem;margin:2px 0 10px}
+.carte .resume{color:#55544E;font-size:.95rem}
+.carte .plus{position:absolute;top:22px;right:22px;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--cd);color:var(--cd);display:flex;align-items:center;justify-content:center;font-weight:700;transition:transform .3s,background .3s,color .3s}
+.carte[aria-expanded="true"] .plus{transform:rotate(45deg);background:var(--cd);color:#fff}
+.carte .detail{max-height:0;overflow:hidden;transition:max-height .5s ease}
+.carte[aria-expanded="true"] .detail{max-height:460px}
+.carte .detail ul{list-style:none;margin-top:16px;border-top:1px dashed var(--ligne);padding-top:14px}
+.carte .detail li{padding:5px 0 5px 22px;position:relative;font-size:.92rem;color:#44443F}
+.carte .detail li::before{content:"";position:absolute;left:2px;top:13px;width:8px;height:8px;border-radius:50%;background:var(--c)}
+.c-eau{--c:var(--eau);--cd:var(--eau-d)}
+.c-malt{--c:var(--malt);--cd:var(--malt-d)}
+.c-houblon{--c:var(--houblon);--cd:var(--houblon-d)}
+.c-levure{--c:var(--levure);--cd:var(--levure-d)}
+
+/* ---------- BALANCE ---------- */
+.equilibre{padding:100px 0;background:linear-gradient(180deg,var(--creme),#F2F6EF)}
+.equilibre h2{font-size:clamp(1.9rem,4vw,2.8rem);margin:14px 0 10px}
+.equilibre .lead{color:var(--gris);max-width:62ch;margin-bottom:24px}
+.bal-zone{display:grid;grid-template-columns:1fr 1.4fr;gap:40px;align-items:center}
+@media(max-width:860px){.bal-zone{grid-template-columns:1fr}}
+.bal-controles{display:flex;flex-direction:column;gap:20px}
+.bal-consigne{font-size:.92rem;color:var(--gris);font-style:italic}
+input[type=range]{width:100%;height:26px}
+.styles-liste{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+@media(max-width:480px){.styles-liste{grid-template-columns:1fr}}
+.style-btn{display:flex;justify-content:space-between;align-items:center;gap:8px;border-radius:12px;padding:11px 15px;font-weight:700;font-size:.9rem;border:1.5px solid var(--ligne);background:#fff;color:var(--vert);text-align:left;transition:all .22s ease}
+.style-btn .abv{font-weight:600;font-size:.74rem;color:var(--gris);font-variant-numeric:tabular-nums}
+.style-btn:hover{border-color:var(--vert);transform:translateY(-2px);box-shadow:0 8px 18px rgba(27,58,46,.1)}
+.style-btn[aria-selected="true"]{background:var(--vert);color:#fff;border-color:var(--vert)}
+.style-btn[aria-selected="true"] .abv{color:var(--jaune)}
+.bal-svg{width:100%;max-width:560px;margin:0 auto;display:block}
+.bal-verdict{text-align:center;margin-top:14px;font-family:var(--ff-t);font-size:1.3rem;color:var(--vert);min-height:2.2em;font-style:italic}
+
+
+
+/* ---------- MATRICE ---------- */
+.matrice{padding:110px 0;background:linear-gradient(170deg,var(--vert) 0%,#11251E 100%);color:#E9F1EC;position:relative;overflow:hidden}
+.matrice .eyebrow{color:var(--jaune)}
+.matrice h2{color:#FDFBF6;font-size:clamp(2rem,5vw,3.4rem)}
+.matrice h2 em{color:var(--jaune);font-style:italic}
+.matrice .lead{color:#BBD2C6;max-width:64ch;margin:14px 0 50px}
+.mat-zone{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+@media(max-width:900px){.mat-zone{grid-template-columns:1fr}}
+.mat-curseurs{display:flex;flex-direction:column;gap:16px}
+.mc{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);border-radius:16px;padding:16px 20px;transition:border-color .3s}
+.mc:hover{border-color:var(--cc)}
+.mc label{display:flex;justify-content:space-between;align-items:baseline;font-weight:700;font-size:.95rem;color:#fff;margin-bottom:4px}
+.mc label .v{color:var(--cc);font-family:var(--ff-t);font-size:1.05rem;font-style:italic}
+.mc .sous{font-size:.78rem;color:#9DBBAD;margin-bottom:8px}
+.mc input[type=range]{accent-color:var(--cc)}
+.mat-verre-zone{text-align:center;position:relative}
+#mat-verre{width:min(220px,52vw);filter:drop-shadow(0 26px 60px rgba(0,0,0,.5))}
+#aromes{position:absolute;inset:0;pointer-events:none}
+.arome{position:absolute;font-size:.82rem;font-weight:600;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);color:#fff;white-space:nowrap;opacity:0;transform:translateY(12px) scale(.9);transition:opacity .5s ease,transform .5s ease;backdrop-filter:blur(3px)}
+.arome.on{opacity:1;transform:none}
+.mat-resultat{margin-top:26px}
+.mat-style{font-family:var(--ff-t);font-size:clamp(1.5rem,3.5vw,2.1rem);color:var(--jaune);min-height:1.4em;font-weight:700}
+.mat-desc{color:#BBD2C6;font-size:.95rem;max-width:46ch;margin:8px auto 0;min-height:3em}
+.mat-compteur{margin-top:54px;text-align:center;border-top:1px solid rgba(255,255,255,.12);padding-top:34px}
+.mat-compteur .chiffre{font-family:var(--ff-t);font-weight:900;font-size:clamp(2rem,5vw,3rem);color:#fff;font-variant-numeric:tabular-nums}
+.mat-compteur p{color:#9DBBAD;max-width:56ch;margin:10px auto 0}
+.mat-compteur b{color:var(--jaune)}
+.mc-eau{--cc:#8CC4F4}.mc-malt{--cc:#EFB35C}.mc-houblon{--cc:#A8D86B}.mc-levure{--cc:#B3ABF2}
+
+/* ---------- FOOTER ---------- */
+.fin{padding:80px 0;text-align:center;background:var(--creme)}
+.fin h2{font-size:clamp(1.7rem,3.5vw,2.4rem);margin-bottom:14px}
+.fin p{color:var(--gris);max-width:56ch;margin:0 auto 30px}
+.fin .marque{margin-top:48px;font-family:var(--ff-t);font-size:1.15rem;color:var(--vert)}
+.fin .legal{font-size:.78rem;color:#A09E96;margin-top:8px}
+
+</style>
+
+<script is:inline>
+
+/* ============ r&eacute;v&eacute;lations au scroll ============ */
+/* révélations au scroll : gérées par la mise en page partagée (Base) */
+
+/* ============ bulles du h&eacute;ros ============ */
+const cv=document.getElementById('bulles'),cx=cv.getContext('2d');
+let W,H,bulles=[];const NB=42;
+const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function resize(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight}
+addEventListener('resize',resize);resize();addEventListener('load',resize);
+for(let i=0;i<NB;i++)bulles.push({x:Math.random()*1,y:Math.random(),r:1+Math.random()*3.4,v:.0006+Math.random()*.0016,o:.12+Math.random()*.3,w:Math.random()*6.28});
+function anim(t){
+  cx.clearRect(0,0,W,H);
+  for(const b of bulles){
+    b.y-=b.v;if(b.y<-.05){b.y=1.05;b.x=Math.random()}
+    const x=b.x*W+Math.sin(t*.001+b.w)*9;
+    cx.beginPath();cx.arc(x,b.y*H,b.r,0,6.28);
+    cx.fillStyle=`rgba(245,200,66,${b.o})`;cx.fill();
+  }
+  requestAnimationFrame(anim);
+}
+if(!rm)requestAnimationFrame(anim);
+
+/* ============ proc&eacute;d&eacute; interactif ============ */
+const ICO={
+ goutte:'<svg viewBox="0 0 24 24" fill="#fff" width="30" height="30"><path d="M12 2C12 2 5 10.3 5 15a7 7 0 0 0 14 0c0-4.7-7-13-7-13z"/></svg>',
+ cuve:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" width="30" height="30"><path d="M4 10h16M5 10l1.2 9a2 2 0 0 0 2 1.8h7.6a2 2 0 0 0 2-1.8L19 10M8 10V7a4 4 0 0 1 8 0v3"/><path d="M9 14.5c1-.8 2-.8 3 0s2 .8 3 0" stroke-width="1.4"/></svg>',
+ filtre:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="30" height="30"><path d="M4 4h16l-6 8v6l-4 2v-8L4 4z"/></svg>',
+ thermo:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="30" height="30"><path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0z"/><path d="M12 9v6.5" stroke-width="1.5"/><circle cx="12" cy="18" r="2.2" fill="#fff" stroke="none"/></svg>',
+ flamme:'<svg viewBox="0 0 24 24" fill="#fff" width="30" height="30"><path d="M12 2c1 4-3 5.5-3 9a3.5 3.5 0 0 0 1.6 3C10.2 11.6 14 11 13 7c3 2 6 5 6 9a7 7 0 0 1-14 0c0-5 5-7.5 7-14z"/></svg>',
+ flocon:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" width="30" height="30"><path d="M12 2v20M3.3 7l17.4 10M3.3 17 20.7 7M12 5l-2.2-2.2M12 5l2.2-2.2M12 19l-2.2 2.2M12 19l2.2 2.2M5.5 8.2 2.5 7.4M5.5 8.2l-.8-3M18.5 15.8l3 .8M18.5 15.8l.8 3M5.5 15.8l-3 .8M5.5 15.8l-.8 3M18.5 8.2l3-.8M18.5 8.2l.8-3"/></svg>',
+ fiole:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="30" height="30"><path d="M9 2.5h6M10 2.5V8l-4.6 7.9A3.6 3.6 0 0 0 8.5 21h7a3.6 3.6 0 0 0 3.1-5.1L14 8V2.5"/><path d="M7.3 14.5h9.4" stroke-width="1.5"/><circle cx="11" cy="17.5" r=".9" fill="#fff" stroke="none"/><circle cx="14" cy="16.2" r=".7" fill="#fff" stroke="none"/><circle cx="12.5" cy="11.5" r=".6" fill="#fff" stroke="none"/></svg>',
+ verre:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="30" height="30"><path d="M7 3h10l-1 16.2a2 2 0 0 1-2 1.8h-4a2 2 0 0 1-2-1.8L7 3z"/><path d="M7.4 8h9.2" stroke-width="1.5"/><ellipse cx="12" cy="5.5" rx="3.6" ry="1.1" fill="#fff" stroke="none"/></svg>'
+};
+const ETAPES=[
+ {n:"Mashing",d:"",ico:ICO.cuve,t:"It all starts with the mash",
+  x:"Hot water meets the crushed malted cereals. The water acts as a solvent: it draws out sugars, proteins, colours and aromas from the grain.",temp:"The brewer chooses the malts &mdash; and already the colour of the future beer"},
+ {n:"Saccharification",d:"",ico:ICO.thermo,t:"Saccharification \u2014 65 \u00B0C",
+  x:"The amylase enzymes in the malted cereals break the starch into various sugars. The small sugars feed the yeast; the large sugars (dextrins) stay in the beer to give it body.",temp:"60 min at 65 \u00B0C"},
+ {n:"Lautering",d:"",ico:ICO.filtre,t:"Lautering the wort",
+  x:"We separate the sweet liquid &mdash; the wort &mdash; from the grain husks. These are called spent grains and will go to feed livestock: nothing is wasted.",temp:"The wort: sweet, and soon bitter"},
+ {n:"Boil",d:"",ico:ICO.flamme,t:"Boil \u2014 100 \u00B0C",
+  x:"The wort boils with the hop flowers. The bitter resins isomerise (bitterness), the essential oils perfume it. Hops are also bacteriostatic: they protect the beer.",temp:"60 min at 100 \u00B0C"},
+ {n:"Cooling",d:"",ico:ICO.flocon,t:"Rapid cooling",
+  x:"We drop the temperature to welcome the yeast without killing it \u2014 and without giving free rein to the undesirable micro-organisms in the air around us.",temp:"From 100 \u00B0C down to fermentation temperature"},
+ {n:"Fermentation",d:"",ico:ICO.fiole,t:"Fermentation",
+  x:"The yeast turns the sugars into alcohol and CO\u2082, releases fruity and spicy aromas, and brings the pH down to 4\u20134.5. The fermentation temperature depends on the yeast strain: some prefer to work cold, around 10 \u00B0C, while others are happy fermenting a wort at 40 \u00B0C.",temp:"3 to 12 days depending on the yeast the brewer chooses"},
+ {n:"Beer",d:"",ico:ICO.verre,t:"The beer is born",
+  x:"Cold conditioning, bottling, bottle conditioning\u2026 then comes the moment of tasting. Every choice the brewer made along the way has sculpted the beer you\u2019re about to taste.",temp:"A beer whose flavour keeps evolving"}
+];
+const chaine=document.getElementById('chaine');
+ETAPES.forEach((e,i)=>{
+  const b=document.createElement('button');
+  b.className='etape';b.setAttribute('role','tab');b.setAttribute('aria-selected',i===0);
+  b.innerHTML=`<span class="pt"></span><span class="nom">${e.n}</span><span class="duree">${e.d}</span>`;
+  b.addEventListener('click',()=>selEtape(i));
+  chaine.appendChild(b);
+});
+function selEtape(i){
+  [...chaine.children].forEach((b,j)=>{b.setAttribute('aria-selected',j===i);b.classList.toggle('done',j<i)});
+  const e=ETAPES[i],ti=document.getElementById('p-titre'),tx=document.getElementById('p-texte');
+  ti.style.opacity=0;tx.style.opacity=0;
+  setTimeout(()=>{
+    document.getElementById('p-ico').innerHTML=e.ico;
+    ti.innerHTML=e.t;tx.innerHTML=e.x;
+    document.getElementById('p-temp').innerHTML=e.temp;
+    ti.style.opacity=1;tx.style.opacity=1;
+  },180);
+}
+selEtape(0);
+
+/* ============ cartes ingr&eacute;dients ============ */
+document.querySelectorAll('.carte').forEach(c=>{
+  const tog=()=>c.setAttribute('aria-expanded',c.getAttribute('aria-expanded')!=='true');
+  c.addEventListener('click',tog);
+  c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tog()}});
+});
+
+/* ============ balance par styles ============ */
+const fleau=document.getElementById('bal-fleau'),verdict=document.getElementById('bal-verdict');
+const piles={rond:document.getElementById('pile-rond'),frais:document.getElementById('pile-frais')};
+const plats={rond:document.getElementById('plat-rond'),frais:document.getElementById('plat-frais')};
+const spectreCur=document.getElementById('spectre-curseur');
+const NS='http://www.w3.org/2000/svg';
+const COULEURS={'Alcohol':'#BA7517','Residual sugars':'#D89A3B','Bitterness':'#639922','Acidity':'#3F9C8F'};
+/* alc & suc = roundness (0\u20133) ; amer OR acid = freshness (0\u20133), never both */
+const STYLES=[
+ {n:'Pils',abv:'~5\u00A0%',alc:1,suc:0,amer:1,acid:0,v:'Light on both sides \u2014 freshness wins by a breath: thirst-quenching.'},
+ {n:'Witbier',abv:'4\u20135\u00A0%',alc:1,suc:1,amer:0,acid:1,v:'Cereal roundness with a hint of acidity: the balance of summer.'},
+ {n:'Saison',abv:'5\u20136.5\u00A0%',alc:1,suc:0,amer:2,acid:0,v:'Dry and hoppy \u2014 freshness clearly dominates.'},
+ {n:'IPA',abv:'6\u20137\u00A0%',alc:2,suc:1,amer:3,acid:0,v:'Generous bitterness carried by a solid body: tension, embraced.'},
+ {n:'Berliner Weisse',abv:'~3.5\u00A0%',alc:1,suc:0,amer:0,acid:2,v:'Sharp acidity over a minimal body \u2014 maximum freshness.'},
+ {n:'Gueuze',abv:'5\u20137\u00A0%',alc:1,suc:0,amer:0,acid:3,v:'Acidity at its peak, carried by years of spontaneous fermentation.'},
+ {n:'Dubbel',abv:'6.5\u20137.5\u00A0%',alc:2,suc:2,amer:1,acid:0,v:'Caramel and ripe fruit: roundness takes the wheel.'},
+ {n:'Tripel',abv:'8\u20139.5\u00A0%',alc:3,suc:1,amer:2,acid:0,v:'Powerful but reined in by bitterness \u2014 the great Belgian balance.'},
+ {n:'Quadrupel',abv:'10\u201312\u00A0%',alc:3,suc:3,amer:1,acid:0,v:'Maximum roundness \u2014 candied fruit and warmth, bitterness as a mere safeguard.'},
+ {n:'Imperial stout',abv:'9\u201312\u00A0%',alc:3,suc:3,amer:2,acid:0,v:'Massive and roasty \u2014 coffee bitterness just holds the sweetness in check.'}
+];
+function pileSVG(items,side){
+  /* items: [{nom,poids}] - un jeton par unit&eacute; de poids, empil&eacute;s */
+  piles[side].innerHTML='';
+  let idx=0;
+  items.forEach(({nom,poids})=>{
+    for(let k=0;k<poids;k++){
+      const g=document.createElementNS(NS,'g');
+      const label=k===0?nom:'';
+      const w=Math.max(46,(label.replace(/&[^;]+;/g,'x').length*7.2)+22);
+      const y=52-idx*15;
+      const r=document.createElementNS(NS,'rect');
+      r.setAttribute('x',-w/2);r.setAttribute('y',y);r.setAttribute('width',w);r.setAttribute('height',12.5);
+      r.setAttribute('rx',6.2);r.setAttribute('fill',COULEURS[nom]);
+      if(k>0)r.setAttribute('opacity',.82);
+      g.appendChild(r);
+      if(label){
+        const t=document.createElementNS(NS,'text');
+        t.setAttribute('x',0);t.setAttribute('y',y+9.8);t.setAttribute('text-anchor','middle');
+        t.setAttribute('font-size','9.5');t.setAttribute('font-weight','700');t.setAttribute('fill','#fff');
+        t.innerHTML=nom;g.appendChild(t);
+      }
+      if(!rm)g.animate([{transform:'translateY(-100px)',opacity:0},{transform:'translateY(6px)',opacity:1,offset:.7},{transform:'translateY(0)',opacity:1}],{duration:420,delay:idx*70,easing:'cubic-bezier(.3,1.2,.5,1)',fill:'backwards'});
+      piles[side].appendChild(g);idx++;
+    }
+  });
+}
+function montreStyle(s){
+  const rondItems=[],fraisItems=[];
+  if(s.alc)rondItems.push({nom:'Alcohol',poids:s.alc});
+  if(s.suc)rondItems.push({nom:'Residual sugars',poids:s.suc});
+  if(s.amer)fraisItems.push({nom:'Bitterness',poids:s.amer});
+  if(s.acid)fraisItems.push({nom:'Acidity',poids:s.acid});
+  pileSVG(rondItems,'rond');pileSVG(fraisItems,'frais');
+  const a=s.alc+s.suc,b=s.amer+s.acid;
+  const angle=Math.max(-13,Math.min(13,(b-a)*3.1));
+  const tr=rm?'none':'transform .9s cubic-bezier(.25,1.7,.45,.9)';
+  fleau.style.transition=tr;fleau.style.transform=`rotate(${angle}deg)`;
+  plats.rond.style.transition=plats.frais.style.transition=tr;
+  plats.rond.style.transformOrigin='-170px 0px';
+  plats.frais.style.transformOrigin='170px 0px';
+  plats.rond.style.transform=`translate(-170px,0) rotate(${-angle}deg)`;
+  plats.frais.style.transform=`translate(170px,0) rotate(${-angle}deg)`;
+  const pos=280+(b-a)*34;
+  spectreCur.style.transition=tr;
+  spectreCur.style.transform=`translate(${Math.max(96,Math.min(464,pos))}px,292px)`;
+  verdict.innerHTML='&ldquo;'+s.v+'&rdquo;';
+}
+const listeEl=document.getElementById('styles-liste');
+STYLES.forEach((s,i)=>{
+  const b=document.createElement('button');
+  b.className='style-btn';b.setAttribute('role','option');b.setAttribute('aria-selected',i===0);
+  b.innerHTML=`<span>${s.n}</span><span class="abv">${s.abv}</span>`;
+  b.addEventListener('click',()=>{
+    [...listeEl.children].forEach((x,j)=>x.setAttribute('aria-selected',j===i));
+    montreStyle(s);
+  });
+  listeEl.appendChild(b);
+});
+montreStyle(STYLES[0]);
+
+/* ============ aromatic matrix ============ */
+const EBC=[['#F8E9A0','#E8C75A'],['#F2B53D','#C8821A'],['#D98E2B','#9C5E14'],['#A85B1B','#6E3A0E'],['#6E3517','#3F1E0B'],['#3A1D0E','#17100B']];
+const AROMES={
+ malt:[[10,'fresh bread'],[30,'biscuit'],[50,'caramel'],[72,'chocolate'],[90,'roasted coffee']],
+ houblon:[[15,'herbs'],[35,'flowers'],[55,'citrus'],[75,'pine resin'],[92,'tropical fruit']],
+ levure:[[25,'pear'],[45,'banana'],[65,'spices \u00B7 clove'],[85,'sharp acidity']],
+ corps:[[20,'dry'],[55,'silky'],[85,'luscious']]
+};
+const sliders={malt:document.getElementById('m-malt'),houblon:document.getElementById('m-houblon'),levure:document.getElementById('m-levure'),corps:document.getElementById('m-corps')};
+const labels={malt:document.getElementById('v-malt'),houblon:document.getElementById('v-houblon'),levure:document.getElementById('v-levure'),corps:document.getElementById('v-corps')};
+const MOTS={
+ malt:['pale','gold','amber','copper','brown','black'],
+ houblon:['discreet','present','generous','intense','explosive'],
+ levure:['neutral','restrained','expressive','exuberant'],
+ corps:['dry','light','medium','round','luscious']
+};
+function lerp(c1,c2,t){
+  const p=h=>[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+  const a=p(c1),b=p(c2);
+  return '#'+a.map((v,i)=>Math.round(v+(b[i]-v)*t).toString(16).padStart(2,'0')).join('');
+}
+const aromesBox=document.getElementById('aromes');
+let aTimer;
+function majMatrice(){
+  const m=+sliders.malt.value,h=+sliders.houblon.value,l=+sliders.levure.value,c=+sliders.corps.value;
+  labels.malt.innerHTML=MOTS.malt[Math.min(5,Math.floor(m/17))];
+  labels.houblon.innerHTML=MOTS.houblon[Math.min(4,Math.floor(h/21))];
+  labels.levure.innerHTML=MOTS.levure[Math.min(3,Math.floor(l/26))];
+  labels.corps.innerHTML=MOTS.corps[Math.min(4,Math.floor(c/21))];
+  /* robe */
+  const f=m/100*(EBC.length-1),i=Math.min(EBC.length-2,Math.floor(f)),t=f-i;
+  document.getElementById('rs1').setAttribute('stop-color',lerp(EBC[i][0],EBC[i+1][0],t));
+  document.getElementById('rs2').setAttribute('stop-color',lerp(EBC[i][1],EBC[i+1][1],t));
+  /* mousse : plus de corps = mousse plus cr&eacute;meuse */
+  document.getElementById('mousse').setAttribute('ry',10+c/100*7);
+  /* nuage d'ar&ocirc;mes */
+  clearTimeout(aTimer);
+  aTimer=setTimeout(()=>{
+    const actifs=[];
+    for(const[k,seuils]of Object.entries(AROMES)){
+      const v=+sliders[k].value;
+      let best=null;for(const[s,mot]of seuils)if(v>=s)best=mot;
+      if(best&&k!=='corps')actifs.push(best);
+    }
+    aromesBox.innerHTML='';
+    actifs.slice(0,4).forEach((mot,idx)=>{
+      const tag=document.createElement('span');
+      tag.className='arome';tag.innerHTML=mot;
+      tag.style.left = window.innerWidth>900 ? '4%' : '8px';
+      tag.style.right='auto';
+      tag.style.top=`calc(22% + ${idx*44}px)`;
+      aromesBox.appendChild(tag);
+      setTimeout(()=>tag.classList.add('on'),60+idx*110);
+    });
+    majStyle(m,h,l,c);
+  },140);
+}
+function majStyle(m,h,l,c){
+  let nom,desc;
+  if(h>72&&m<40){nom='Aromatic IPA';desc='Hops up front, pale colour, a dry and fragrant finish.'}
+  else if(m>78&&c>60){nom='Imperial stout';desc='Coffee and chocolate, a luscious body, enveloping power.'}
+  else if(m>78){nom='Porter / Stout';desc='Clear roastiness, a controlled body, coffee bitterness.'}
+  else if(l>78&&m<35){nom='Sour beer / Berliner';desc='Sharp acidity, pale colour, thirst-quenching freshness.'}
+  else if(l>62&&m>45){nom='Abbey Dubbel';desc='Ripe fruit and fermentation spices over a caramel base.'}
+  else if(l>62){nom='Farmhouse saison';desc='Expressive yeast, pepper and fruit, a dry finish.'}
+  else if(m<28&&h<38&&c<45){nom='Pils / Lager';desc='Pure, clean, thirst-quenching \u2014 precision above all.'}
+  else if(c>72){nom='Quadrupel';desc='Deep mellowness, candied fruit, generous warmth.'}
+  else if(m>=40&&m<=70&&h>=38&&h<=65){nom='Balanced amber';desc='Soft caramel, hops present without dominating \u2014 balance.'}
+  else{nom='Free creation';desc='Off the beaten track \u2014 that\u2019s where novelty is born.'}
+  document.getElementById('mat-style').innerHTML=nom;
+  document.getElementById('mat-desc').innerHTML=desc;
+}
+Object.values(sliders).forEach(s=>s.addEventListener('input',majMatrice));
+majMatrice();
+
+/* bulles dans le verre de la matrice */
+const vb=document.getElementById('vbulles');
+if(!rm){
+  for(let i=0;i<7;i++){
+    const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('r',1.6+Math.random()*2.6);
+    c.setAttribute('cx',62+Math.random()*76);
+    c.setAttribute('fill','rgba(255,255,255,.5)');
+    vb.appendChild(c);
+    const dur=2.6+Math.random()*2.4;
+    c.animate([{transform:'translateY(0px)',opacity:0},{opacity:.7,offset:.15},{transform:'translateY(-185px)',opacity:0}],{duration:dur*1000,iterations:Infinity,delay:Math.random()*2600});
+    c.setAttribute('cy',262);
+  }
+}
+
+/* compteur anim&eacute; */
+const cible=100000000,el=document.getElementById('compteur');
+const ioC=new IntersectionObserver(es=>{
+  if(es[0].isIntersecting){
+    ioC.disconnect();
+    if(rm){el.textContent='100,000,000';return}
+    const t0=performance.now(),dur=2200;
+    function tick(t){
+      const p=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-p,3);
+      el.textContent=Math.round(cible*e).toLocaleString('en-GB');
+      if(p<1)requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+},{threshold:.4});
+ioC.observe(el);
+
+</script>
+</Base>
