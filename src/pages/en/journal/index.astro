@@ -1,13 +1,13 @@
 ---
-import Base from '../../layouts/Base.astro';
-import JournalCard from '../../components/JournalCard.astro';
+import Base from '../../../layouts/Base.astro';
+import JournalCard from '../../../components/JournalCard.astro';
 import { getCollection } from 'astro:content';
 
-const posts = (await getCollection('journal', ({ data }) => !data.draft))
+const posts = (await getCollection('journal-en', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const fmtDate = (d: Date) => d.toLocaleDateString('fr-BE', { month: 'long', year: 'numeric' });
-const catLabel = (c: string) => (c === 'Recette' ? 'Recette' : c === 'Fabrication' ? 'Technique' : c);
+const fmtDate = (d: Date) => d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+const catLabel = (a: string): string => (({ recettes: 'Recipe', fabrication: 'Brewing', styles: 'Styles', ressources: 'Resources' } as Record<string,string>)[a] || a);
 
 // ---- Données filtrables des recettes (fiche technique) ----
 const num = (v?: string): number | null => {
@@ -21,7 +21,7 @@ const ebcOf = (v?: string): number | null => {
   return m ? parseInt(m[1], 10) : null;
 };
 const recettes = posts.filter((p) => p.data.fiche);
-const stylesList = [...new Set(recettes.map((p) => p.data.fiche!.style))].sort((a, b) => a.localeCompare(b, 'fr'));
+const stylesList = [...new Set(recettes.map((p) => p.data.fiche!.style))].sort((a, b) => a.localeCompare(b, 'en'));
 const abvVals = recettes.map((p) => num(p.data.fiche!.abv)).filter((v): v is number => v != null);
 const ibuVals = recettes.map((p) => num(p.data.fiche!.ibu)).filter((v): v is number => v != null);
 const ebcVals = recettes.map((p) => ebcOf(p.data.fiche!.couleur)).filter((v): v is number => v != null);
@@ -29,12 +29,12 @@ const abvMin = Math.floor(Math.min(...abvVals) * 10) / 10, abvMax = Math.ceil(Ma
 const ibuMin = Math.floor(Math.min(...ibuVals)), ibuMax = Math.ceil(Math.max(...ibuVals));
 const ebcMin = Math.floor(Math.min(...ebcVals)), ebcMax = Math.ceil(Math.max(...ebcVals));
 ---
-<Base title="Le journal | NovaBirra" description="Tous les articles, recettes et techniques du carnet NovaBirra.">
+<Base title="The journal | NovaBirra" description="All the articles, recipes and techniques from the NovaBirra notebook.">
   <header class="list-hero">
     <div class="wrap">
-      <span class="eyebrow">Carnet de brassage</span>
-      <h1>Le carnet de brassage</h1>
-      <p>Recettes, techniques, lectures de styles et ressources&nbsp;: tout ce qu'on a appris &agrave; partager.</p>
+      <span class="eyebrow">Brewing notebook</span>
+      <h1>The brewing notebook</h1>
+      <p>Recipes, techniques, style readings and resources: everything we&rsquo;ve learned, shared.</p>
     </div>
   </header>
 
@@ -43,30 +43,30 @@ const ebcMin = Math.floor(Math.min(...ebcVals)), ebcMax = Math.ceil(Math.max(...
 
       <div class="rfilters" id="rfilters" hidden>
         <div class="rf-bar">
-          <span class="rf-title">Affiner les recettes</span>
-          <button class="rf-reset" id="rfReset" type="button">R&eacute;initialiser</button>
+          <span class="rf-title">Refine the recipes</span>
+          <button class="rf-reset" id="rfReset" type="button">Reset</button>
         </div>
         <div class="rf-grid">
           <div class="rf-card rf-card--styles" style="--cc:#F5C842">
             <div class="rf-clabel">Style</div>
-            <p class="rf-sous">La famille de bi&egrave;re &mdash; choix multiple</p>
+            <p class="rf-sous">The beer family &mdash; multiple choice</p>
             <div class="rf-chips">
               {stylesList.map((st) => <button class="rf-chip" type="button" data-style={st}>{st}</button>)}
             </div>
           </div>
           <div class="rf-card" style="--cc:#EFB35C">
-            <div class="rf-clabel">Alcool <span class="rf-v" id="abvOut"></span></div>
-            <p class="rf-sous">Du l&eacute;ger au capiteux</p>
+            <div class="rf-clabel">Alcohol <span class="rf-v" id="abvOut"></span></div>
+            <p class="rf-sous">From light to heady</p>
             <div class="rf-range" data-key="abv" data-min={abvMin} data-max={abvMax} data-step="0.1" data-unit="&nbsp;%"></div>
           </div>
           <div class="rf-card" style="--cc:#A8D86B">
-            <div class="rf-clabel">Amertume <span class="rf-v" id="ibuOut"></span></div>
-            <p class="rf-sous">De douce &agrave; cors&eacute;e</p>
+            <div class="rf-clabel">Bitterness <span class="rf-v" id="ibuOut"></span></div>
+            <p class="rf-sous">From mild to bold</p>
             <div class="rf-range" data-key="ibu" data-min={ibuMin} data-max={ibuMax} data-step="1" data-unit="&nbsp;IBU"></div>
           </div>
           <div class="rf-card" style="--cc:#D98E2B">
-            <div class="rf-clabel">Couleur <span class="rf-v" id="ebcOut"></span></div>
-            <p class="rf-sous">De la blonde &agrave; l'ambr&eacute;e</p>
+            <div class="rf-clabel">Colour <span class="rf-v" id="ebcOut"></span></div>
+            <p class="rf-sous">From blonde to amber</p>
             <div class="rf-range rf-range--color" data-key="ebc" data-min={ebcMin} data-max={ebcMax} data-step="1" data-unit="&nbsp;EBC"></div>
           </div>
         </div>
@@ -75,12 +75,12 @@ const ebcMin = Math.floor(Math.min(...ebcVals)), ebcMax = Math.ceil(Math.max(...
       <div class="cards">
         {posts.map((p) => (
           <JournalCard
-            href={`/journal/${p.slug}/`}
-            category={p.data.category}
+            href={`/en/journal/${p.slug}/`}
+            category={catLabel(p.data.accent)}
             accent={p.data.accent}
             title={p.data.title}
             dek={p.data.dek}
-            meta={`${catLabel(p.data.category)} · ${fmtDate(p.data.date)}`}
+            meta={catLabel(p.data.accent)}
             style={p.data.fiche?.style}
             abv={num(p.data.fiche?.abv)}
             ibu={num(p.data.fiche?.ibu)}
@@ -88,7 +88,7 @@ const ebcMin = Math.floor(Math.min(...ebcVals)), ebcMax = Math.ceil(Math.max(...
           />
         ))}
       </div>
-      <p class="no-results" hidden>Aucun article dans cette cat&eacute;gorie pour le moment.</p>
+      <p class="no-results" hidden>No articles in this category yet.</p>
     </div>
   </section>
 </Base>
@@ -154,11 +154,11 @@ const ebcMin = Math.floor(Math.min(...ebcVals)), ebcMax = Math.ceil(Math.max(...
   const titreEl = document.querySelector('.list-hero h1');
   const sousEl = document.querySelector('.list-hero p');
   const TITRES = {
-    recettes:    ['Recettes de bi\u00e8res', 'Du grain au verre\u00a0: nos recettes d\u00e9taill\u00e9es et reproductibles, pour brasser nos bi\u00e8res chez soi.'],
-    fabrication: ['La fabrication de la bi\u00e8re', 'Les gestes du brassage expliqu\u00e9s pas \u00e0 pas\u00a0: densim\u00e8tre, re-fermentation, jour de brassage.'],
-    styles:      ['Les styles de bi\u00e8re', '\u00c0 la d\u00e9couverte des familles brassicoles \u2014 lambic, blanche, triple, saison\u2026 \u2014 et de leur patrimoine.'],
-    ressources:  ['Ressources', 'Le glossaire du brassage\u00a0: tout le vocabulaire, des ingr\u00e9dients \u00e0 la d\u00e9gustation.'],
-    all:         ['Le carnet de brassage', "Recettes, techniques, lectures de styles et ressources\u00a0: tout ce qu'on a appris \u00e0 partager."]
+    recettes:    ['Beer recipes', 'From grain to glass: our detailed, repeatable recipes for brewing our beers at home.'],
+    fabrication: ['Brewing beer', 'The craft of brewing explained step by step: hydrometer, bottle conditioning, brew day.'],
+    styles:      ['Beer styles', 'Exploring the brewing families \u2014 lambic, witbier, triple, saison\u2026 \u2014 and their heritage.'],
+    ressources:  ['Resources', 'The brewing glossary: all the vocabulary, from ingredients to tasting.'],
+    all:         ['The brewing notebook', 'Recipes, techniques, style readings and resources: everything we\u2019ve learned, shared.']
   };
   const setTitre = (f) => { const t = TITRES[f] || TITRES.all; if (titreEl) titreEl.textContent = t[0]; if (sousEl) sousEl.textContent = t[1]; };
 
@@ -189,7 +189,7 @@ const ebcMin = Math.floor(Math.min(...ebcVals)), ebcMax = Math.ceil(Math.max(...
       if (show) { card.classList.add('in'); visible++; if (card.dataset.accent === 'recettes') rec++; }
     });
     if (empty) empty.hidden = visible !== 0;
-    if (rfCount) rfCount.textContent = rec + (rec > 1 ? ' recettes' : ' recette');
+    if (rfCount) rfCount.textContent = rec + (rec !== 1 ? ' recipes' : ' recipe');
   };
 
   document.querySelectorAll('.rf-range').forEach((el) => {
@@ -203,7 +203,7 @@ const ebcMin = Math.floor(Math.min(...ebcVals)), ebcMax = Math.ceil(Math.max(...
     const lo = el.querySelector('.rf-lo'), hi = el.querySelector('.rf-hi'), fill = el.querySelector('.rf-fill');
     const out = document.getElementById(key + 'Out');
     const dec = step < 1;
-    const fmt = (v) => dec ? v.toFixed(1).replace('.', ',') : String(v);
+    const fmt = (v) => dec ? v.toFixed(1) : String(v);
     R[key] = { lo: min, hi: max };
     const refresh = () => {
       const a = Math.min(parseFloat(lo.value), parseFloat(hi.value));
