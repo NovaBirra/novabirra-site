@@ -9,10 +9,13 @@ const t = useTranslations(lang);
 const home = lang === 'en' ? '/en/' : '/';
 const journalBase = lang === 'en' ? '/en/journal/' : '/journal/';
 const path = Astro.url.pathname;
-// Sélecteur : la langue courante reste sur la page ; l'autre pointe vers son
-// accueil (à rendre « page à page » au fil des traductions).
-const frUrl = lang === 'fr' ? path : '/';
-const enUrl = lang === 'en' ? path : '/en/';
+const query = Astro.url.search;                 // conserve ?cat=…
+// Sélecteur de langue : on calcule la page ÉQUIVALENTE dans l'autre langue
+// en (dé)préfixant « /en », et on garde la query. Ainsi /journal/?cat=recettes
+// ↔ /en/journal/?cat=recettes, et un article ↔ sa traduction.
+const basePath = lang === 'en' ? (path.replace(/^\/en/, '') || '/') : path;
+const frUrl = basePath + query;
+const enUrl = '/en' + basePath + query;
 ---
 <nav class={`nav ${variant === 'solid' ? 'solid' : ''}`} id="nav" data-variant={variant}>
   <a class="brand" href={home} aria-label="NovaBirra"><span class="brand-logo"></span></a>
@@ -28,8 +31,8 @@ const enUrl = lang === 'en' ? path : '/en/';
       <a class="soc" href="https://www.facebook.com/pages/NovaBirra/52425197244" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12.5,23.5h-11c-0.552285,0 -1,-0.447715 -1,-1v-21c0,-0.552285 0.447715,-1 1,-1h21c0.552285,0 1,0.447715 1,1v21c0,0.552285 -0.447715,1 -1,1h-6v-9h2.559c0.253637,0.00195665 0.468556,-0.186312 0.5,-0.438l0.375,-3c0.0342498,-0.27401 -0.160114,-0.523904 -0.434124,-0.558154c-0.0218499,-0.00273112 -0.0438564,-0.00401587 -0.0658757,-0.00384584h-2.934v-1.315c0.00111297,-0.930533 0.755485,-1.68444 1.68602,-1.68498h1.81398c0.276142,0 0.5,-0.223858 0.5,-0.5v-3c0,-0.276142 -0.223858,-0.5 -0.5,-0.5h-1.814c-3.13853,0.00330606 -5.68214,2.54647 -5.686,5.685v1.315h-2.5c-0.276142,0 -0.5,0.223858 -0.5,0.5v3c0,0.276142 0.223858,0.5 0.5,0.5h2.5v9Z" stroke-linecap="round" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linejoin="round"/></svg></a>
     </span>
     <span class="lang-switch">
-      <a href={frUrl} class={lang === 'fr' ? 'on' : ''}>FR</a>
-      <a href={enUrl} class={lang === 'en' ? 'on' : ''}>EN</a>
+      <a href={frUrl} data-base={frUrl} class={lang === 'fr' ? 'on' : ''}>FR</a>
+      <a href={enUrl} data-base={enUrl} class={lang === 'en' ? 'on' : ''}>EN</a>
     </span>
     <a class="nav-cta" href="https://www.novabirra.com" target="_blank" rel="noopener">{t('nav.cta')}</a>
   </div>
@@ -96,6 +99,14 @@ const enUrl = lang === 'en' ? path : '/en/';
       if (navEl.classList.contains('open') && !navEl.contains(e.target)) {
         navEl.classList.remove('open');
       }
+    });
+  }
+  // Le ?cat=… ne vit que côté client (page statique) : on le réinjecte
+  // dans les liens FR/EN pour rester sur la bonne catégorie en changeant de langue.
+  if (navEl) {
+    navEl.querySelectorAll('.lang-switch a').forEach((a) => {
+      const base = a.getAttribute('data-base');
+      if (base) a.setAttribute('href', base + location.search);
     });
   }
 </script>
