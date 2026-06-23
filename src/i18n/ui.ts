@@ -62,6 +62,26 @@ export const ui = {
     'fiche.volume': 'Volume',
     'fiche.profil': 'Profil de dégustation',
     'scaler.volume': 'Pour quel volume\u00a0?',
+
+    // — Accueil : sections —
+    'home.journal': 'Derniers articles',
+    'feat.tag': 'Page interactive',
+    'feat.title': 'Qu\'est-ce que <em>la bière</em>\u00a0?',
+    'feat.text': "De l'eau au verre\u00a0: le procédé étape par étape, le rôle de chaque ingrédient, et la matrice aromatique infinie à manipuler du bout des doigts.",
+    'feat.link': "Explorer l'expérience",
+    'feat.chips': 'caramel,agrumes,houblon,épices',
+    'tiles.eyebrow': 'Explorer par thème',
+    'tiles.go': 'Découvrir',
+    'tiles.recettes': 'Du grain au verre\u00a0: nos bières détaillées, reproductibles chez soi.',
+    'tiles.fabrication': 'Les gestes du brassage\u00a0: densimètre, re-fermentation, jour de brassage.',
+    'tiles.styles': 'Lambic, blanche, triple, saison… la richesse du patrimoine brassicole.',
+    'tiles.ressources': 'Le glossaire du brassage\u00a0: tout le vocabulaire, des ingrédients à la dégustation.',
+    'apropos.eyebrow': "L'esprit NovaBirra",
+    'apropos.title': 'Le brassage comme un acte de culture',
+    'apropos.p1': "NovaBirra, c'est une brasserie fondée en 2008 et un carnet ouvert depuis. Ici, on partage sans retenue\u00a0: recettes précises, techniques éprouvées, lectures de styles et ressources pour celles et ceux qui veulent comprendre ce qu'il y a vraiment dans leur verre.",
+    'apropos.p2': "Parce que la bière n'est pas un simple produit\u00a0: c'est une matière vivante, faite de gestes, de patience et de parti pris.",
+    'apropos.quote': "Trois ingrédients, la fermentation et la maîtrise du brasseur. C'est tout l'art — et tout le plaisir.",
+    'apropos.signAlt': "Signature d'Emanuele Corazzini",
   },
 
   en: {
@@ -117,6 +137,26 @@ export const ui = {
     'fiche.volume': 'Volume',
     'fiche.profil': 'Tasting profile',
     'scaler.volume': 'For what volume?',
+
+    // — Home: sections —
+    'home.journal': 'Latest articles',
+    'feat.tag': 'Interactive page',
+    'feat.title': 'What is <em>beer</em>?',
+    'feat.text': 'From water to glass: the process step by step, the role of each ingredient, and the infinite aromatic matrix to manipulate at your fingertips.',
+    'feat.link': 'Explore the experience',
+    'feat.chips': 'caramel,citrus,hops,spices',
+    'tiles.eyebrow': 'Explore by theme',
+    'tiles.go': 'Discover',
+    'tiles.recettes': 'From grain to glass: our beers in detail, reproducible at home.',
+    'tiles.fabrication': 'The craft of brewing: hydrometer, bottle conditioning, brew day.',
+    'tiles.styles': 'Lambic, witbier, triple, saison… the richness of brewing heritage.',
+    'tiles.ressources': 'The brewing glossary: all the vocabulary, from ingredients to tasting.',
+    'apropos.eyebrow': 'The NovaBirra spirit',
+    'apropos.title': 'Brewing as an act of culture',
+    'apropos.p1': "NovaBirra is a brewery founded in 2008 and a notebook kept open ever since. Here we share without holding back: precise recipes, proven techniques, style readings and resources for those who want to understand what's really in their glass.",
+    'apropos.p2': "Because beer isn't just a product: it's a living material, made of gestures, patience and conviction.",
+    'apropos.quote': "Three ingredients, fermentation and the brewer's mastery. That's the whole art — and the whole pleasure.",
+    'apropos.signAlt': "Emanuele Corazzini's signature",
   },
 } as const;
 
