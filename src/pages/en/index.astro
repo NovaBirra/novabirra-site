@@ -1,18 +1,67 @@
 ---
-// Page d'accueil ANGLAISE — modèle bilingue.
-// Les composants détectent la langue via Astro.currentLocale (= 'en' ici,
-// car la page est sous /en/) et affichent l'anglais depuis le dictionnaire.
-// Pour étoffer : ajouter d'autres sections au fur et à mesure de leur
-// traduction (FeatureInteractive, ThemeTiles, etc.).
+// Page d'accueil ANGLAISE — copie complète de la FR.
+// Les composants partagés détectent la langue via Astro.currentLocale (= 'en')
+// et s'affichent en anglais depuis le dictionnaire.
 import Base from '../../layouts/Base.astro';
 import Hero from '../../components/Hero.astro';
+import FeatureInteractive from '../../components/FeatureInteractive.astro';
+import ThemeTiles from '../../components/ThemeTiles.astro';
+import AproposBand from '../../components/AproposBand.astro';
 import Newsletter from '../../components/Newsletter.astro';
+import JournalCard from '../../components/JournalCard.astro';
+import { getCollection } from 'astro:content';
+import { useTranslations, getLang } from '../../i18n/ui';
+
+const t = useTranslations(getLang(Astro.currentLocale));
+
+// Les 3 derniers articles EN, du plus récent au plus ancien.
+const posts = (await getCollection('journal-en', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
 ---
 <Base
-  title="NovaBirra — Brewing journal & beer culture"
-  description="Recipes, styles, techniques and resources for curious brewers. NovaBirra's brewing journal."
+  title="NovaBirra — Brewing notebook & zythology"
+  description="Recipes, styles, techniques and resources for curious brewers. NovaBirra's brewing notebook."
   navVariant="hero"
 >
   <Hero />
+  <FeatureInteractive />
+
+  <!-- THE JOURNAL -->
+  <section class="journal" id="journal">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>{t('home.journal')}</h2>
+      </div>
+      <div class="cards">
+        {posts.map((p) => (
+          <JournalCard
+            href={`/en/journal/${p.slug}/`}
+            category={t('cat.' + p.data.accent)}
+            accent={p.data.accent}
+            title={p.data.title}
+            dek={p.data.dek}
+            meta={t('cat.' + p.data.accent)}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="hops-sep"><img src="/spacer-hops.svg" alt="" loading="lazy" /></div>
+
+  <ThemeTiles />
+  <AproposBand />
   <Newsletter />
 </Base>
+
+<style>
+  .journal{padding:90px 0}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:42px;flex-wrap:wrap}
+  .sec-head h2{font-size:clamp(1.9rem,4vw,2.9rem);margin-top:10px}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .hops-sep{max-width:1000px;margin:0 auto;overflow:hidden;display:flex;justify-content:center}
+  .hops-sep img{height:90px;width:auto;max-width:none;flex:0 0 auto;display:block;opacity:.92}
+  @media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.cards{grid-template-columns:1fr}}
+</style>
