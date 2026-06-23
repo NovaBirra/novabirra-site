@@ -1,25 +1,29 @@
 ---
 import Icon from './Icon.astro';
+import { useTranslations, getLang } from '../i18n/ui';
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+const jb = lang === 'en' ? '/en/journal/' : '/journal/';
 ---
 <section class="themes" id="themes">
   <div class="wrap">
-    <span class="eyebrow reveal" style="margin-bottom:34px;display:inline-block">Explorer par th&egrave;me</span>
+    <span class="eyebrow reveal" style="margin-bottom:34px;display:inline-block">{t('tiles.eyebrow')}</span>
     <div class="tiles">
-      <a class="tile t-recettes reveal" href="/journal/?cat=recettes">
+      <a class="tile t-recettes reveal" href={jb + '?cat=recettes'}>
         <Icon name="malt" class="t-ico" />
-        <div class="tile-content"><h3>Recettes</h3><p>Du grain au verre&nbsp;: nos bi&egrave;res d&eacute;taill&eacute;es, reproductibles chez soi.</p><span class="go">D&eacute;couvrir <span class="arrow">&rarr;</span></span></div>
+        <div class="tile-content"><h3>{t('nav.recettes')}</h3><p>{t('tiles.recettes')}</p><span class="go">{t('tiles.go')} <span class="arrow">&rarr;</span></span></div>
       </a>
-      <a class="tile t-fabrication reveal" href="/journal/?cat=fabrication">
+      <a class="tile t-fabrication reveal" href={jb + '?cat=fabrication'}>
         <Icon name="flask" class="t-ico" />
-        <div class="tile-content"><h3>Fabrication</h3><p>Les gestes du brassage&nbsp;: densim&egrave;tre, re-fermentation, jour de brassage.</p><span class="go">D&eacute;couvrir <span class="arrow">&rarr;</span></span></div>
+        <div class="tile-content"><h3>{t('nav.fabrication')}</h3><p>{t('tiles.fabrication')}</p><span class="go">{t('tiles.go')} <span class="arrow">&rarr;</span></span></div>
       </a>
-      <a class="tile t-styles reveal" href="/journal/?cat=styles">
+      <a class="tile t-styles reveal" href={jb + '?cat=styles'}>
         <Icon name="houblon" class="t-ico" />
-        <div class="tile-content"><h3>Styles</h3><p>Lambic, blanche, triple, saison&hellip; la richesse du patrimoine brassicole.</p><span class="go">D&eacute;couvrir <span class="arrow">&rarr;</span></span></div>
+        <div class="tile-content"><h3>{t('nav.styles')}</h3><p>{t('tiles.styles')}</p><span class="go">{t('tiles.go')} <span class="arrow">&rarr;</span></span></div>
       </a>
-      <a class="tile t-ressources reveal" href="/journal/?cat=ressources">
+      <a class="tile t-ressources reveal" href={jb + '?cat=ressources'}>
         <Icon name="book" class="t-ico" />
-        <div class="tile-content"><h3>Ressources</h3><p>Le glossaire du brassage&nbsp;: tout le vocabulaire, des ingr&eacute;dients &agrave; la d&eacute;gustation.</p><span class="go">D&eacute;couvrir <span class="arrow">&rarr;</span></span></div>
+        <div class="tile-content"><h3>{t('nav.ressources')}</h3><p>{t('tiles.ressources')}</p><span class="go">{t('tiles.go')} <span class="arrow">&rarr;</span></span></div>
       </a>
     </div>
   </div>

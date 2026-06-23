@@ -1,17 +1,21 @@
 ---
 // Mise en vedette de la page interactive « Qu'est-ce que la bière ? »
+import { useTranslations, getLang } from '../i18n/ui';
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+const featLink = lang === 'en' ? '/en/quest-ce-que-la-biere/' : '/quest-ce-que-la-biere/';
 ---
 <section class="une" id="une">
   <div class="wrap">
     <article class="une-card reveal">
       <div class="une-txt">
-        <span class="tag">Page interactive</span>
-        <h2>Qu'est-ce que <em>la bi&egrave;re</em>&nbsp;?</h2>
-        <p>De l'eau au verre&nbsp;: le proc&eacute;d&eacute; &eacute;tape par &eacute;tape, le r&ocirc;le de chaque ingr&eacute;dient, et la matrice aromatique infinie &agrave; manipuler du bout des doigts.</p>
-        <a class="lnk" href="/quest-ce-que-la-biere/">Explorer l'exp&eacute;rience <span class="arrow">→</span></a>
+        <span class="tag">{t('feat.tag')}</span>
+        <h2 set:html={t('feat.title')}></h2>
+        <p>{t('feat.text')}</p>
+        <a class="lnk" href={featLink}>{t('feat.link')} <span class="arrow">→</span></a>
       </div>
       <div class="une-vis">
-        <div class="une-chips" id="uneChips"></div>
+        <div class="une-chips" id="uneChips" data-chips={t('feat.chips')}></div>
         <svg viewBox="0 0 200 320" aria-hidden="true">
           <defs><linearGradient id="robe" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2B53D"/><stop offset="1" stop-color="#C8821A"/></linearGradient></defs>
           <path d="M40,18 L160,18 L150,250 Q148,288 100,288 Q52,288 50,250 Z" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.45)" stroke-width="3"/>
@@ -39,11 +43,14 @@
   .une-chips{position:absolute;inset:0;pointer-events:none}
   .une-chip{position:absolute;font-size:.74rem;font-weight:600;padding:5px 12px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;backdrop-filter:blur(3px);white-space:nowrap}
 </style>
+<style is:global>
+  .une-txt h2 em{font-style:italic;color:var(--jaune)}
+</style>
 <script>
   const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const cbox = document.getElementById('uneChips');
   if (cbox) {
-    ['caramel','agrumes','houblon','épices'].forEach((c,i)=>{
+    (cbox.dataset.chips||'caramel,citrus,hops,spices').split(',').forEach((c,i)=>{
       const s=document.createElement('span');s.className='une-chip';s.textContent=c;
       s.style.left=(12+(i%2)*52)+'%';s.style.top=(16+i*20)+'%';cbox.appendChild(s);
       if(!rm)s.animate([{transform:'translateY(0)'},{transform:'translateY(-9px)'},{transform:'translateY(0)'}],{duration:3200+i*400,iterations:Infinity,easing:'ease-in-out',delay:i*300});

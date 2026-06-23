@@ -1,18 +1,20 @@
 ---
 // Bandeau manifeste / à propos.
+import { useTranslations, getLang } from '../i18n/ui';
+const t = useTranslations(getLang(Astro.currentLocale));
 ---
 <section class="apropos" id="apropos">
   <div class="wrap">
     <div class="ap-grid">
       <div class="reveal">
-        <span class="eyebrow">L'esprit NovaBirra</span>
-        <h2>Le brassage comme un acte de culture</h2>
-        <p>NovaBirra n’est pas une brasserie au sens habituel du terme. Cette structure brainoise a été fondée par Emanuele Corazzini en 2008 et repose sur des cours de brassage et des ateliers de zythplogie. Ici on partage sans retenue : recettes précises, techniques éprouvées, fiches de dégustation et conseils pour celles et ceux qui veulent comprendre ce qu'il y a vraiment dans leur verre.</p>
-        <p>Parce que la bi&egrave;re n'est pas un simple produit&nbsp;: c'est une mati&egrave;re vivante, faite de gestes, de patience et de parti pris.</p>
+        <span class="eyebrow">{t('apropos.eyebrow')}</span>
+        <h2>{t('apropos.title')}</h2>
+        <p>{t('apropos.p1')}</p>
+        <p>{t('apropos.p2')}</p>
       </div>
       <div class="reveal">
-        <blockquote class="ap-quote">Trois ingr&eacute;dients, la fermentation et la ma&icirc;trise du brasseur. C'est tout l'art &mdash; et tout le plaisir.</blockquote>
-        <span class="ap-sign" role="img" aria-label="Signature d'Emanuele Corazzini"></span>
+        <blockquote class="ap-quote">{t('apropos.quote')}</blockquote>
+        <span class="ap-sign" role="img" aria-label={t('apropos.signAlt')}></span>
       </div>
     </div>
   </div>
