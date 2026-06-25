@@ -16,10 +16,10 @@ const { href, category, accent, title, dek, meta, style, abv, ibu, ebc } = Astro
   .card{display:flex;flex-direction:column;aspect-ratio:1 / 1;border-radius:18px;overflow:hidden;background:#fff;border:1px solid var(--ligne);transition:transform .35s cubic-bezier(.2,.8,.3,1),box-shadow .35s}
   .card:hover{transform:translateY(-7px);box-shadow:0 24px 50px rgba(27,58,46,.13)}
   .card-vis{flex:1 1 auto;min-height:0;position:relative;overflow:hidden}
-  .card-vis[data-accent="recettes"]{background:linear-gradient(135deg,#E7A23B,#BA7517)}
-  .card-vis[data-accent="fabrication"]{background:linear-gradient(135deg,#5BA6E8,#2E6FB0)}
-  .card-vis[data-accent="styles"]{background:linear-gradient(135deg,#7FBF45,#4E8A26)}
-  .card-vis[data-accent="ressources"]{background:linear-gradient(135deg,#8579E0,#473C9E)}
+  .card-vis[data-accent="recettes"]{background:linear-gradient(150deg,#C8821A,#8A5A12)}
+  .card-vis[data-accent="fabrication"]{background:linear-gradient(150deg,#378ADD,#185FA5)}
+  .card-vis[data-accent="styles"]{background:linear-gradient(150deg,#5E9A33,#3B6D11)}
+  .card-vis[data-accent="ressources"]{background:linear-gradient(150deg,#6A5ACD,#473C9E)}
   .card-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:1;transition:transform .5s}
   .card:hover .card-img{transform:scale(1.06)}
   .cat{position:absolute;top:14px;left:14px;z-index:2;background:rgba(255,255,255,.92);color:var(--vert);font-weight:700;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:999px}
