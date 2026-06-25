@@ -1,13 +1,11 @@
 ---
-import Icon from './Icon.astro';
 interface Props { href: string; category: string; accent: string; title: string; dek: string; meta: string; style?: string; abv?: number | null; ibu?: number | null; ebc?: number | null; }
 const { href, category, accent, title, dek, meta, style, abv, ibu, ebc } = Astro.props;
-const icon = accent === 'fabrication' ? 'flask' : accent === 'styles' ? 'houblon' : accent === 'ressources' ? 'book' : (Math.random() > .5 ? 'houblon' : 'malt');
 ---
 <article class="card reveal" data-accent={accent} data-style={style} data-abv={abv} data-ibu={ibu} data-ebc={ebc}>
   <a href={href} class="card-vis" data-accent={accent} aria-hidden="true">
+    <img src="/Novabirra_brasseur.png" alt="NovaBirra brasseur" class="card-img" loading="lazy" />
     <span class="cat">{category}</span>
-    <Icon name={icon as any} />
   </a>
   <div class="card-body">
     <h3><a href={href}>{title}</a></h3>
@@ -17,14 +15,14 @@ const icon = accent === 'fabrication' ? 'flask' : accent === 'styles' ? 'houblon
 <style>
   .card{display:flex;flex-direction:column;aspect-ratio:1 / 1;border-radius:18px;overflow:hidden;background:#fff;border:1px solid var(--ligne);transition:transform .35s cubic-bezier(.2,.8,.3,1),box-shadow .35s}
   .card:hover{transform:translateY(-7px);box-shadow:0 24px 50px rgba(27,58,46,.13)}
-  .card-vis{flex:1 1 auto;min-height:0;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-  .card-vis :global(svg){width:62px;height:62px;color:#fff;transition:transform .5s}
-  .card:hover .card-vis :global(svg){transform:scale(1.12) rotate(-6deg)}
+  .card-vis{flex:1 1 auto;min-height:0;position:relative;overflow:hidden}
   .card-vis[data-accent="recettes"]{background:linear-gradient(135deg,#E7A23B,#BA7517)}
   .card-vis[data-accent="fabrication"]{background:linear-gradient(135deg,#5BA6E8,#2E6FB0)}
   .card-vis[data-accent="styles"]{background:linear-gradient(135deg,#7FBF45,#4E8A26)}
   .card-vis[data-accent="ressources"]{background:linear-gradient(135deg,#8579E0,#473C9E)}
-  .cat{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.92);color:var(--vert);font-weight:700;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:999px}
+  .card-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:1;transition:transform .5s}
+  .card:hover .card-img{transform:scale(1.06)}
+  .cat{position:absolute;top:14px;left:14px;z-index:2;background:rgba(255,255,255,.92);color:var(--vert);font-weight:700;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:999px}
   .card-body{padding:18px 20px 20px;flex:0 0 auto;display:flex;flex-direction:column}
   .card-body h3{font-size:1.18rem;margin-bottom:7px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;transition:color .25s}
   .card:hover .card-body h3{color:var(--houblon-d)}
