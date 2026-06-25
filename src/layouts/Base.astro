@@ -15,6 +15,16 @@ const {
   navVariant = 'solid',
   progress = false,
 } = Astro.props;
+
+// --- SEO : URL canonique + alternances de langue (hreflang) ---
+// On normalise avec un slash final (comme le sitemap), puis on calcule
+// la version FR et la version EN de la page courante (/en présent ou non).
+const { pathname } = Astro.url;
+const path = pathname.endsWith('/') ? pathname : pathname + '/';
+const base = path.startsWith('/en/') ? path.slice(3) : path;
+const canonical = new URL(path, Astro.site).href;
+const urlFr = new URL(base, Astro.site).href;
+const urlEn = new URL('/en' + base, Astro.site).href;
 ---
 <!DOCTYPE html>
 <html lang={Astro.currentLocale ?? 'fr'}>
@@ -23,6 +33,10 @@ const {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <link rel="alternate" hreflang="fr" href={urlFr} />
+  <link rel="alternate" hreflang="en" href={urlEn} />
+  <link rel="alternate" hreflang="x-default" href={urlFr} />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
