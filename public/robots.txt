@@ -1,0 +1,7 @@
+# robots.txt — NovaBirra
+# Autorise tous les robots à explorer tout le site.
+User-agent: *
+Allow: /
+
+# Plan du site (généré automatiquement au build)
+Sitemap: https://novabirra.be/sitemap-index.xml
